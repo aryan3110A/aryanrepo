@@ -64,34 +64,37 @@ const Footer = () => {
   ];
 
   return (
-    <footer className="bg-[#050505] text-gray-300 py-8 px-4">
-      <div className=" max-w-7xl mx-auto">
-        <div className="grid  grid-cols-1 md:grid-cols-4 gap-8 mb-6 ">
+    <footer className="bg-[#050505] text-gray-300 py-8 px-36">
+      <div className=" max-w-7xl mx-auto  ">
+        <div className="flex gap-32 mb-16  ">
           {/* Logo and Description */}
-          <div className="space-y-4">
+          <div className="space-y-4 -ml-20  ">
             <div className="flex flex-col items-start space-y-2 -mb-3">
               {/* Logo */}
               <div className="ml-4 w-10 h-10 bg-gray-500 rounded-full"></div>
 
               {/* Text */}
-              <h1 className=" text-5xl font-bold ">
+              <h1 className=" text-6xl font-bold ">
                 <span className="bg-gradient-to-r from-[#5AD7FF] to-[#656BF5] bg-clip-text text-transparent">
                   WildMind
                 </span>
               </h1>
             </div>
-            <p className="text-sm mt-0">
-              Wild Child Studios uses advanced AI to turn imagination into
+            <p className="text-xl mt-0">
+              Wild Child Studios uses advanced AI to turn <br/> imagination into
               high-quality, creative visuals.
             </p>
-            <div className="flex space-x-4">
+            <div className="flex gap-4 space-x-4 " >
+
               {socialLinks.map((social, index) => (
                 <Link
                   key={index}
                   href={social.href}
-                  className={`w-12 h-12 rounded-full flex items-center justify-center border-2 border-[#616161] bg-[#ffffff24] transition-all duration-300 ${social.hoverColor} ${social.borderHoverColor} ${social.glowColor}`}
+
+                  
+                  className={`w-12 h-12  rounded-full flex items-center justify-center  border-2 border-[#545454] bg-[#1E1E1E] transition-all duration-300 ${social.hoverColor} ${social.borderHoverColor} ${social.glowColor}`}
                 >
-                  <social.icon className="w-5 h-5" />
+                  <social.icon className="w-6 h-6 " />
                 </Link>
               ))}
             </div>
@@ -99,8 +102,8 @@ const Footer = () => {
 
           {/* Navigation Links */}
           {Object.entries(navigationLinks).map(([category, links]) => (
-            <div key={category} className="-mb-10">
-              <h2 className="  mt-7 font-semibold text-white  mb-6">
+            <div key={category} className="-mb-10 mr-10">
+              <h2 className="  mt-7 font-semibold text-white text-l mb-6">
                 {category}
               </h2>
               <ul className="space-y-2 ">
@@ -108,7 +111,7 @@ const Footer = () => {
                   <li key={name} className="pb-3">
                     <Link
                       href={href}
-                      className=" text-[#616161] hover:text-white transition-colors "
+                      className=" text-[#616161] hover:text-white text-l transition-colors "
                     >
                       {name}
                     </Link>
@@ -120,17 +123,17 @@ const Footer = () => {
         </div>
 
         {/* Bottom Section */}
-        <div className=" border-t border-gray-800 pt-8">
+        <div className="-mt-10 -ml-20 -mr-20 border-t border-[#FFFFFF52] pt-8">
           <div className="flex   items-center">
-            <p className="text-xs text-[#616161] mb-4 md:mb-0 pr-5">
+            <p className="text-l text-[#616161]  mb-4 md:mb-0 pr-5">
               Copyright © 2025 WildMind Pvt ltd . All rights reserved.
             </p>
-            <div className="flex flex-wrap gap-16 justify-center pl-80">
+            <div className="  flex  flex-wrap gap-10 justify-center pl-[25rem]">
               {legalLinks.map((link) => (
                 <Link
                   key={link.name}
                   href={link.href}
-                  className="text-xs text-[#616161] hover:text-white transition-colors"
+                  className="text-l text-[#616161] hover:text-white transition-colors"
                 >
                   {link.name}
                 </Link>
