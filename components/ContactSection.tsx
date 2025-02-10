@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import Image from "next/image";
+import Footer from "./Footer";
 
 interface FormData {
   fullName: string;
@@ -243,11 +244,11 @@ const ContactSection = () => {
         </div>
 */}
         {/* Newsletter Section */}
-        <div className="w-full bg-black py-12 mx-10 mt-40 mb-10">
-          <div className="max-w-6xl mx-auto flex flex-col md:flex-row justify-between items-center gap-6 px-0">
+        <div className="w-full bg-black py-12  mt-40 mb-10">
+          <div className="max-w-6xl mx-auto ml-24 flex flex-col md:flex-row justify-between items-center gap-6 px-0">
             {/* Left side - Heading */}
             <div>
-              <h2 className="-ml-[12rem]  text-white text-2xl md:text-3xl font-semibold leading-tight">
+              <h2 className="  text-white text-2xl md:text-3xl font-semibold leading-tight">
                 Join our newsletter to
                 <br />
                 keep up to date with us!
@@ -256,7 +257,7 @@ const ContactSection = () => {
 
             {/* Right side - Form */}
             <div className=" w-full md:w-auto ">
-              <form className="-mr-28 flex gap-6">
+              <form className="-mr-[18.5rem] flex gap-6">
                 <div className="flex-grow relative max-w-md">
                   {" "}
                   {/* Increased width */}
@@ -292,6 +293,7 @@ const ContactSection = () => {
         </div>
         <div className=" border-t border-[#FFFFFF52] mx-[6rem] "></div>
       </div>
+      <Footer />
     </>
   );
 };

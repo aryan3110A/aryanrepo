@@ -26,8 +26,8 @@ export default function RootLayout({
         <main>{children}</main>
         <ContactSection />
          {/*<Testimonials />
-        <PartnersSection />*/}
-        <Footer />
+        <PartnersSection />
+        <Footer />*/}
       </body>
     </html>
   );
