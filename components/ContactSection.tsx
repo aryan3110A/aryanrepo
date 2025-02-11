@@ -3,6 +3,9 @@
 import { useState } from "react";
 import Image from "next/image";
 import Footer from "./Footer";
+import { db } from "@/lib/firebaseConfig"; // Ensure this path matches your folder structure
+
+
 
 interface FormData {
   fullName: string;
@@ -22,6 +25,8 @@ const ContactSection = () => {
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const [hasSelectedOption, setHasSelectedOption] = useState(false);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -67,7 +72,11 @@ const ContactSection = () => {
           </div>
 
           {/* Right Section - Contact Form */}
-          <div className="backdrop-blur-xl bg-gradient-to-br from-[#282E32] via-[#374657] to-[#282E32] rounded-[3rem] p-14 shadow-[0_0_360px_50px_rgba(35,46,50,0.8)] mt-10 ml-16 w-[36rem] h-full">
+          <div
+            className={`backdrop-blur-xl bg-gradient-to-br from-[#282E32] via-[#374657] to-[#282E32] rounded-[3rem] p-14 shadow-[0_0_360px_50px_rgba(35,46,50,0.8)] mt-10 ml-16 w-[36rem] ${
+              isDropdownOpen ? "h-[100%]" : "h-full"
+            }`}
+          >
             <h3 className="text-white text-2xl font-bold mb-1">Contact Form</h3>
             <p className="text-gray-300 text-xs mb-4">
               Fill out the form below, and our team will get back to you
@@ -127,24 +136,41 @@ const ContactSection = () => {
                     }
                   />
                 </div>
-
-                <div className=" mt-2 mb-2  ">
-                  <select
-                    className=" w-[50%] h-10 bg-[#111111] text-white border border-gray-300 rounded-lg p-2 pl-4 text-sm mt-2 "
-                    value={formData.option}
-                    onChange={(e) =>
-                      setFormData({ ...formData, option: e.target.value })
-                    }
-                  >
-                    <option value="">Pick an option</option>
-                    <option value="option1">Option 1</option>
-                    <option value="option2">Option 2</option>
-                  </select>
-                </div>
               </div>
 
-              <div className="mb-4">
-                <label className="text-white text-sm">
+              <div className="mt-2">
+                <select
+                  className={`w-[50%] h-10 bg-[#111111] text-white border border-gray-300 rounded-lg p-2 pl-4 text-sm mt-2 transition-all duration-300 ${
+                    isDropdownOpen ? "mb-36" : "mb-2"
+                  }`}
+                  value={formData.option}
+                  onChange={(e) => {
+                    setFormData({ ...formData, option: e.target.value });
+                    setHasSelectedOption(e.target.value !== ""); // Marks an option as selected
+                    setIsDropdownOpen(false); // Closes dropdown after selection
+                  }}
+                  onFocus={() => {
+                    if (!isDropdownOpen) {
+                      setIsDropdownOpen(true); // Expands dropdown on first click
+                    } else {
+                      setIsDropdownOpen(false); // Collapses if clicked again without selecting
+                    }
+                  }}
+                >
+                  <option value="">Pick an option</option>
+                  <option value="option1">General Inquiry</option>
+                  <option value="option2">Support Request</option>
+                  <option value="option3">Feature Suggestion</option>
+                  <option value="option4">Business Collaboration</option>
+                </select>
+              </div>
+
+              <div
+                className={`mb-4 transition-all duration-300 ${
+                  hasSelectedOption ? "mt-0" : isDropdownOpen ? "mt-36" : "mt-0"
+                }`}
+              >
+                <label className="text-white text-sm transition-all">
                   How can we help you?
                 </label>
                 <textarea
@@ -157,10 +183,13 @@ const ContactSection = () => {
                 />
               </div>
 
-              <button 
+              <button
                 type="submit"
                 disabled={isSubmitting}
-                className="ml-[22rem]    w-28 h-12 bg-gradient-to-r from-[#5AD7FF] to-[#656BF5] text-white rounded-full py-2 px-6 hover:opacity-90 transition-opacity disabled:opacity-50 disabled:cursor-not-allowed"
+                className="ml-[22rem] w-28 h-12 bg-gradient-to-r from-[#5AD7FF] to-[#656BF5] 
+             text-white rounded-full py-2 px-6 transition-all 
+             hover:opacity-100 disabled:opacity-50 disabled:cursor-not-allowed 
+             hover:shadow-[0_0_10px_5px_rgba(101,107,245,0.8)]"
               >
                 {isSubmitting ? "Submitting..." : "Submit"}
               </button>
@@ -169,7 +198,6 @@ const ContactSection = () => {
         </div>
 
         {/* Rating Section */}
-
         <div
           className="relative mt-40 text-center text-white "
           style={{
@@ -216,33 +244,6 @@ const ContactSection = () => {
           <div className="absolute inset-0 bg-black/40 z-0"></div>
         </div>
 
-        {/*
-        <div className="absolute inset-0 overflow-hidden pointer-events-none">
-          <div className="text-white text-lg space-y-4 opacity-50">
-            {[
-              "Efficiency",
-              "Performance",
-              "Support",
-              "User-Friendly",
-              "Dedication",
-              "Authenticity",
-              "Transparency",
-              "Empowerment",
-            ].map((word) => (
-              <span
-                key={word}
-                className="block transform rotate-0 absolute"
-                style={{
-                  left: `${Math.random() * 100}%`,
-                  bottom: `${Math.random() * 100}%`,
-                }}
-              >
-                {word}
-              </span>
-            ))}
-          </div>
-        </div>
-*/}
         {/* Newsletter Section */}
         <div className="w-full bg-black py-12  mt-40 mb-10">
           <div className="max-w-6xl mx-auto ml-24 flex flex-col md:flex-row justify-between items-center gap-6 px-0">
@@ -257,7 +258,7 @@ const ContactSection = () => {
 
             {/* Right side - Form */}
             <div className=" w-full md:w-auto ">
-              <form className="-mr-[18.5rem] flex gap-6">
+              <form className="-mr-[18.5rem] flex gap-4">
                 <div className="flex-grow relative max-w-md">
                   {" "}
                   {/* Increased width */}
@@ -283,7 +284,9 @@ const ContactSection = () => {
                 </div>
                 <button
                   type="submit"
-                  className="bg-gradient-to-r from-[#5AD7FF] to-[#656BF5] text-white font-medium rounded-full px-8 py-3 transition-colors hover:bg-white hover:text-black"
+                  className="px-8 py-3 rounded-full font-medium text-white transition-colors 
+             bg-gradient-to-r from-[#5AD7FF] to-[#656BF5] 
+             hover:bg-white hover:text-black hover:from-white hover:to-white"
                 >
                   Subscribe
                 </button>

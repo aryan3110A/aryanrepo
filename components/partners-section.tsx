@@ -1,8 +1,50 @@
 "use client";
 
 import { useEffect, useRef } from "react";
-import { partners } from "@/types/partners";
 import Image from "next/image";
+
+// Define the Partner interface
+interface Partner {
+  name: string;
+  logo: string;
+}
+
+// Define the partners array
+const partners: Partner[] = [
+  {
+    name: "Google Cloud",
+    logo: "/google_cloud.png",
+  },
+  {
+    name: "Wildchild Studios",
+    logo: "/Wildchild.png",
+  },
+  {
+    name: "MI AI",
+    logo: "/MistralAi.png",
+  },
+  {
+    name: "Hugging Face",
+    logo: "/Hugging_Face.png",
+  },
+  // Duplicate partners to create infinite scroll effect
+  {
+    name: "Google Cloud",
+    logo: "/google_cloud.png",
+  },
+  {
+    name: "Wildchild Studios",
+    logo: "/Wildchild.png",
+  },
+  {
+    name: "MI AI",
+    logo: "/MistralAi.png",
+  },
+  {
+    name: "Hugging Face",
+    logo: "/Hugging_Face.png",
+  },
+];
 
 export function PartnersSection() {
   const scrollRef = useRef<HTMLDivElement>(null);
@@ -11,7 +53,7 @@ export function PartnersSection() {
     const scrollContainer = scrollRef.current;
     if (!scrollContainer) return;
 
-    let scrollSpeed = 1;
+    const scrollSpeed = 1;
     let scrollAmount = 0;
 
     const scroll = () => {
@@ -38,7 +80,7 @@ export function PartnersSection() {
 
         <div className="relative overflow-hidden px-52">
           {/* Left gradient mask */}
-          <div className=" absolute left-0 z-10 h-full w-52  overflow-visible px-52 bg-gradient-to-r from-black to-transparent" />
+          <div className="absolute left-0 z-10 h-full w-52 overflow-visible px-52 bg-gradient-to-r from-black to-transparent" />
 
           {/* Right gradient mask */}
           <div className="pointer-events-none absolute right-0 z-10 h-full w-52 overflow-hidden px-52 bg-gradient-to-r from-transparent to-black" />
