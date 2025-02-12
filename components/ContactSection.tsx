@@ -3,9 +3,13 @@
 import { useState } from "react";
 import Image from "next/image";
 import Footer from "./Footer";
-import { db } from "@/lib/firebaseConfig"; // Ensure this path matches your folder structure
+import { db } from "@/lib/firebaseConfig";
+import { collection, addDoc } from "firebase/firestore";
+import { useEffect } from "react";
 
 
+const scriptURL =
+  "https://script.google.com/macros/s/AKfycbz0dKO8m-4_vrGpnaPI4zP01OkoN5uXxo1DrJ9jY_oz5tsoNUYvtxxNKgvdYMiZUGsWBw/exec"; // Replace with your actual script URL
 
 interface FormData {
   fullName: string;
@@ -23,22 +27,39 @@ const ContactSection = () => {
     option: "",
     message: "",
   });
+
+  const [newsletterEmail, setNewsletterEmail] = useState(""); // Newsletter state
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [successMessage, setSuccessMessage] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [hasSelectedOption, setHasSelectedOption] = useState(false);
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  // Handle Contact Form Submission
+  const handleContactSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
     setError(null);
+    setSuccessMessage(null);
+    const errors: { email?: string; phone?: string } = {};
+    if (!formData.email.match(/^[^\s@]+@[^\s@]+\.[^\s@]+$/)) {
+      errors.email = "Enter a valid email address.";
+    }
+    if (formData.phone.length !== 10) {
+      errors.phone = "Phone number must be exactly 10 digits.";
+    }
+  
+    if (Object.keys(errors).length > 0) {
+      setFormErrors(errors);
+      return; // Prevent form submission if errors exist
+    }
+  
+    // Submit the form if validation passes
+    console.log("Form submitted successfully:", formData);
 
     try {
-      // Handle form submission logic here
-      console.log(formData);
-      // Add your API call here
-
-      // Reset form after successful submission
+      await addDoc(collection(db, "contactForm"), formData);
+      setSuccessMessage("Your message has been sent successfully!");
       setFormData({
         fullName: "",
         email: "",
@@ -52,6 +73,70 @@ const ContactSection = () => {
       setIsSubmitting(false);
     }
   };
+
+  // Handle Newsletter Subscription
+  const handleNewsletterSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setError(null);
+    setSuccessMessage(null);
+
+    if (!newsletterEmail.trim()) {
+      setError("Please enter a valid email address.");
+      return;
+    }
+
+    try {
+      await addDoc(collection(db, "newsletterSubscriptions"), {
+        email: newsletterEmail,
+      });
+      setSuccessMessage("You have successfully subscribed to our newsletter!");
+      setNewsletterEmail(""); // Reset input after successful submission
+    } catch (err) {
+      setError("Failed to subscribe. Please try again.");
+      console.error("Error adding document: ", err);
+    }
+  };
+
+  useEffect(() => {
+    const form = document.forms[
+      "submit-to-google-sheet"
+    ] as HTMLFormElement | null;
+
+    if (form) {
+      form.addEventListener("submit", (e) => {
+        e.preventDefault();
+        fetch(scriptURL, { method: "POST", body: new FormData(form) })
+          .then((response) => console.log("Success!", response))
+          .catch((error) => console.error("Error!", error.message));
+      });
+    }
+  }, []);
+
+  const [formErrors, setFormErrors] = useState<{ email?: string; phone?: string }>(
+    {}
+  );
+  
+  // const handleSubmit = (e: React.FormEvent) => {
+  //   e.preventDefault();
+  
+  //   // Validation check
+  //   const errors: { email?: string; phone?: string } = {};
+  //   if (!formData.email.match(/^[^\s@]+@[^\s@]+\.[^\s@]+$/)) {
+  //     errors.email = "Enter a valid email address.";
+  //   }
+  //   if (formData.phone.length !== 10) {
+  //     errors.phone = "Phone number must be exactly 10 digits.";
+  //   }
+  
+  //   if (Object.keys(errors).length > 0) {
+  //     setFormErrors(errors);
+  //     return; // Prevent form submission if errors exist
+  //   }
+  
+  //   // Submit the form if validation passes
+  //   console.log("Form submitted successfully:", formData);
+  // };
+  
 
   return (
     <>
@@ -78,12 +163,16 @@ const ContactSection = () => {
             }`}
           >
             <h3 className="text-white text-2xl font-bold mb-1">Contact Form</h3>
-            <p className="text-gray-300 text-xs mb-4">
+            <p className="text-gray-300 text-sm mb-4">
               Fill out the form below, and our team will get back to you
               promptly. Let's connect and create solutions together!
             </p>
 
-            <form onSubmit={handleSubmit} className="space-y-2">
+            <form
+              onSubmit={handleContactSubmit}
+              className="space-y-2"
+              name="submit-to-google-sheet"
+            >
               {error && (
                 <div className="bg-red-500/10 border border-red-500 text-red-500 p-3 rounded-md">
                   {error}
@@ -96,6 +185,7 @@ const ContactSection = () => {
                 </label>
                 <input
                   type="text"
+                  name="Name"
                   className="w-full h-12 bg-[#111111] text-white rounded-lg p-2 pl-4 text-sm placeholder:text-[#FFFFFF99] mt-2 focus:outline-none focus:ring focus:ring-[#5AD7FF]"
                   placeholder="Enter your full name"
                   value={formData.fullName}
@@ -106,37 +196,45 @@ const ContactSection = () => {
               </div>
 
               <div className="mb-2">
-                <label className="text-white text-sm">
-                  Business email <span className="text-red-500">*</span>
-                </label>
-                <input
-                  type="email"
-                  className="w-full h-12 bg-[#111111] text-white rounded-lg p-2 pl-4 text-sm placeholder:text-[#FFFFFF99] mt-2 focus:outline-none focus:ring focus:ring-[#5AD7FF]"
-                  placeholder="Enter your email address"
-                  value={formData.email}
-                  onChange={(e) =>
-                    setFormData({ ...formData, email: e.target.value })
-                  }
-                />
-              </div>
+      <label className="text-white text-sm">
+        Business email <span className="text-red-500">*</span>
+      </label>
+      <input
+        type="email"
+        name="Email"
+        className="w-full h-12 bg-[#111111] text-white rounded-lg p-2 pl-4 text-sm placeholder:text-[#FFFFFF99] mt-2 focus:outline-none focus:ring focus:ring-[#5AD7FF]"
+        placeholder="Enter your email address"
+        value={formData.email}
+        onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+      />
+      {formErrors.email && <p className="text-red-500 text-sm mt-1">{formErrors.email}</p>}
+    </div>
 
-              <div className="mb">
-                <label className="text-white text-sm">Phone</label>
-                <div className="flex gap-2 ">
-                  <select className="w-20 mt-2 bg-[#111111] text-white  rounded-lg px-2 text-sm">
-                    <option className="text-sm">+91</option>
-                  </select>
-                  <input
-                    type="tel"
-                    className="flex-1 h-12 bg-[#111111] text-white rounded-lg p-2 pl-4 text-sm placeholder:text-[#FFFFFF99] mt-2 focus:outline-none focus:ring focus:ring-[#5AD7FF]"
-                    placeholder="Enter your contact number"
-                    value={formData.phone}
-                    onChange={(e) =>
-                      setFormData({ ...formData, phone: e.target.value })
-                    }
-                  />
-                </div>
-              </div>
+    <div className="mb">
+      <label className="text-white text-sm">Phone</label>
+      <div className="flex gap-2">
+        <select className="w-20 mt-2 bg-[#111111] text-white rounded-lg px-2 text-sm">
+          <option className="text-sm">+91</option>
+        </select>
+        <input
+          type="tel"
+          name="Phone"
+          className="flex-1 h-12 bg-[#111111] text-white rounded-lg p-2 pl-4 text-sm placeholder:text-[#FFFFFF99] mt-2 focus:outline-none focus:ring focus:ring-[#5AD7FF]"
+          placeholder="Enter your contact number"
+          value={formData.phone}
+          onChange={(e) => {
+            const newValue = e.target.value.replace(/\D/g, ""); // Remove non-numeric characters
+            if (newValue.length <= 10) {
+              setFormData({ ...formData, phone: newValue });
+            }
+          }}
+          required
+        />
+      </div>
+      {formErrors.phone && <p className="text-red-500 text-sm mt-1">{formErrors.phone}</p>}
+    </div>
+
+
 
               <div className="mt-2">
                 <select
@@ -144,6 +242,7 @@ const ContactSection = () => {
                     isDropdownOpen ? "mb-36" : "mb-2"
                   }`}
                   value={formData.option}
+                  name="Contact_Purpose"
                   onChange={(e) => {
                     setFormData({ ...formData, option: e.target.value });
                     setHasSelectedOption(e.target.value !== ""); // Marks an option as selected
@@ -177,6 +276,7 @@ const ContactSection = () => {
                   className="w-full h-24 bg-[#111111] text-white rounded-lg p-2 pl-4 text-sm placeholder:text-[#FFFFFF99] mt-2 focus:outline-none focus:ring focus:ring-[#5AD7FF] mb-2"
                   placeholder="Enter your message here"
                   value={formData.message}
+                  name="Message"
                   onChange={(e) =>
                     setFormData({ ...formData, message: e.target.value })
                   }
@@ -184,15 +284,13 @@ const ContactSection = () => {
               </div>
 
               <button
-                type="submit"
-                disabled={isSubmitting}
-                className="ml-[22rem] w-28 h-12 bg-gradient-to-r from-[#5AD7FF] to-[#656BF5] 
-             text-white rounded-full py-2 px-6 transition-all 
-             hover:opacity-100 disabled:opacity-50 disabled:cursor-not-allowed 
-             hover:shadow-[0_0_10px_5px_rgba(101,107,245,0.8)]"
-              >
-                {isSubmitting ? "Submitting..." : "Submit"}
-              </button>
+      type="submit"
+      className="ml-[22rem] w-28 h-12 bg-gradient-to-r from-[#5AD7FF] to-[#656BF5] 
+        text-white rounded-full py-2 px-6 transition-all 
+        hover:opacity-100 hover:shadow-[0_0_10px_5px_rgba(101,107,245,0.8)]"
+    >
+      Submit
+    </button>
             </form>
           </div>
         </div>
@@ -258,14 +356,20 @@ const ContactSection = () => {
 
             {/* Right side - Form */}
             <div className=" w-full md:w-auto ">
-              <form className="-mr-[18.5rem] flex gap-4">
+              <form
+                onSubmit={handleNewsletterSubmit}
+                className="-mr-[18.5rem] flex gap-4"
+              >
                 <div className="flex-grow relative max-w-md">
                   {" "}
                   {/* Increased width */}
                   <input
                     type="email"
+                    name="Email"
                     placeholder="Enter your email"
                     className="w-[24rem] bg-transparent border border-[#282E32] rounded-full py-3 px-12 ml-16 text-white placeholder-gray-400 focus:outline-none focus:border-[#5AD7FF]"
+                    value={newsletterEmail} // Ensure the input is controlled
+                    onChange={(e) => setNewsletterEmail(e.target.value)} // Update state on change
                     required
                   />
                   <span className="absolute left-20 top-1/2 -translate-y-1/2">

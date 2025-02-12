@@ -5,7 +5,7 @@ import { MessageCircle, Instagram, Youtube, Newspaper } from "lucide-react";
 const Footer = () => {
   const navigationLinks = {
     Home: {
-      Features: "/features",
+      Features: "/features",  
       Templets: "/templets",
       "Art station": "/art-station",
       "Plans & Pricing": "/pricing",
