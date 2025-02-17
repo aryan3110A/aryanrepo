@@ -184,7 +184,7 @@ const ContactSection = () => {
 
           {/* Right Section - Contact Form */}
           <div
-            className={`backdrop-blur-3xl bg-gradient-to-br from-[#262B30] via-[#3B4C5E] to-[#262B30] rounded-[3rem] p-14 shadow-[0_0_300px_80px_rgba(35,46,50,0.8)] mt-10  w-[36rem] ${
+            className={`backdrop-blur-3xl  bg-gradient-to-br from-[#262B30] via-[#3B4C5E] to-[#262B30] rounded-[3rem] p-14 shadow-[0_0_300px_80px_rgba(35,46,50,0.8)] mt-10  w-[36rem] ${
               isDropdownOpen ? "h-[100%]" : "h-[95%]"
             }`}
           >
@@ -371,7 +371,7 @@ const ContactSection = () => {
 
         {/* Newsletter Section */}
         {/* Newsletter Section */}
-        <div className="w-full bg-black py-12 mt-20 md:mt-40 mb-4">
+        <div className="w-full bg-black py-12 mt-10 md:mt-10 mb-4">
           <div className="max-w-[1440px] mx-auto px-4 md:px-8 lg:px-16 flex flex-col md:flex-row justify-between items-center gap-6">
             {/* Left side - Heading */}
             <div>

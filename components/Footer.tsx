@@ -97,7 +97,7 @@ const Footer = () => {
 
           {/* Navigation Links */}
           {Object.entries(navigationLinks).map(([category, links]) => (
-            <div key={category} className="mt-10 mb-4 mr-10">
+            <div key={category} className="mt-6 mb-4 mr-10">
               <h2 className="font-semibold text-white text-lg mb-4">{category}</h2>
               <ul className="space-y-2">
                 {Object.entries(links).map(([name, href]) => (
