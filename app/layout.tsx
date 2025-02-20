@@ -8,6 +8,7 @@ import "./globals.css";
  import ContactSection from "@/components/ContactSection";
 
 import { db } from "../lib/firebaseConfig"; // Correct path for `app/`
+import SupportPage from "@/components/support-page";
 
 
 const inter = Inter({ subsets: ["latin"] });
@@ -27,10 +28,12 @@ export default function RootLayout({
     <html lang="en">
       <body className={inter.className}>
         <main>{children}</main>
-         <ContactSection />
+         {/* <ContactSection /> */}
         {/*<Testimonials />
         <PartnersSection />
-        <Footer />*/}
+        */}
+        <SupportPage />
+        <Footer />
       </body>
     </html>
   );

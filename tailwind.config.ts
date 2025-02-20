@@ -7,8 +7,13 @@ export default {
     "./components/**/*.{js,ts,jsx,tsx,mdx}",
     "./app/**/*.{js,ts,jsx,tsx,mdx}",
   ],
+
   theme: {
     extend: {
+      screens: {
+        "md-laptop": "1366px", // For 15.6-inch & 16-inch laptops
+        "lg": "1600px", // Large PCs
+      },
       colors: {
         discord: "#5865F2",
         instagram: "#E1306C",
