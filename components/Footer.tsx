@@ -97,11 +97,11 @@ const Footer = () => {
 
           {/* Navigation Links */}
           {Object.entries(navigationLinks).map(([category, links]) => (
-            <div key={category} className="mt-2 mb-4 mr-10 lg:mr-16">
+            <div key={category} className="mt-2 mb-6 mr-10 lg:mr-16">
               <h2 className="font-semibold text-white text-lg lg:text-xl mb-4">{category}</h2>
               <ul className="space-y-2">
                 {Object.entries(links).map(([name, href]) => (
-                  <li key={name} className="pb-2 mb-4">
+                  <li key={name} className="pb-2 mb-2">
                     <Link href={href} className="text-[#616161] hover:text-white transition-colors">
                       {name}
                     </Link>
