@@ -4,11 +4,12 @@ import { Inter } from "next/font/google";
 import Footer from "@/components/Footer";
 import "./globals.css";
 //import { Testimonials } from "@/components/testimonials";
-//import { PartnersSection } from "@/components/partners-section";
+import { PartnersSection } from "@/components/partners-section";
  import ContactSection from "@/components/ContactSection";
 
 import { db } from "../lib/firebaseConfig"; // Correct path for `app/`
 import SupportPage from "@/components/support-page";
+import Index from "@/components/Index";
 
 
 const inter = Inter({ subsets: ["latin"] });
@@ -28,12 +29,13 @@ export default function RootLayout({
     <html lang="en">
       <body className={inter.className}>
         <main>{children}</main>
-         {/* <ContactSection /> */}
-        {/*<Testimonials />
+         <ContactSection />
+        {/* <Testimonials />
         <PartnersSection />
         */}
-        <SupportPage />
+        {/* <SupportPage /> */}
         <Footer />
+          
       </body>
     </html>
   );

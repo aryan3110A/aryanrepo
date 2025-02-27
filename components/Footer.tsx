@@ -10,6 +10,7 @@ const Footer = () => {
       "Plans & Pricing": "/pricing",
     },
     Features: {
+      
       "Text to Image": "/text-to-image",
       "Text to Video (soon)": "#",
       "Sketch to Image (soon)": "#",
@@ -64,8 +65,8 @@ const Footer = () => {
 
   return (
     <footer className="bg-[#050505] text-gray-300 py-8 w-full">
-      <div className="max-w-full px-4 md:px-8 lg:px-16">
-        <div className="flex sm:gap-[7.5rem] md:gap-[10.5rem] lg:gap-[15rem] mb-0">
+      <div className="max-w-full px-4 md:px-24 lg:px-16">
+        <div className="flex sm:gap-[7.5rem] md:gap-[8rem] lg:gap-[15rem] mb-0">
           {/* Logo and Description */}
           <div className="space-y-4">
             <div className="flex flex-col items-start space-y-2 -mb-2">
@@ -98,11 +99,11 @@ const Footer = () => {
           {/* Navigation Links */}
           {Object.entries(navigationLinks).map(([category, links]) => (
             <div key={category} className="mt-2 mb-6 mr-10 lg:mr-16">
-              <h2 className="font-semibold text-white text-lg lg:text-xl mb-4">{category}</h2>
+              <h2 className="font-semibold text-white md:text-lg lg:text-xl mb-4">{category}</h2>
               <ul className="space-y-2">
                 {Object.entries(links).map(([name, href]) => (
                   <li key={name} className="pb-2 mb-2">
-                    <Link href={href} className="text-[#616161] hover:text-white transition-colors">
+                    <Link href={href} className="text-[#616161]  md:text-[0.9rem] hover:text-white transition-colors">
                       {name}
                     </Link>
                   </li>
@@ -118,7 +119,7 @@ const Footer = () => {
             <p className="text-sm md:text-[0.875rem] lg:text-[1rem] text-[#616161] mb-4 md:mb-0">
               Copyright © 2025 WildMind Pvt ltd. All rights reserved.
             </p>
-            <div className="flex flex-wrap sm:gap-4 md:gap-10 lg:gap-[4rem] justify-center md:ml-[35%] lg:ml-[37%]">
+            <div className="flex flex-wrap sm:gap-4 md:gap-[2.6rem] lg:gap-[4rem] justify-center md:ml-[31.4%] lg:ml-[37%]">
               {legalLinks.map((link) => (
                 <Link
                   key={link.name}

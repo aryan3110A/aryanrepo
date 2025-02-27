@@ -35,7 +35,7 @@ const ContactSection = () => {
     } else {
       setRating(star); // Otherwise, update to the clicked star
     }
-  }; // State inside the component
+  }; 
 
   const [newsletterEmail, setNewsletterEmail] = useState(""); // Newsletter state
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -62,6 +62,8 @@ const ContactSection = () => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
   }, []);
+
+
   // Handle Contact Form Submission
   const handleContactSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -87,7 +89,7 @@ const ContactSection = () => {
     try {
       await addDoc(collection(db, "contactForm"), {
         ...formData,
-        timestamp: serverTimestamp(), // Add timestamp here
+        timestamp: serverTimestamp(), 
       });
 
       setSuccessMessage(
@@ -431,7 +433,7 @@ const ContactSection = () => {
         </div>
 
         {/* Newsletter Section */}
-        <div className="w-[95%] bg-black py-12 mt-10 md:mt-10 lg:mt-10 mb-4 lg:mb-4 ml-0 lg:-ml-36">
+        <div className="md:w-[86%] lg:w-[95%] bg-black py-12 mt-10 md:mt-10 lg:mt-10 md:mb-0 lg:mb-4 md:ml-16 lg:-ml-36">
   <div className="max-w-[1440px] md:mx-auto lg:mx-auto md:px-8 lg:px-8 flex flex-row md:flex-row justify-between items-center gap-6 lg:gap-16">
     
     {/* Left side - Heading (Now moved to the start for lg:) */}
@@ -503,9 +505,9 @@ const ContactSection = () => {
         </div>
 
         {/* Bottom Border */}
-        <div className="border-t border-[#FFFFFF52] w-[86%] md:w-[95%] lg:w-[93%] mx-auto"></div>
+        <div className="border-t border-[#FFFFFF52] w-[86%] md:w-[87%] lg:w-[93%] mx-auto"></div>
       </div>
-      <Footer />
+      {/* <Footer /> */}
     </>
   );
 };
