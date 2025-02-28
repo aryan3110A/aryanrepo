@@ -150,7 +150,7 @@ const ContactSection = () => {
 
   useEffect(() => {
     const form = document.forms["submit-to-google-sheet"] as HTMLFormElement | null
-    document.documentElement.style.overflow = "hidden"; // Hide scrolling
+    // document.documentElement.style.overflow = "hidden"; // Hide scrolling
 
     if (form) {
       form.addEventListener("submit", (e) => {
@@ -238,11 +238,11 @@ const ContactSection = () => {
 
               <div className="mb">
       <label className="text-white text-sm">Phone</label>
-      <div className="flex gap-2">
+      <div className="flex gap-2 ">
         <select
           className="w-40 mt-2 bg-[#111111] text-white rounded-lg px-2 text-sm 
           max-h-60 focus:outline-none focus:ring-2 focus:ring-[#444c55] text-[15px] opacity-90 
-          transition-all duration-300 overflow-y-auto scrollbar-none"
+          transition-all duration-300 overflow-y-auto scrollbar-none "
           size={1} // Keeps it looking like a normal dropdown
         >
           <option value="+91">+91 (India)</option>
