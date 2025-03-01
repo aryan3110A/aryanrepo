@@ -10,6 +10,7 @@ import { PartnersSection } from "@/components/partners-section";
 import { db } from "../lib/firebaseConfig"; // Correct path for `app/`
 import SupportPage from "@/components/support-page";
 import Index from "@/components/Index";
+import SubscriptionToggle from "@/components/subscription-toggle";
 
 
 const inter = Inter({ subsets: ["latin"] });
@@ -29,7 +30,9 @@ export default function RootLayout({
     <html lang="en">
       <body className={inter.className}>
         <main>{children}</main>
-         <ContactSection />
+         {/* <ContactSection /> */}
+
+         <SubscriptionToggle />
         {/* <Testimonials />
         <PartnersSection />
         */}

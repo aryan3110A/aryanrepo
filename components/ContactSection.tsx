@@ -4,9 +4,10 @@ import type React from "react"
 
 import { useRef, useState, useEffect } from "react"
 import Image from "next/image"
-import Footer from "./Footer"
+
 import { db } from "@/lib/firebaseConfig"
 import { collection, addDoc, serverTimestamp } from "firebase/firestore"
+import Footer from "./Footer"
 
 const scriptURL =
   "https://script.google.com/macros/s/AKfycbz0dKO8m-4_vrGpnaPI4zP01OkoN5uXxo1DrJ9jY_oz5tsoNUYvtxxNKgvdYMiZUGsWBw/exec" // Replace with your actual script URL
@@ -242,7 +243,7 @@ const ContactSection = () => {
         <select
           className="w-40 mt-2 bg-[#111111] text-white rounded-lg px-2 text-sm 
           max-h-60 focus:outline-none focus:ring-2 focus:ring-[#444c55] text-[15px] opacity-90 
-          transition-all duration-300 overflow-y-auto scrollbar-none "
+          transition-all duration-300 overflow-y-auto scrollbar-none  "
           size={1} // Keeps it looking like a normal dropdown
         >
           <option value="+91">+91 (India)</option>
@@ -289,104 +290,106 @@ const ContactSection = () => {
       {formErrors.phone && <p className="text-red-500 text-sm mt-1">{formErrors.phone}</p>}
     </div>
 
-              <div className="mt-2">
-                <div
-                  ref={dropdownRef}
-                  className={`w-[50%] h-10 bg-[#111111] text-white border border-gray-300 rounded-lg p-2 pl-4 text-sm mt-2 transition-all duration-200 ${
-                    isDropdownOpen ? "mb-48" : "mb-2"
-                  }`}
-                  onClick={(e) => {
-                    e.stopPropagation() // Prevent the click from immediately closing the dropdown
-                    if (!isDropdownOpen && !hasSelectedOption) {
-                      setIsDropdownOpen(true)
-                      setIsFirstClick(false)
-                    } else {
-                      setIsDropdownOpen(false)
-                      setHasSelectedOption(false)
-                    }
-                  }}
-                >
-                  <div className="flex justify-between items-center">
-                    <span>
-                      {formData.option === ""
-                        ? "Pick an option"
-                        : formData.option === "option1"
-                          ? "General Inquiry"
-                          : formData.option === "option2"
-                            ? "Support Request"
-                            : formData.option === "option3"
-                              ? "Feature Suggestion"
-                              : "Business Collaboration"}
-                    </span>
-                    <span>▼</span>
-                  </div>
+    <div className="mt-2 cursor-pointer ">
+  <div
+    ref={dropdownRef}
+    className={`w-[50%] h-10 bg-[#111111] text-white border border-gray-800 rounded-lg p-2 pl-4 text-sm mt-2 transition-all duration-200 ${
+      isDropdownOpen ? "mb-48" : "mb-2"
+    }`}
+    onClick={(e) => {
+      e.stopPropagation(); // Prevent the click from immediately closing the dropdown
 
-                  {isDropdownOpen && (
-                    <div className="absolute w-[40%] bg-[#111111] border border-gray-300 rounded-lg mt-4 z-10 -ml-4">
-                      <div
-                        className="p-2 pl-4 hover:bg-[#222222] cursor-pointer border-b border-gray-700"
-                        onClick={(e) => {
-                          e.stopPropagation()
-                          setFormData({ ...formData, option: "" })
-                          setHasSelectedOption(true)
-                          setIsDropdownOpen(false)
-                          setIsFirstClick(true)
-                        }}
-                      >
-                        Pick an option
-                      </div>
-                      <div
-                        className="p-2 pl-4 hover:bg-[#222222] cursor-pointer border-b border-gray-700"
-                        onClick={(e) => {
-                          e.stopPropagation()
-                          setFormData({ ...formData, option: "option1" })
-                          setHasSelectedOption(true)
-                          setIsDropdownOpen(false)
-                          setIsFirstClick(true)
-                        }}
-                      >
-                        General Inquiry
-                      </div>
-                      <div
-                        className="p-2 pl-4 hover:bg-[#222222] cursor-pointer border-b border-gray-700"
-                        onClick={(e) => {
-                          e.stopPropagation()
-                          setFormData({ ...formData, option: "option2" })
-                          setHasSelectedOption(true)
-                          setIsDropdownOpen(false)
-                          setIsFirstClick(true)
-                        }}
-                      >
-                        Support Request
-                      </div>
-                      <div
-                        className="p-2 pl-4 hover:bg-[#222222] cursor-pointer border-b border-gray-700"
-                        onClick={(e) => {
-                          e.stopPropagation()
-                          setFormData({ ...formData, option: "option3" })
-                          setHasSelectedOption(true)
-                          setIsDropdownOpen(false)
-                          setIsFirstClick(true)
-                        }}
-                      >
-                        Feature Suggestion
-                      </div>
-                      <div
-                        className="p-2 pl-4 hover:bg-[#222222] cursor-pointer"
-                        onClick={(e) => {
-                          e.stopPropagation()
-                          setFormData({ ...formData, option: "option4" })
-                          setHasSelectedOption(true)
-                          setIsDropdownOpen(false)
-                          setIsFirstClick(true)
-                        }}
-                      >
-                        Business Collaboration
-                      </div>
-                    </div>
-                  )}
-                </div>
-              </div>
+      // Toggle dropdown correctly
+      setIsDropdownOpen((prev) => !prev);
+      
+      if (!isDropdownOpen) {
+        setIsFirstClick(false);
+      }
+    }}
+  >
+    <div className="flex justify-between items-center">
+      <span>
+        {formData.option === ""
+          ? "Pick an option"
+          : formData.option === "option1"
+          ? "General Inquiry"
+          : formData.option === "option2"
+          ? "Support Request"
+          : formData.option === "option3"
+          ? "Feature Suggestion"
+          : "Business Collaboration"}
+      </span>
+      {/* Rotating Dropdown Arrow */}
+      <span className={`transform transition-transform ${isDropdownOpen ? "rotate-180" : "rotate-0"}`}>▼</span>
+    </div>
+
+    {isDropdownOpen && (
+      <div className="absolute w-[40%] bg-[#111111] rounded-lg mt-4 z-10 -ml-4">
+        <div
+          className="p-2 pl-4 hover:bg-[#222222] cursor-pointer "
+          onClick={(e) => {
+            e.stopPropagation();
+            setFormData({ ...formData, option: "" });
+            setHasSelectedOption(true);
+            setIsDropdownOpen(false);
+            setIsFirstClick(false);
+          }}
+        >
+          Pick an option
+        </div>
+        <div
+          className="p-2 pl-4 hover:bg-[#222222] cursor-pointer "
+          onClick={(e) => {
+            e.stopPropagation();
+            setFormData({ ...formData, option: "option1" });
+            setHasSelectedOption(true);
+            setIsDropdownOpen(false);
+            setIsFirstClick(true);
+          }}
+        >
+          General Inquiry
+        </div>
+        <div
+          className="p-2 pl-4 hover:bg-[#222222] cursor-pointer "
+          onClick={(e) => {
+            e.stopPropagation();
+            setFormData({ ...formData, option: "option2" });
+            setHasSelectedOption(true);
+            setIsDropdownOpen(false);
+            setIsFirstClick(true);
+          }}
+        >
+          Support Request
+        </div>
+        <div
+          className="p-2 pl-4 hover:bg-[#222222] cursor-pointer "
+          onClick={(e) => {
+            e.stopPropagation();
+            setFormData({ ...formData, option: "option3" });
+            setHasSelectedOption(true);
+            setIsDropdownOpen(false);
+            setIsFirstClick(true);
+          }}
+        >
+          Feature Suggestion
+        </div>
+        <div
+          className="p-2 pl-4 hover:bg-[#222222] cursor-pointer"
+          onClick={(e) => {
+            e.stopPropagation();
+            setFormData({ ...formData, option: "option4" });
+            setHasSelectedOption(true);
+            setIsDropdownOpen(false);
+            setIsFirstClick(true);
+          }}
+        >
+          Business Collaboration
+        </div>
+      </div>
+    )}
+  </div>
+</div>
+
 
               <div
                 className={`mb-4 transition-all duration-300 ${
@@ -482,12 +485,6 @@ const ContactSection = () => {
       </h2>
     </div>
 
-
-
-
-
-
-
     {/* Right side - Form */}
     <div className="w-full md:w-auto lg:w-auto lg:-mr-[19rem]">
       <form
@@ -550,7 +547,7 @@ const ContactSection = () => {
         {/* Bottom Border */}
         <div className="border-t border-[#FFFFFF52] w-[86%] md:w-[87%] lg:w-[93%] mx-auto"></div>
       </div>
-      {/* <Footer /> */}
+      <Footer />
     </>
   );
 };
