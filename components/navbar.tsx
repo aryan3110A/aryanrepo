@@ -42,7 +42,7 @@ const profiles: Profile[] = [
 ]
 
 const sidebarItems: NavItem[] = [
-  { label: "Home", href: "/", icon: <Home className="w-5 h-5" /> },
+  { label: "Home", href: "/", icon: <Home className="w-6 h-6" /> },
   { label: "Gallery", href: "/gallery", icon:  <Image
     src="/gallery.png" // Replace with actual image path
     alt="User"
@@ -218,7 +218,7 @@ export default function Navbar({ isOpen, onClose }: NavbarProps) {
   </div>
   
   {/* Upgrade Button Overlapping */}
-  <button className="flex bg-gradient-to-b from-[#5AD7FF] to-[#656BF5] text-xs px-3 py-[5%] rounded-full hover:bg-blue-600 transition-colors -ml-10 gap-1">
+  <button className="flex bg-gradient-to-b from-[#5AD7FF] to-[#656BF5] text-xs px-3 py-[5%] rounded-full hover:bg-blue-600 transition-colors -ml-[20%] gap-1">
   <Image
       src="/diamond.png" // Replace with actual image path
       alt="User"
@@ -243,7 +243,7 @@ export default function Navbar({ isOpen, onClose }: NavbarProps) {
 
 
           {/* Navigation Items */}
-          <div className="flex flex-col gap-1 mt-6 w-[15vw] -ml-[6%]  font-poppins">
+          <div className="flex flex-col gap-1 mt-6 w-[200%] -ml-[6%]  font-poppins">
   {sidebarItems.map((item) => (
     <Link
       key={item.label}
@@ -262,7 +262,7 @@ export default function Navbar({ isOpen, onClose }: NavbarProps) {
 
 <div className="border-b-2 border-[#5A5A5A] bg-[#252525] w-[100vw] mt-[10%] -ml-[6%]"></div>
 
-<div className="flex flex-col gap-1 mt-6 w-[15vw] -ml-[6%] font-poppins">
+<div className="flex flex-col gap-1 mt-6 w-[200%] -ml-[6%] font-poppins">
   {plansetting.map((item) => (
     <Link
       key={item.label}

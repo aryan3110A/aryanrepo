@@ -408,7 +408,7 @@ const ContactSection = () => {
 
               <button
                 type="submit"
-                className="ml-[22rem] w-28 h-12 bg-gradient-to-r from-[#5AD7FF] to-[#656BF5] 
+                className="ml-[22rem] w-28 h-12 bg-  
         text-white rounded-full py-2 px-6 transition-all 
         hover:opacity-100 hover:shadow-[0_0_10px_5px_rgba(101,107,245,0.8)]"
               >
