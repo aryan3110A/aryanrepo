@@ -11,6 +11,8 @@ import { db } from "../lib/firebaseConfig"; // Correct path for `app/`
 import SupportPage from "@/components/support-page";
 import Index from "@/components/Index";
 import SubscriptionToggle from "@/components/subscription-toggle";
+import Navbar from "@/components/navbar";
+import Page from "@/components/page";
 
 
 const inter = Inter({ subsets: ["latin"] });
@@ -32,12 +34,14 @@ export default function RootLayout({
         <main>{children}</main>
          {/* <ContactSection /> */}
 
-         <SubscriptionToggle />
+         {/* <SubscriptionToggle /> */}
         {/* <Testimonials />
         <PartnersSection />
         */}
         {/* <SupportPage /> */}
-        <Footer />
+        {/* <Footer /> */}
+
+        <Page />
           
       </body>
     </html>

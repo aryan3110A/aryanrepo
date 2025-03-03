@@ -144,7 +144,7 @@ const Footer = () => {
             <p className="text-sm md:text-[0.875rem] lg:text-[1rem] text-[#616161] mb-4 md:mb-0">
               Copyright © 2025 WildMind Pvt ltd. All rights reserved.
             </p>
-            <div className="flex flex-wrap sm:gap-4 md:gap-[2.4rem] lg:gap-[4rem] justify-center md:ml-[31.4%] lg:ml-[37%]">
+            <div className="flex flex-wrap sm:gap-4 md:gap-[2.4rem] lg:gap-[4rem] justify-center md:ml-[31.4%] lg:ml-[36%]">
               {legalLinks.map((link) => (
                 <Link
                   key={link.name}
