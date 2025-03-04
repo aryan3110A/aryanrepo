@@ -1,4 +1,5 @@
 "use client"
+import Image from "next/image"
 
 import { useState, useEffect } from "react"
 import { Menu, User, ChevronDown } from "lucide-react"
@@ -70,7 +71,7 @@ export default function Page(): JSX.Element {
 
   // Common background style object for header and dropdown
   const backgroundStyle = {
-    backgroundImage: "url('/header.png')",
+    backgroundImage: "url('/eader.png')",
     backgroundSize: "cover",
     backgroundPosition: "center",
     backgroundRepeat: "no-repeat",
@@ -79,10 +80,10 @@ export default function Page(): JSX.Element {
   };
 
   return (
-    <div className="min-h-screen bg-[#37436D] text-white">
+    <div className="min-h-screen bg-[#000000] text-white">
       {/* Top Navigation */}
       <header 
-        className="fixed top-0 left-0 right-0 z-20 bg-black/30 backdrop-blur-lg border-b border-white/20 shadow-lg"
+        className="fixed top-0 left-0 right-0 z-20 bg-black/30 backdrop-blur-lg  shadow-lg"
         style={backgroundStyle}
       >
         <div className="flex items justify-between px-4 py-3">
@@ -145,12 +146,12 @@ export default function Page(): JSX.Element {
         {/* Full-width dropdown menus */}
         {activeDropdown && (
           <div 
-            className={`absolute left-0 right-0 bg-black/30 backdrop-blur-lg border-b border-white/10 shadow-lg overflow-hidden transition-all duration-300 z-10 ${animating ? 'animate-dropdown' : ''}`}
+            className={` left-0 right-0  overflow-hidden transition-all duration-300 z-10 ${animating ? '' : ''}`}
             style={{
               ...backgroundStyle,
               maxHeight: activeDropdown ? '400px' : '0',
               opacity: animating ? 0 : 1,
-              animation: animating ? 'dropdownFade 300ms ease-in-out forwards' : '',
+              animation: animating ? 'dropdownFade 400ms ease-in-out forwards' : '',
             }}
           >
             <div className="container mx-auto px-8 py-6">
@@ -188,6 +189,13 @@ export default function Page(): JSX.Element {
             <h1 className="text-6xl font-bold mb-4">
               Introducing <span className="text-blue-400">3D</span>
             </h1>
+            <Image
+                    src="/aryangf.png" // Replace with actual image path
+                    alt="User"
+                    width={4000} // Adjust size as needed
+                    height={400}
+                    className="bg-black "
+                  /> 
           </div>
         </section>
 
@@ -200,7 +208,7 @@ export default function Page(): JSX.Element {
             </Link>
           </div>
           <p className="text-gray-400 mb-8">Create and explore image, video and audio AI powered tools</p>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-4">
             {/* App Cards */}
             {Array.from({ length: 4 }).map((_, i) => (
               <div key={i} className="relative aspect-video rounded-xl overflow-hidden bg-gray-900">

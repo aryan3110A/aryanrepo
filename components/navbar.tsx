@@ -136,7 +136,7 @@ export default function Navbar({ isOpen, onClose }: NavbarProps) {
                     >
                         
                       <Image
-      src="/profile.png" // Replace with actual image path
+      src="/profile.png" 
       alt="User"
       width={32} // Adjust size as needed
       height={32}
@@ -148,7 +148,7 @@ export default function Navbar({ isOpen, onClose }: NavbarProps) {
                           {profile.isActive && <div className="w-2 h-2 rounded-full bg-blue-500 " />}
                         </div>
                         <div className="flex items-center gap-1 text-sm text-gray-400"> <Image
-      src="/coins.png" // Replace with actual image path
+      src="/coins.png" 
       alt="User"
       width={16} // Adjust size as needed
       height={16}
