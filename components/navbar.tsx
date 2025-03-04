@@ -201,10 +201,10 @@ export default function Navbar({ isOpen, onClose }: NavbarProps) {
 
           {/* Credits Display */}
           
-          <div className="flex items-center mt-[6%] bg-gray-900/50 rounded-lg ml-[14%] p-2">
+          <div className="flex items-center mt-[6%] bg-gray-900/50 rounded-lg ml-[14%] p-2 gap-4">
   {/* "20" Div */}
-  <div className="items gap-2">
-    <div className=" flex rounded-full px-4 py-2 w-[6vw] border-2 gap-1 border-[#484848] bg-black text-white text-xs"> 
+  <div className="items gap-0">
+    <div className=" flex rounded-full px-4 py-2 w-[5vw] border-2 gap-1 border-[#484848] bg-black text-white text-xs"> 
     <Image
       src="/coins.png" // Replace with actual image path
       alt="User"

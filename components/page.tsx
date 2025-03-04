@@ -80,7 +80,7 @@ export default function Page(): JSX.Element {
   };
 
   return (
-    <div className="min-h-screen bg-[#000000] text-white">
+    <div className=" bg-[#000000] text-white">
       {/* Top Navigation */}
       <header 
         className="fixed top-0 left-0 right-0 z-20 bg-black/30 backdrop-blur-lg  shadow-lg"
@@ -102,7 +102,7 @@ export default function Page(): JSX.Element {
           </div>
 
           {/* Desktop Navigation */}
-          <nav className="hidden md:flex items-center gap-40 ml-[10%] text-nowrap font-poppins">
+          <nav className="hidden md:flex items-center gap-40  text-nowrap font-poppins mr-[25%]">
             <div className="relative ">
               <button 
                 onClick={() => toggleDropdown('features') } 
@@ -138,7 +138,7 @@ export default function Page(): JSX.Element {
             </Link>
           </nav>
 
-          <button className="p-2 hover:bg-gray-800 rounded-lg transition-colors mr-[20%]">
+          <button className="fixed p-2 hover:bg-gray-800 rounded-lg transition-colors ml-[80vw]">
             <User className="w-6 h-6" />
           </button>
         </div>
@@ -155,8 +155,8 @@ export default function Page(): JSX.Element {
             }}
           >
             <div className="container mx-auto px-8 py-6">
-              <h3 className="text-lg font-bold mb-4 ml-[14.5%]">CREATE</h3>
-              <div className="flex flex-col space-y-4 ml-[14.5%]">
+              <h3 className="text-lg font-bold mb-4 ml-[15.45%]">CREATE</h3>
+              <div className="flex flex-col space-y-4 ml-[15.45%]">
                 {activeDropdown === 'features' && featuresDropdownItems.map((item, index) => (
                   <Link href={`/${item.title.toLowerCase().replace(/\s+/g, '-')}`} key={index} className="block">
                     <span className={item.coming ? 'text-gray-400' : 'text-white'}>
@@ -180,46 +180,8 @@ export default function Page(): JSX.Element {
       {/* Sliding Navbar */}
       <Navbar isOpen={isNavOpen} onClose={() => setIsNavOpen(false)} />
 
-      {/* Main Content */}
-      <main className="pt-16">
-        {/* Hero Section */}
-        <section className="relative h-[50vh] overflow-hidden rounded-2xl mt-14 w-[80vw] ml-[10vw] bg-white">
-          <div className="absolute inset-0 bg-gradient-to-br from-blue-900/20 to-emerald-900/20" />
-          <div className="relative z-10 flex flex-col items-center justify-center h-full text-center">
-            <h1 className="text-6xl font-bold mb-4">
-              Introducing <span className="text-blue-400">3D</span>
-            </h1>
-            <Image
-                    src="/aryangf.png" // Replace with actual image path
-                    alt="User"
-                    width={4000} // Adjust size as needed
-                    height={400}
-                    className="bg-black "
-                  /> 
-          </div>
-        </section>
-
-        {/* Featured Apps Section */}
-        <section className="px-4 py-12">
-          <div className="flex items-center justify-between mb-6">
-            <h2 className="text-2xl font-bold">Featured Apps</h2>
-            <Link href="/tools" className="text-sm text-blue-400 hover:underline">
-              View all tools
-            </Link>
-          </div>
-          <p className="text-gray-400 mb-8">Create and explore image, video and audio AI powered tools</p>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-4">
-            {/* App Cards */}
-            {Array.from({ length: 4 }).map((_, i) => (
-              <div key={i} className="relative aspect-video rounded-xl overflow-hidden bg-gray-900">
-                <div className="absolute inset-0 flex items-center justify-center">
-                  <span className="text-gray-500">Coming Soon</span>
-                </div>
-              </div>
-            ))}
-          </div>
-        </section>
-      </main>
+      
+     
 
       {/* Add CSS animation */}
       <style jsx global>{`
