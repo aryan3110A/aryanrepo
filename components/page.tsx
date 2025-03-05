@@ -1,7 +1,7 @@
 "use client";
 import Image from "next/image";
 
-import { useState, useEffect,useRef } from "react";
+import { useState, useEffect, useRef } from "react";
 import { Menu, User, ChevronDown } from "lucide-react";
 import Link from "next/link";
 import Navbar from "./navbar";
@@ -16,36 +16,38 @@ export default function Page(): JSX.Element {
   const [isNavOpen, setIsNavOpen] = useState<boolean>(false);
   const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
   const [animating, setAnimating] = useState<boolean>(false);
-  const headerRef = useRef<HTMLElement>(null)
+  const headerRef = useRef<HTMLElement>(null);
 
   const toggleDropdown = (dropdown: string): void => {
     // If clicking the same dropdown, close it
     if (activeDropdown === dropdown) {
-      setActiveDropdown(null)
+      setActiveDropdown(null);
     } else {
       // If clicking a different dropdown, switch to new dropdown
-      setActiveDropdown(dropdown)
+      setActiveDropdown(dropdown);
     }
-  }
+  };
 
   useEffect(() => {
     // Function to handle clicks outside the dropdown
     const handleClickOutside = (event: MouseEvent) => {
       // Check if the click is outside the header
-      if (headerRef.current && !headerRef.current.contains(event.target as Node)) {
-        setActiveDropdown(null)
+      if (
+        headerRef.current &&
+        !headerRef.current.contains(event.target as Node)
+      ) {
+        setActiveDropdown(null);
       }
-    }
+    };
 
     // Add click event listener to document
-    document.addEventListener('mousedown', handleClickOutside)
+    document.addEventListener("mousedown", handleClickOutside);
 
     // Cleanup event listener
     return () => {
-      document.removeEventListener('mousedown', handleClickOutside)
-    }
-  }, [])
-
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
 
   useEffect(() => {
     if (activeDropdown) {
@@ -105,12 +107,11 @@ export default function Page(): JSX.Element {
     <div className=" bg-[#000000] text-white">
       {/* Top Navigation */}
       <header
-              ref={headerRef}
-
+        ref={headerRef}
         className="fixed top-0 left-0 right-0 z-20 bg-black/30 backdrop-blur-3xl  shadow-lg"
         style={backgroundStyle}
       >
-        <div className="flex items-center justify-start px-4 py-2 font-semibold">
+        <div className="flex items-center justify-start px-4 py-4 font-semibold">
           <div className="flex items-center gap-4">
             <button
               onClick={() => setIsNavOpen(true)}
@@ -130,16 +131,19 @@ export default function Page(): JSX.Element {
             <div className="relative ">
               <button
                 onClick={() => toggleDropdown("features")}
-                className="flex items-center text-white transition-colors group "
+                className="flex items-center text-white transition-colors group"
               >
                 <span className="group-hover:bg-gradient-to-r group-hover:from-[#5AD7FF] group-hover:to-[#656BF5] group-hover:text-transparent bg-clip-text">
                   Features
                 </span>
                 <ChevronDown
                   className={`ml-1 w-6 h-6 transition-transform ${
-                    activeDropdown === "features" ? "rotate-180 text-[#5AD7FF]" : "text-white"
+                    activeDropdown === "features"
+                      ? "rotate-180 text-[#5AD7FF]"
+                      : "text-white"
                   } group-hover:text-[#5AD7FF]`}
-                />              </button>
+                />
+              </button>
             </div>
 
             <div className="relative">
@@ -152,9 +156,12 @@ export default function Page(): JSX.Element {
                 </span>
                 <ChevronDown
                   className={`ml-1 w-6 h-6 transition-transform ${
-                    activeDropdown === "templates" ? "rotate-180 text-[#5AD7FF]" : "text-white"
+                    activeDropdown === "templates"
+                      ? "rotate-180 text-[#5AD7FF]"
+                      : "text-white"
                   } group-hover:text-[#5AD7FF]`}
-                />              </button>
+                />{" "}
+              </button>
             </div>
 
             <Link
@@ -185,7 +192,7 @@ export default function Page(): JSX.Element {
         {/* Full-width dropdown menus */}
         {activeDropdown && (
           <div
-            className={` left-0 right-0  overflow-hidden transition-all duration-300 z-10  ${
+            className={` left-0 right-0  overflow-hidden transition-all duration-1000 z-10  ${
               animating ? "" : ""
             }`}
             style={{
@@ -193,25 +200,23 @@ export default function Page(): JSX.Element {
               maxHeight: activeDropdown ? "400px" : "0",
               opacity: animating ? 0 : 1,
               animation: animating
-                ? "dropdownFade 400ms ease-in-out forwards"
+                ? "dropdownFade 500ms ease-in-out forwards"
                 : "",
             }}
           >
             <div className="container mx-auto px-8 py-6">
-              <h3 className="text-lg font-bold mb-4 lg:ml-[15.45%] md:ml-[24.5%]">
+              <h3 className="text-lg font-bold mb-4 lg:ml-[18.3vw] md:ml-[24.5%]">
                 CREATE
               </h3>
-              <div className="flex flex-col space-y-4 lg:ml-[15.45%] md:ml-[24.5%]">
+              <div className="flex flex-col space-y-4 lg:ml-[18.3vw] md:ml-[24.5%] ">
                 {activeDropdown === "features" &&
                   featuresDropdownItems.map((item, index) => (
                     <Link
                       href={`/${item.title.toLowerCase().replace(/\s+/g, "-")}`}
                       key={index}
-                      className="block"
+                      className="block px-0 py-0 rounded-md transition-all duration-300 hover:bg-gradient-to-r hover:from-[#5AD7FF] hover:to-[#656BF5] hover:text-transparent bg-clip-text"
                     >
-                      <span
-                        className={item.coming ? "text-white" : "text-white"}
-                      >
+                      <span className="hover:bg-gradient-to-r hover:from-[#5AD7FF] hover:to-[#656BF5] hover:text-transparent bg-clip-text">
                         {item.title} {item.coming && "(coming soon)"}
                       </span>
                     </Link>
@@ -221,11 +226,9 @@ export default function Page(): JSX.Element {
                     <Link
                       href={`/${item.title.toLowerCase().replace(/\s+/g, "-")}`}
                       key={index}
-                      className="block"
+                      className="block px-0 py-0 rounded-md transition-all duration-300 hover:bg-gradient-to-r hover:from-[#5AD7FF] hover:to-[#656BF5] hover:text-transparent bg-clip-text"
                     >
-                      <span
-                        className={item.coming ? "text-white" : "text-white"}
-                      >
+                      <span className="hover:bg-gradient-to-r hover:from-[#5AD7FF] hover:to-[#656BF5] hover:text-transparent bg-clip-text">
                         {item.title} {item.coming && "(coming soon)"}
                       </span>
                     </Link>
