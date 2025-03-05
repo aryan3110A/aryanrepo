@@ -44,7 +44,7 @@ export default function HomePage() {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-4">
             {/* App Cards */}
             {Array.from({ length: 4 }).map((_, i) => (
-              <div key={i} className="relative aspect-video rounded-xl overflow-hidden bg-gray-900">
+              <div key={i} className="relative aspect-video rounded-xl overflow-hidden bg-black">
                 <div className="absolute inset-0 flex items-center justify-center">
                   <span className="text-gray-500">Coming Soon</span>
                 </div>
