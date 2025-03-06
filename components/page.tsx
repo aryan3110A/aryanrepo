@@ -109,7 +109,7 @@ export default function Page(): JSX.Element {
         className="fixed top-0 left-0 right-0 z-20 bg-black/30 backdrop-blur-3xl  shadow-lg"
         style={backgroundStyle}
       >
-        <div className="flex items-center justify-start pl-[1%] py-2 ">
+        <div className="flex items-center justify-start pl-[1vw] py-2 ">
           <div className=" flex items-center gap-4">
             <button
               onClick={() => setIsNavOpen(true)}
@@ -125,7 +125,7 @@ export default function Page(): JSX.Element {
           </div>
 
           {/* Desktop Navigation */}
-          <nav className="hidden md:flex items-center justify-center gap-16  text-nowrap font-poppins pl-[22vw] py-0">
+          <nav className="hidden md:flex lg:flex items-center justify-center gap-16  text-nowrap font-poppins md:pl-[22vw] lg:pl-[26vw] py-0">
             <div className="relative ">
               <button
                 onClick={() => toggleDropdown("features")}
@@ -204,8 +204,8 @@ export default function Page(): JSX.Element {
             }}
           >
             <div className="container mx-auto  py-2">
-              <h3 className="text-lg font-bold mb-4 pl-[33%]">CREATE</h3>
-              <div className="flex flex-col space-y-4 pl-[33%] ">
+              <h3 className="text-lg font-bold mb-4 md:pl-[33%] lg:pl-[32%]">CREATE</h3>
+              <div className="flex flex-col space-y-4 md:pl-[33%] lg:pl-[32%]">
                 {activeDropdown === "features" &&
                   featuresDropdownItems.map((item, index) => (
                     <Link

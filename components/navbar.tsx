@@ -238,7 +238,7 @@ export default function Navbar({ isOpen, onClose }: NavbarProps) {
 
           {/* Credits Display */}
 
-          <div className="flex items-center mt-[6%] bg-gray-900/50 rounded-lg pl-[16%]  gap-6">
+          <div className="flex items-center mt-[6%] bg-gray-900/50 rounded-lg pl-[16%]  lg:gap-0 md:gap-6">
             {/* "20" Div */}
             <div className="items gap-0">
               <div className=" flex rounded-full  py-[1vh] pl-2 w-[6vw] border-2 gap-1 border-[#484848] bg-black text-white text-xs">
