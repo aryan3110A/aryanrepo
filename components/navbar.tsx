@@ -238,7 +238,7 @@ export default function Navbar({ isOpen, onClose }: NavbarProps) {
 
           {/* Credits Display */}
 
-          <div className="flex items-center mt-[6%] bg-gray-900/50 rounded-lg ml-[16%]  gap-6">
+          <div className="flex items-center mt-[6%] bg-gray-900/50 rounded-lg pl-[16%]  gap-6">
             {/* "20" Div */}
             <div className="items gap-0">
               <div className=" flex rounded-full  py-[1vh] pl-2 w-[6vw] border-2 gap-1 border-[#484848] bg-black text-white text-xs">
@@ -254,12 +254,12 @@ export default function Navbar({ isOpen, onClose }: NavbarProps) {
             </div>
 
             {/* Upgrade Button Overlapping */}
-            <button className="flex bg-gradient-to-b from-[#5AD7FF] to-[#656BF5] text-xs px-3 py-[1.2vh] rounded-full hover:bg-blue-600 transition-colors -ml-[28%] gap-1">
+            <button className="flex bg-gradient-to-b from-[#5AD7FF] to-[#656BF5] text-[0.72rem] px-2 py-[1.2vh] rounded-full hover:bg-blue-600 transition-colors -ml-[24%] gap-1">
               <Image
                 src="/diamond.png" // Replace with actual image path
                 alt="User"
                 width={16} // Adjust size as needed
-                height={14}
+                height={16}
                 className=""
               />{" "}
               Upgrade
@@ -267,7 +267,7 @@ export default function Navbar({ isOpen, onClose }: NavbarProps) {
           </div>
 
           {/* Current Plan Text */}
-          <div className="text-[11px] ml-[27%] text-white mt-[1%]">
+          <div className="text-[11px] ml-[26%] text-white mt-[1%]">
             Current Plan {">"} Basic
           </div>
 

@@ -95,7 +95,6 @@ export default function Page(): JSX.Element {
 
   // Common background style object for header and dropdown
   const backgroundStyle = {
-    backgroundImage: "url('/eader.png')",
     backgroundSize: "cover",
     backgroundPosition: "center",
     backgroundRepeat: "no-repeat",
@@ -110,8 +109,8 @@ export default function Page(): JSX.Element {
         className="fixed top-0 left-0 right-0 z-20 bg-black/30 backdrop-blur-3xl  shadow-lg"
         style={backgroundStyle}
       >
-        <div className="flex items-center justify-start px-4 py-2 font-semibold">
-        <div className="flex items-center gap-4">
+        <div className="flex items-center justify-start pl-[1%] py-2 ">
+          <div className=" flex items-center gap-4">
             <button
               onClick={() => setIsNavOpen(true)}
               className="p-2  rounded-lg transition-colors"
@@ -127,22 +126,20 @@ export default function Page(): JSX.Element {
 
           {/* Desktop Navigation */}
           <nav className="hidden md:flex items-center justify-center gap-16  text-nowrap font-poppins pl-[22vw] py-0">
-
-
             <div className="relative ">
               <button
                 onClick={() => toggleDropdown("features")}
-                className="flex items-center text-white transition-colors group"
+                className="flex items-center text-white transition-colors hover:text-[#dbdbdb] group"
               >
-                <span className="group-hover:bg-gradient-to-r font-poppins group-hover:from-[#5AD7FF] group-hover:to-[#656BF5] group-hover:text-transparent bg-clip-text">
-                  Features
+                <span className="">
+                                    Features
                 </span>
                 <ChevronDown
-                  className={`ml-1 w-6 h-6 transition-transform ${
+                  className={`ml-1 w-6 h-6 transition-transform group-hover:text-[#dbdbdb] ${
                     activeDropdown === "features"
-                      ? "rotate-180 text-[#5AD7FF]"
-                      : "text-white"
-                  } group-hover:text-[#5AD7FF]`}
+                      ? "rotate-180 text-[#dbdbdb]"
+                      : "text-[white]"
+                  } group-hover:text-[#dbdbdb]`}
                 />
               </button>
             </div>
@@ -150,46 +147,45 @@ export default function Page(): JSX.Element {
             <div className="relative">
               <button
                 onClick={() => toggleDropdown("templates")}
-                className="flex items-center text-white transition-colors group"
+                className="flex items-center text-white transition-colors hover:text-[#dbdbdb] group"
               >
-                <span className="group-hover:bg-gradient-to-r group-hover:from-[#5AD7FF] group-hover:to-[#656BF5] group-hover:text-transparent bg-clip-text">
+                <span className="">
                   Templates
                 </span>
                 <ChevronDown
-                  className={`ml-1 w-6 h-6 transition-transform ${
+                  className={`ml-1 w-6 h-6 transition-transform group-hover:text-[#dbdbdb]${
                     activeDropdown === "templates"
-                      ? "rotate-180 text-[#5AD7FF]"
-                      : "text-white"
-                  } group-hover:text-[#5AD7FF]`}
+                      ? "rotate-180 text-[#dbdbdb]"
+                      : "text-[white]"
+                  } group-hover:text-[#dbdbdb]`}
                 />{" "}
               </button>
             </div>
 
             <Link
               href="/pricing"
-              className="text-white hover:bg-gradient-to-r from-[#5AD7FF] to-[#656BF5] hover:text-transparent bg-clip-text transition-colors"
+              className="text-white hover:text-[#dbdbdb]"
             >
               Pricing
             </Link>
             <Link
               href="/art-station"
-              className="text-white hover:bg-gradient-to-r from-[#5AD7FF] to-[#656BF5] hover:text-transparent bg-clip-text transition-colors"
+              className="text-white hover:text-[#dbdbdb]"
             >
               Art station
             </Link>
             <Link
               href="/support"
-              className="text-white hover:bg-gradient-to-r from-[#5AD7FF] to-[#656BF5] hover:text-transparent bg-clip-text transition-colors"
+              className="text-white hover:text-[#dbdbdb]"
             >
               Support
             </Link>
 
-            <button className=" fixed p-2  rounded-lg transition-colors ml-[55%]">
-            <User className="w-6 h-6" />
-          </button>
+            
           </nav>
-           
-          
+          <button className=" fixed p-2  rounded-lg transition-colors ml-[93vw]">
+              <User className="w-6 h-6" />
+            </button>
         </div>
 
         {/* Full-width dropdown menus */}
@@ -208,18 +204,16 @@ export default function Page(): JSX.Element {
             }}
           >
             <div className="container mx-auto  py-2">
-              <h3 className="text-lg font-bold mb-4 pl-[33%]">
-                CREATE
-              </h3>
+              <h3 className="text-lg font-bold mb-4 pl-[33%]">CREATE</h3>
               <div className="flex flex-col space-y-4 pl-[33%] ">
                 {activeDropdown === "features" &&
                   featuresDropdownItems.map((item, index) => (
                     <Link
                       href={`/${item.title.toLowerCase().replace(/\s+/g, "-")}`}
                       key={index}
-                      className="block px-0 py-0 rounded-md transition-all duration-300 hover:bg-gradient-to-r hover:from-[#5AD7FF] hover:to-[#656BF5] hover:text-transparent bg-clip-text"
+                      className="block px-0 py-0 rounded-md transition-all duration-300 hover:text-[#dbdbdb]"
                     >
-                      <span className="hover:bg-gradient-to-r hover:from-[#5AD7FF] hover:to-[#656BF5] hover:text-transparent bg-clip-text">
+                      <span className="">
                         {item.title} {item.coming && "(coming soon)"}
                       </span>
                     </Link>
@@ -229,10 +223,10 @@ export default function Page(): JSX.Element {
                     <Link
                       href={`/${item.title.toLowerCase().replace(/\s+/g, "-")}`}
                       key={index}
-                      className="block px-0 py-0 rounded-md transition-all duration-300 hover:bg-gradient-to-r hover:from-[#5AD7FF] hover:to-[#656BF5] hover:text-transparent bg-clip-text"
+                      className="block px-0 py-0 rounded-md transition-all duration-300 hover:text-[#dbdbdb]"
                     >
-                      <span className="hover:bg-gradient-to-r hover:from-[#5AD7FF] hover:to-[#656BF5] hover:text-transparent bg-clip-text">
-                        {item.title} {item.coming && "(coming soon)"}
+                      <span className="">
+                      {item.title} {item.coming && "(coming soon)"}
                       </span>
                     </Link>
                   ))}
