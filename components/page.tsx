@@ -100,7 +100,6 @@ export default function Page(): JSX.Element {
     backgroundPosition: "center",
     backgroundRepeat: "no-repeat",
     backgroundBlendMode: "overlay",
-    backgroundColor: "rgba(255, 255, 255, 0.1)",
   };
 
   return (
@@ -111,8 +110,8 @@ export default function Page(): JSX.Element {
         className="fixed top-0 left-0 right-0 z-20 bg-black/30 backdrop-blur-3xl  shadow-lg"
         style={backgroundStyle}
       >
-        <div className="flex items-center justify-start px-4 py-4 font-semibold">
-          <div className="flex items-center gap-4">
+        <div className="flex items-center justify-start px-4 py-2 font-semibold">
+        <div className="flex items-center gap-4">
             <button
               onClick={() => setIsNavOpen(true)}
               className="p-2  rounded-lg transition-colors"
@@ -127,13 +126,15 @@ export default function Page(): JSX.Element {
           </div>
 
           {/* Desktop Navigation */}
-          <nav className="hidden md:flex items-center justify-center gap-28  text-nowrap font-poppins md:ml-[15%] lg:ml-[20%]">
+          <nav className="hidden md:flex items-center justify-center gap-16  text-nowrap font-poppins pl-[22vw] py-0">
+
+
             <div className="relative ">
               <button
                 onClick={() => toggleDropdown("features")}
                 className="flex items-center text-white transition-colors group"
               >
-                <span className="group-hover:bg-gradient-to-r group-hover:from-[#5AD7FF] group-hover:to-[#656BF5] group-hover:text-transparent bg-clip-text">
+                <span className="group-hover:bg-gradient-to-r font-poppins group-hover:from-[#5AD7FF] group-hover:to-[#656BF5] group-hover:text-transparent bg-clip-text">
                   Features
                 </span>
                 <ChevronDown
@@ -182,11 +183,13 @@ export default function Page(): JSX.Element {
             >
               Support
             </Link>
-          </nav>
 
-          <button className=" fixed p-2  rounded-lg transition-colors ml-[85%]">
+            <button className=" fixed p-2  rounded-lg transition-colors ml-[55%]">
             <User className="w-6 h-6" />
           </button>
+          </nav>
+           
+          
         </div>
 
         {/* Full-width dropdown menus */}
@@ -204,11 +207,11 @@ export default function Page(): JSX.Element {
                 : "",
             }}
           >
-            <div className="container mx-auto px-8 py-6">
-              <h3 className="text-lg font-bold mb-4 lg:ml-[18.3vw] md:ml-[24.5%]">
+            <div className="container mx-auto  py-2">
+              <h3 className="text-lg font-bold mb-4 pl-[33%]">
                 CREATE
               </h3>
-              <div className="flex flex-col space-y-4 lg:ml-[18.3vw] md:ml-[24.5%] ">
+              <div className="flex flex-col space-y-4 pl-[33%] ">
                 {activeDropdown === "features" &&
                   featuresDropdownItems.map((item, index) => (
                     <Link

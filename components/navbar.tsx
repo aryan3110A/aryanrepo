@@ -238,10 +238,10 @@ export default function Navbar({ isOpen, onClose }: NavbarProps) {
 
           {/* Credits Display */}
 
-          <div className="flex items-center mt-[6%] bg-gray-900/50 rounded-lg ml-[16%]  gap-4">
+          <div className="flex items-center mt-[6%] bg-gray-900/50 rounded-lg ml-[16%]  gap-6">
             {/* "20" Div */}
             <div className="items gap-0">
-              <div className=" flex rounded-full  py-2 px-2 w-[6vw] border-2 gap-1 border-[#484848] bg-black text-white text-xs">
+              <div className=" flex rounded-full  py-[1vh] pl-2 w-[6vw] border-2 gap-1 border-[#484848] bg-black text-white text-xs">
                 <Image
                   src="/coins.png" // Replace with actual image path
                   alt="User"
@@ -254,7 +254,7 @@ export default function Navbar({ isOpen, onClose }: NavbarProps) {
             </div>
 
             {/* Upgrade Button Overlapping */}
-            <button className="flex bg-gradient-to-b from-[#5AD7FF] to-[#656BF5] text-xs px-3 py-[1.3vh] rounded-full hover:bg-blue-600 transition-colors -ml-[20%] gap-1">
+            <button className="flex bg-gradient-to-b from-[#5AD7FF] to-[#656BF5] text-xs px-3 py-[1.2vh] rounded-full hover:bg-blue-600 transition-colors -ml-[28%] gap-1">
               <Image
                 src="/diamond.png" // Replace with actual image path
                 alt="User"
