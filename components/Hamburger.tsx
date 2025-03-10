@@ -1,7 +1,9 @@
+// In Hamburger.tsx, update the component to pass hamburger state to Settings:
+
 "use client";
 import Image from "next/image";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import {
   ChevronDown,
   X,
@@ -17,6 +19,7 @@ import {
   User,
 } from "lucide-react";
 import Link from "next/link";
+import SettingComponent from "./Settings"; // Import the Settings component
 
 interface NavbarProps {
   isOpen: boolean;
@@ -47,9 +50,9 @@ const sidebarItems: NavItem[] = [
     href: "/gallery",
     icon: (
       <Image
-        src="/gallery.png" // Replace with actual image path
+        src="/gallery.png"
         alt="User"
-        width={20} // Adjust size as needed
+        width={20}
         height={20}
         className=""
       />
@@ -75,9 +78,9 @@ const plansetting: NavItem[] = [
     href: "/plans",
     icon: (
       <Image
-        src="/diamond.png" // Replace with actual image path
+        src="/diamond.png"
         alt="User"
-        width={20} // Adjust size as needed
+        width={20}
         height={20}
         className=""
       />
@@ -85,7 +88,7 @@ const plansetting: NavItem[] = [
   },
   {
     label: "Settings",
-    href: "/settings",
+    href: "#",
     icon: <Settings className="w-5 h-5" />,
   },
 ];
@@ -95,6 +98,24 @@ export default function Hamburger({ isOpen, onClose }: NavbarProps) {
   const [showCredits, setShowCredits] = useState(true);
   const [activeItem, setActiveItem] = useState<string>("Apps");
   const [hoveredItem, setHoveredItem] = useState<string | null>(null);
+  const [isSettingsOpen, setIsSettingsOpen] = useState(false);
+
+  // Function to handle settings click - toggle settings
+  const handleSettingsClick = () => {
+    setIsSettingsOpen(!isSettingsOpen);
+  };
+
+  // Function to handle settings close
+  const handleSettingsClose = () => {
+    setIsSettingsOpen(false);
+  };
+
+  // Close settings when hamburger closes
+  useEffect(() => {
+    if (!isOpen && isSettingsOpen) {
+      setIsSettingsOpen(false);
+    }
+  }, [isOpen, isSettingsOpen]);
 
   return (
     <>
@@ -102,7 +123,10 @@ export default function Hamburger({ isOpen, onClose }: NavbarProps) {
       {isOpen && (
         <div
           className="fixed inset-0 bg-black/50 backdrop-blur-sm z-30"
-          onClick={onClose}
+          onClick={() => {
+            onClose();
+            setIsSettingsOpen(false);
+          }}
         />
       )}
 
@@ -116,7 +140,7 @@ export default function Hamburger({ isOpen, onClose }: NavbarProps) {
           {/* Close Button */}
           <button
             onClick={onClose}
-            className="absolute top-4 right-4 mt-[10%]  rounded-lg transition-colors"
+            className="absolute top-4 right-4 mt-[10%] rounded-lg transition-colors"
           >
             <X className="w-10 h-10" />
           </button>
@@ -125,13 +149,13 @@ export default function Hamburger({ isOpen, onClose }: NavbarProps) {
           <div className="relative mt-[30%]">
             <button
               onClick={() => setIsProfileOpen(!isProfileOpen)}
-              className="w-full flex items-center justify-between p-3   rounded-lg bg-[#252525] hover:bg-gray-800 transition-colors "
+              className="w-full flex items-center justify-between p-3 rounded-lg bg-[#252525] hover:bg-gray-800 transition-colors"
             >
               <div className="flex items-center gap-3 ml-[2%]">
                 <Image
-                  src="/profile.png" // Replace with actual image path
+                  src="/profile.png"
                   alt="User"
-                  width={32} // Adjust size as needed
+                  width={32}
                   height={32}
                   className="rounded-full object-cover"
                 />
@@ -146,13 +170,13 @@ export default function Hamburger({ isOpen, onClose }: NavbarProps) {
 
             {/* Profile Dropdown */}
             {isProfileOpen && (
-              <div className="absolute top-full left-0 w-full mt-2 bg-[#252525] rounded-lg border border-gray-800 shadow-xl">
+              <div className="absolute top-full left-0 w-full mt-2 bg-[#252525] rounded-lg border border-gray-800 shadow-xl z-50">
                 <div className="p-2">
                   <div className="flex items-center gap-3 ml-[4%] mb-1">
                     <Image
-                      src="/profile.png" // Replace with actual image path
+                      src="/profile.png"
                       alt="User"
-                      width={32} // Adjust size as needed
+                      width={32}
                       height={32}
                       className="rounded-full object-cover"
                     />
@@ -168,7 +192,7 @@ export default function Hamburger({ isOpen, onClose }: NavbarProps) {
                       <Image
                         src="/profile.png"
                         alt="User"
-                        width={32} // Adjust size as needed
+                        width={32}
                         height={32}
                         className="rounded-full object-cover"
                       />
@@ -176,20 +200,18 @@ export default function Hamburger({ isOpen, onClose }: NavbarProps) {
                         <div className="flex items-center gap-2 text-sm">
                           <span>{profile.name}</span>
                           {profile.isActive && (
-                            <div className="w-2 h-2 rounded-full bg-blue-500 " />
+                            <div className="w-2 h-2 rounded-full bg-blue-500" />
                           )}
                         </div>
                         <div className="flex items-center gap-1 text-sm text-gray-400">
-                          {" "}
                           <Image
                             src="/coins.png"
                             alt="User"
-                            width={16} // Adjust size as needed
+                            width={16}
                             height={16}
                             className=""
                           />
                           <div className="bg-gray-800 rounded px-1 text-xs">
-                            {" "}
                             {profile.credits}
                           </div>
                         </div>
@@ -203,9 +225,9 @@ export default function Hamburger({ isOpen, onClose }: NavbarProps) {
                     onMouseLeave={() => setHoveredItem(null)}
                   >
                     <Image
-                      src="/plus.png" // Replace with actual image path
+                      src="/plus.png"
                       alt="User"
-                      width={40} // Adjust size as needed
+                      width={40}
                       height={40}
                       className=""
                     />
@@ -218,6 +240,7 @@ export default function Hamburger({ isOpen, onClose }: NavbarProps) {
                     className="w-full flex items-center gap-3 p-3 rounded-lg hover:bg-blue-500/20 transition-colors"
                     onMouseEnter={() => setHoveredItem("settings")}
                     onMouseLeave={() => setHoveredItem(null)}
+                    onClick={handleSettingsClick}
                   >
                     <Settings className="w-5 h-5" />
                     <span className="text-sm">Settings</span>
@@ -237,15 +260,14 @@ export default function Hamburger({ isOpen, onClose }: NavbarProps) {
           </div>
 
           {/* Credits Display */}
-
-          <div className="flex items-center mt-[6%] bg-gray-900/50 rounded-lg pl-[16%]  lg:gap-0 md:gap-6">
+          <div className="flex items-center mt-[6%] bg-gray-900/50 rounded-lg pl-[16%] lg:gap-0 md:gap-6">
             {/* "20" Div */}
             <div className="items gap-0">
-              <div className=" flex rounded-full  py-[1vh] pl-2 w-[6vw] border-2 gap-1 border-[#484848] bg-black text-white text-xs">
+              <div className="flex rounded-full py-[1vh] pl-2 w-[6vw] border-2 gap-1 border-[#484848] bg-black text-white text-xs">
                 <Image
-                  src="/coins.png" // Replace with actual image path
+                  src="/coins.png"
                   alt="User"
-                  width={20} // Adjust size as needed
+                  width={20}
                   height={20}
                   className=""
                 />
@@ -256,9 +278,9 @@ export default function Hamburger({ isOpen, onClose }: NavbarProps) {
             {/* Upgrade Button Overlapping */}
             <button className="flex bg-gradient-to-b from-[#5AD7FF] to-[#656BF5] text-[0.72rem] px-2 py-[1.2vh] rounded-full hover:bg-blue-600 transition-colors -ml-[24%] gap-1">
               <Image
-                src="/diamond.png" // Replace with actual image path
+                src="/diamond.png"
                 alt="User"
-                width={16} // Adjust size as needed
+                width={16}
                 height={16}
                 className=""
               />{" "}
@@ -274,7 +296,7 @@ export default function Hamburger({ isOpen, onClose }: NavbarProps) {
           <div className="border-b-2 border-[#5A5A5A] bg-[#252525] w-[100vw] mt-[2%] -ml-[6%]"></div>
 
           {/* Navigation Items */}
-          <div className="flex flex-col gap-1 mt-[4%]  w-[200%] -ml-[6%]  font-poppins">
+          <div className="flex flex-col gap-1 mt-[4%] w-[200%] -ml-[6%] font-poppins">
             {sidebarItems.map((item) => (
               <Link
                 key={item.label}
@@ -283,6 +305,7 @@ export default function Hamburger({ isOpen, onClose }: NavbarProps) {
                 onClick={() => {
                   setActiveItem(item.label);
                   onClose();
+                  setIsSettingsOpen(false);
                 }}
               >
                 {item.icon}
@@ -295,22 +318,46 @@ export default function Hamburger({ isOpen, onClose }: NavbarProps) {
 
           <div className="flex flex-col gap-1 mt-[6%] w-[200%] -ml-[6%] font-poppins">
             {plansetting.map((item) => (
-              <Link
-                key={item.label}
-                href={item.href}
-                className="flex items-center gap-4 p-3 py-[2.5%] transition-colors pl-[6%] text-white hover:bg-gradient-to-b from-[#5AD7FF] to-[#656BF5]"
-                onClick={() => {
-                  setActiveItem(item.label);
-                  onClose();
-                }}
-              >
-                {item.icon}
-                <span>{item.label}</span>
-              </Link>
+              item.label === "Settings" ? (
+                <button
+                  key={item.label}
+                  className="flex items-center gap-4 p-3 py-[2.5%] transition-colors pl-[6%] text-white hover:bg-gradient-to-b from-[#5AD7FF] to-[#656BF5] text-left"
+                  onClick={() => {
+                    setActiveItem(item.label);
+                    handleSettingsClick();
+                  }}
+                >
+                  {item.icon}
+                  <span>{item.label}</span>
+                </button>
+              ) : (
+                <Link
+                  key={item.label}
+                  href={item.href}
+                  className="flex items-center gap-4 p-3 py-[2.5%] transition-colors pl-[6%] text-white hover:bg-gradient-to-b from-[#5AD7FF] to-[#656BF5]"
+                  onClick={() => {
+                    setActiveItem(item.label);
+                    onClose();
+                    setIsSettingsOpen(false);
+                  }}
+                >
+                  {item.icon}
+                  <span>{item.label}</span>
+                </Link>
+              )
             ))}
           </div>
         </div>
       </nav>
+
+      {/* Settings Component - now passing hamburger state */}
+      <SettingComponent 
+        isOpen={isSettingsOpen}
+        onClose={handleSettingsClose}
+        hamburgerOpen={isOpen}
+        profiles={profiles}
+      />
+      
     </>
   );
 }
