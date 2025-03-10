@@ -12,7 +12,7 @@ import SupportPage from "@/components/support-page";
 import Index from "@/components/Index";
 import SubscriptionToggle from "@/components/subscription-toggle";
 import Navbar from "@/components/navbar";
-import Page from "@/components/page";
+import Page from "@/components/navbar";
 import HomePage from "@/components/HomePage";
 
 
@@ -44,8 +44,7 @@ export default function RootLayout({
 
         {/* <Page /> */}
         <HomePage />
-          
-      </body>
+        </body>
     </html>
   );
 }

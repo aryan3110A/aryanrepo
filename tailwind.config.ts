@@ -14,6 +14,15 @@ export default {
         "md-laptop": "1366px", // For 15.6-inch & 16-inch laptops
         "lg": "1600px", // Large PCs
       },
+      animation: {
+        fadeIn: 'fadeIn 0.3s ease-in-out',
+      },
+      keyframes: {
+        fadeIn: {
+          '0%': { opacity: 0 },
+          '100%': { opacity: 1 },
+        },
+      },
       colors: {
         discord: "#5865F2",
         instagram: "#E1306C",

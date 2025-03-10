@@ -3,14 +3,14 @@ import Header from "./Header";
 import Image from "next/image";
 import { useState } from "react";
 import Link from "next/link";
-import Page from "./page";
+import Navbar from "./navbar"
 
 export default function HomePage() {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
     <>
-    <Page />
+      <Navbar />
       {/* Sidebar Navigation */}
       {isOpen && <div className="fixed inset-0 bg-[black/50] backdrop-blur-sm z-30" onClick={() => setIsOpen(false)} />}
       
