@@ -1,63 +1,59 @@
-"use client";
-import Image from "next/image";
+"use client"
 
-import { useState, useEffect, useRef } from "react";
-import { Menu, User, ChevronDown } from "lucide-react";
-import Link from "next/link";
-import Hamburger from "./Hamburger";
+import { useState, useEffect, useRef } from "react"
+import { Menu, User, ChevronDown } from "lucide-react"
+import Link from "next/link"
+import Hamburger from "./Hamburger"
 
 // Define types for dropdown items
 interface DropdownItem {
-  title: string;
-  coming: boolean;
+  title: string
+  coming: boolean
 }
 
 export default function Navbar(): JSX.Element {
-  const [isNavOpen, setIsNavOpen] = useState<boolean>(false);
-  const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
-  const [animating, setAnimating] = useState<boolean>(false);
-  const headerRef = useRef<HTMLElement>(null);
+  const [isNavOpen, setIsNavOpen] = useState<boolean>(false)
+  const [activeDropdown, setActiveDropdown] = useState<string | null>(null)
+  const [animating, setAnimating] = useState<boolean>(false)
+  const headerRef = useRef<HTMLElement>(null)
 
   const toggleDropdown = (dropdown: string): void => {
     // If clicking the same dropdown, close it
     if (activeDropdown === dropdown) {
-      setActiveDropdown(null);
+      setActiveDropdown(null)
     } else {
       // If clicking a different dropdown, switch to new dropdown
-      setActiveDropdown(dropdown);
+      setActiveDropdown(dropdown)
     }
-  };
+  }
 
   useEffect(() => {
     // Function to handle clicks outside the dropdown
     const handleClickOutside = (event: MouseEvent) => {
       // Check if the click is outside the header
-      if (
-        headerRef.current &&
-        !headerRef.current.contains(event.target as Node)
-      ) {
-        setActiveDropdown(null);
+      if (headerRef.current && !headerRef.current.contains(event.target as Node)) {
+        setActiveDropdown(null)
       }
-    };
+    }
 
     // Add click event listener to document
-    document.addEventListener("mousedown", handleClickOutside);
+    document.addEventListener("mousedown", handleClickOutside)
 
     // Cleanup event listener
     return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
-    };
-  }, []);
+      document.removeEventListener("mousedown", handleClickOutside)
+    }
+  }, [])
 
   useEffect(() => {
     if (activeDropdown) {
-      setAnimating(true);
+      setAnimating(true)
       const timer = setTimeout(() => {
-        setAnimating(false);
-      }, 1000);
-      return () => clearTimeout(timer);
+        setAnimating(false)
+      }, 1000)
+      return () => clearTimeout(timer)
     }
-  }, [activeDropdown]);
+  }, [activeDropdown])
 
   const featuresDropdownItems: DropdownItem[] = [
     {
@@ -80,7 +76,7 @@ export default function Navbar(): JSX.Element {
       title: "Real Time Genration",
       coming: true,
     },
-  ];
+  ]
 
   const templatesDropdownItems: DropdownItem[] = [
     {
@@ -91,7 +87,7 @@ export default function Navbar(): JSX.Element {
       title: "Video Generation",
       coming: true,
     },
-  ];
+  ]
 
   // Common background style object for header and dropdown
   const backgroundStyle = {
@@ -99,7 +95,7 @@ export default function Navbar(): JSX.Element {
     backgroundPosition: "center",
     backgroundRepeat: "no-repeat",
     backgroundBlendMode: "overlay",
-  };
+  }
 
   return (
     <div className=" bg-[#000000] text-white">
@@ -134,9 +130,7 @@ export default function Navbar(): JSX.Element {
                 <span className="">Features</span>
                 <ChevronDown
                   className={`ml-1 w-6 h-6 transition-transform group-hover:text-[#dbdbdb] ${
-                    activeDropdown === "features"
-                      ? "rotate-180 text-[#dbdbdb]"
-                      : "text-[white]"
+                    activeDropdown === "features" ? "rotate-180 text-[#dbdbdb]" : "text-[white]"
                   } group-hover:text-[#dbdbdb]`}
                 />
               </button>
@@ -150,24 +144,29 @@ export default function Navbar(): JSX.Element {
                 <span className="">Templates</span>
                 <ChevronDown
                   className={`ml-1 w-6 h-6 transition-transform group-hover:text-[#dbdbdb]${
-                    activeDropdown === "templates"
-                      ? "rotate-180 text-[#dbdbdb]"
-                      : "text-[white]"
+                    activeDropdown === "templates" ? "rotate-180 text-[#dbdbdb]" : "text-[white]"
                   } group-hover:text-[#dbdbdb]`}
                 />{" "}
               </button>
             </div>
 
-            <Link href="/pricing" className="text-white hover:text-[#dbdbdb]">
-              Pricing
-            </Link>
+            <nav>
+              <Link
+                href="/subscription-toggle"
+                className="text-white hover:text-[#dbdbdb]"
+                onClick={() => setActiveDropdown(null)}
+              >
+                Pricing
+              </Link>
+            </nav>
             <Link
               href="/art-station"
               className="text-white hover:text-[#dbdbdb]"
+              onClick={() => setActiveDropdown(null)}
             >
               Art station
             </Link>
-            <Link href="/support" className="text-white hover:text-[#dbdbdb]">
+            <Link href="/support" className="text-white hover:text-[#dbdbdb]" onClick={() => setActiveDropdown(null)}>
               Support
             </Link>
           </nav>
@@ -179,22 +178,16 @@ export default function Navbar(): JSX.Element {
         {/* Full-width dropdown menus */}
         {activeDropdown && (
           <div
-            className={` left-0 right-0  overflow-hidden transition-all duration-1000 z-10  ${
-              animating ? "" : ""
-            }`}
+            className={` left-0 right-0  overflow-hidden transition-all duration-1000 z-10  ${animating ? "" : ""}`}
             style={{
               ...backgroundStyle,
               maxHeight: activeDropdown ? "400px" : "0",
               opacity: animating ? 0 : 1,
-              animation: animating
-                ? "dropdownFade 500ms ease-in-out forwards"
-                : "",
+              animation: animating ? "dropdownFade 500ms ease-in-out forwards" : "",
             }}
           >
             <div className="container mx-auto  py-2">
-              <h3 className="text-lg font-bold mb-4 md:pl-[33%] lg:pl-[32%]">
-                CREATE
-              </h3>
+              <h3 className="text-lg font-bold mb-4 md:pl-[33%] lg:pl-[32%]">CREATE</h3>
               <div className="flex flex-col space-y-4 md:pl-[33%] lg:pl-[32%]">
                 {activeDropdown === "features" &&
                   featuresDropdownItems.map((item, index) => (
@@ -227,7 +220,7 @@ export default function Navbar(): JSX.Element {
       </header>
 
       {/* Sliding Navbar */}
-      <Hamburger isOpen={isNavOpen} onClose={() => setIsNavOpen(false)}/>
+      <Hamburger isOpen={isNavOpen} onClose={() => setIsNavOpen(false)} />
 
       {/* Add CSS animation */}
       <style jsx global>{`
@@ -243,5 +236,6 @@ export default function Navbar(): JSX.Element {
         }
       `}</style>
     </div>
-  );
+  )
 }
+

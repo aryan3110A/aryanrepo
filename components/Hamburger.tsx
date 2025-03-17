@@ -75,7 +75,7 @@ const sidebarItems: NavItem[] = [
 const plansetting: NavItem[] = [
   {
     label: "Plans",
-    href: "/plans",
+    href: "/subscription-toggle",
     icon: (
       <Image
         src="/diamond.png"
@@ -220,7 +220,7 @@ export default function Hamburger({ isOpen, onClose }: NavbarProps) {
                   ))}
 
                   <button
-                    className="w-full flex items-center gap-3 p-3 rounded-lg hover:bg-blue-500/20 transition-colors mt-0 -ml-2"
+                    className="w-full flex items-center gap-3 p-1 rounded-lg hover:bg-blue-500/20 transition-colors mt-0 "
                     onMouseEnter={() => setHoveredItem("add")}
                     onMouseLeave={() => setHoveredItem(null)}
                   >
