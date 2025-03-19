@@ -1,59 +1,62 @@
-"use client"
+"use client";
 
-import { useState, useEffect, useRef } from "react"
-import { Menu, User, ChevronDown } from "lucide-react"
-import Link from "next/link"
-import Hamburger from "./Hamburger"
+import { useState, useEffect, useRef } from "react";
+import { Menu, User, ChevronDown } from "lucide-react";
+import Link from "next/link";
+import Hamburger from "./Hamburger";
 
 // Define types for dropdown items
 interface DropdownItem {
-  title: string
-  coming: boolean
+  title: string;
+  coming: boolean;
 }
 
 export default function Navbar(): JSX.Element {
-  const [isNavOpen, setIsNavOpen] = useState<boolean>(false)
-  const [activeDropdown, setActiveDropdown] = useState<string | null>(null)
-  const [animating, setAnimating] = useState<boolean>(false)
-  const headerRef = useRef<HTMLElement>(null)
+  const [isNavOpen, setIsNavOpen] = useState<boolean>(false);
+  const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
+  const [animating, setAnimating] = useState<boolean>(false);
+  const headerRef = useRef<HTMLElement>(null);
 
   const toggleDropdown = (dropdown: string): void => {
     // If clicking the same dropdown, close it
     if (activeDropdown === dropdown) {
-      setActiveDropdown(null)
+      setActiveDropdown(null);
     } else {
       // If clicking a different dropdown, switch to new dropdown
-      setActiveDropdown(dropdown)
+      setActiveDropdown(dropdown);
     }
-  }
+  };
 
   useEffect(() => {
     // Function to handle clicks outside the dropdown
     const handleClickOutside = (event: MouseEvent) => {
       // Check if the click is outside the header
-      if (headerRef.current && !headerRef.current.contains(event.target as Node)) {
-        setActiveDropdown(null)
+      if (
+        headerRef.current &&
+        !headerRef.current.contains(event.target as Node)
+      ) {
+        setActiveDropdown(null);
       }
-    }
+    };
 
     // Add click event listener to document
-    document.addEventListener("mousedown", handleClickOutside)
+    document.addEventListener("mousedown", handleClickOutside);
 
     // Cleanup event listener
     return () => {
-      document.removeEventListener("mousedown", handleClickOutside)
-    }
-  }, [])
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
 
   useEffect(() => {
     if (activeDropdown) {
-      setAnimating(true)
+      setAnimating(true);
       const timer = setTimeout(() => {
-        setAnimating(false)
-      }, 1000)
-      return () => clearTimeout(timer)
+        setAnimating(false);
+      }, 1000);
+      return () => clearTimeout(timer);
     }
-  }, [activeDropdown])
+  }, [activeDropdown]);
 
   const featuresDropdownItems: DropdownItem[] = [
     {
@@ -76,7 +79,7 @@ export default function Navbar(): JSX.Element {
       title: "Real Time Genration",
       coming: true,
     },
-  ]
+  ];
 
   const templatesDropdownItems: DropdownItem[] = [
     {
@@ -87,7 +90,7 @@ export default function Navbar(): JSX.Element {
       title: "Video Generation",
       coming: true,
     },
-  ]
+  ];
 
   // Common background style object for header and dropdown
   const backgroundStyle = {
@@ -95,7 +98,7 @@ export default function Navbar(): JSX.Element {
     backgroundPosition: "center",
     backgroundRepeat: "no-repeat",
     backgroundBlendMode: "overlay",
-  }
+  };
 
   return (
     <div className=" bg-[#000000] text-white">
@@ -105,7 +108,7 @@ export default function Navbar(): JSX.Element {
         className="fixed top-0 left-0 right-0 z-20 bg-black/30 backdrop-blur-3xl  shadow-lg"
         style={backgroundStyle}
       >
-        <div className="flex items-center justify-start pl-[1vw] py-2 ">
+        <div className="flex items-center justify-start pl-[2vw] py-[1vh]">
           <div className=" flex items-center gap-4">
             <button
               onClick={() => setIsNavOpen(true)}
@@ -121,7 +124,7 @@ export default function Navbar(): JSX.Element {
           </div>
 
           {/* Desktop Navigation */}
-          <nav className="hidden md:flex lg:flex items-center justify-center gap-16  text-nowrap font-poppins md:pl-[22vw] lg:pl-[26vw] py-0">
+          <nav className="hidden md:flex lg:flex items-center justify-center gap-[4vw] text-nowrap font-poppins md:pl-[20vw] lg:pl-[25vw] py-0">
             <div className="relative ">
               <button
                 onClick={() => toggleDropdown("features")}
@@ -130,7 +133,9 @@ export default function Navbar(): JSX.Element {
                 <span className="">Features</span>
                 <ChevronDown
                   className={`ml-1 w-6 h-6 transition-transform group-hover:text-[#dbdbdb] ${
-                    activeDropdown === "features" ? "rotate-180 text-[#dbdbdb]" : "text-[white]"
+                    activeDropdown === "features"
+                      ? "rotate-180 text-[#dbdbdb]"
+                      : "text-[white]"
                   } group-hover:text-[#dbdbdb]`}
                 />
               </button>
@@ -144,7 +149,9 @@ export default function Navbar(): JSX.Element {
                 <span className="">Templates</span>
                 <ChevronDown
                   className={`ml-1 w-6 h-6 transition-transform group-hover:text-[#dbdbdb]${
-                    activeDropdown === "templates" ? "rotate-180 text-[#dbdbdb]" : "text-[white]"
+                    activeDropdown === "templates"
+                      ? "rotate-180 text-[#dbdbdb]"
+                      : "text-[white]"
                   } group-hover:text-[#dbdbdb]`}
                 />{" "}
               </button>
@@ -166,11 +173,15 @@ export default function Navbar(): JSX.Element {
             >
               Art station
             </Link>
-            <Link href="/support" className="text-white hover:text-[#dbdbdb]" onClick={() => setActiveDropdown(null)}>
+            <Link
+              href="/support"
+              className="text-white hover:text-[#dbdbdb]"
+              onClick={() => setActiveDropdown(null)}
+            >
               Support
             </Link>
           </nav>
-          <button className=" fixed p-2  rounded-lg transition-colors ml-[93vw]">
+          <button className="fixed p-2 rounded-lg transition-colors right-[2vw]">
             <User className="w-6 h-6" />
           </button>
         </div>
@@ -178,17 +189,23 @@ export default function Navbar(): JSX.Element {
         {/* Full-width dropdown menus */}
         {activeDropdown && (
           <div
-            className={` left-0 right-0  overflow-hidden transition-all duration-1000 z-10  ${animating ? "" : ""}`}
+            className={` left-0 right-0  overflow-hidden transition-all duration-1000 z-10  ${
+              animating ? "" : ""
+            }`}
             style={{
               ...backgroundStyle,
-              maxHeight: activeDropdown ? "400px" : "0",
+              maxHeight: activeDropdown ? "50vh" : "0",
               opacity: animating ? 0 : 1,
-              animation: animating ? "dropdownFade 500ms ease-in-out forwards" : "",
+              animation: animating
+                ? "dropdownFade 500ms ease-in-out forwards"
+                : "",
             }}
           >
             <div className="container mx-auto  py-2">
-              <h3 className="text-lg font-bold mb-4 md:pl-[33%] lg:pl-[32%]">CREATE</h3>
-              <div className="flex flex-col space-y-4 md:pl-[33%] lg:pl-[32%]">
+              <h3 className="text-lg font-bold mb-[2vh] md:pl-[31.8%] lg:pl-[31.8%]">
+                CREATE
+              </h3>
+              <div className="flex flex-col space-y-[1.5vh] md:pl-[31.8%] lg:pl-[31.8%]">
                 {activeDropdown === "features" &&
                   featuresDropdownItems.map((item, index) => (
                     <Link
@@ -227,7 +244,7 @@ export default function Navbar(): JSX.Element {
         @keyframes dropdownFade {
           from {
             opacity: 0;
-            transform: translateY(-10px);
+            transform: translateY(-1vh);
           }
           to {
             opacity: 1;
@@ -236,6 +253,5 @@ export default function Navbar(): JSX.Element {
         }
       `}</style>
     </div>
-  )
+  );
 }
-
