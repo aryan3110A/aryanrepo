@@ -14,6 +14,7 @@ import SubscriptionToggle from "@/components/subscription-toggle";
 import Navbar from "@/components/navbar";
 import Page from "@/components/navbar";
 import HomePage from "@/components/HomePage";
+import ArtStation from "@/components/art-station";
 
 
 const inter = Inter({ subsets: ["latin"] });
@@ -43,7 +44,8 @@ export default function RootLayout({
         {/* <Footer /> */}
 
         {/* <Page /> */}
-        <HomePage />
+        {/* <HomePage /> */}
+        <ArtStation />
         </body>
     </html>
   );
