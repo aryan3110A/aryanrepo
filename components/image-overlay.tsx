@@ -55,7 +55,7 @@ export default function ImageOverlay({ image, onClose }: ImageOverlayProps) {
         setIsRemixMode(true);
         setOriginalImage(currentImage);
       }
-      
+
       // Update the image and prompt regardless of whether we're entering remix mode or already in it
       const newImage = {
         ...currentImage,
@@ -76,7 +76,7 @@ export default function ImageOverlay({ image, onClose }: ImageOverlayProps) {
       className="fixed inset-0 z-50 bg-black bg-opacity-90 overflow-y-auto"
       style={{ scrollBehavior: "smooth" }}
     >
-      <div className="relative bg-[#1F1F1F] rounded-lg w-full max-w-7xl mx-auto mt-[15vh] mb-[5vh]">
+      <div className="relative bg-[#1F1F1F] rounded-lg w-[75%] max-w-7xl mx-auto mt-[15vh] mb-[5vh]">
         {/* Close button */}
         <button
           onClick={onClose}
@@ -88,7 +88,7 @@ export default function ImageOverlay({ image, onClose }: ImageOverlayProps) {
         {/* Main content area - consistent layout for both modes */}
         <div className="flex flex-col md:flex-row">
           {/* Left side - Image */}
-          <div className="w-full md:w-1/2 relative">
+          <div className="w-full md:w-1/2 relative ">
             <div className="relative aspect-square md:aspect-auto md:h-[70vh]">
               <Image
                 src={currentImage.src || "/placeholder.svg"}
@@ -96,7 +96,7 @@ export default function ImageOverlay({ image, onClose }: ImageOverlayProps) {
                 fill
                 sizes="(max-width: 768px) 100vw, 50vw"
                 style={{ objectFit: "contain" }}
-                className="p-4"
+                className="pt-10 pb-10 pl-0"
               />
             </div>
           </div>
@@ -119,19 +119,19 @@ export default function ImageOverlay({ image, onClose }: ImageOverlayProps) {
                 </span>
               </div>
 
-              <div className="flex space-x-4">
-                <button className="flex items-center space-x-2 px-3 py-1 rounded-md border border-gray-600 hover:bg-gray-800 transition-colors">
-                  <Share className="w-4 h-4" />
+              <div className="flex space-x-8">
+              <button className="flex items-center space-x-2 px-3 py-1 rounded-md border border-[#919191] bg-[#1f1f1f] hover:bg-[#3D3D3D] hover:border-white transition-colors">
+              <Share className="w-4 h-4" />
                   <span>Share</span>
                 </button>
-                <button className="flex items-center space-x-2 px-3 py-1 rounded-md border border-gray-600 hover:bg-gray-800 transition-colors">
+                <button className="flex items-center space-x-2 px-3 py-1 rounded-md  hover:bg-[#3D3D3D] transition-colors">
                   <Bookmark className="w-4 h-4" />
                   <span>Bookmark</span>
                 </button>
-                <button className="text-gray-400 hover:text-white transition-colors">
+                <button className="text-[#777777] hover:text-red-600 transition-colors">
                   <Heart className="w-6 h-6" />
                 </button>
-                <button className="text-gray-400 hover:text-white transition-colors">
+                <button className="text-[#777777] hover:text-white transition-colors">
                   <Download className="w-6 h-6" />
                 </button>
               </div>
@@ -140,7 +140,8 @@ export default function ImageOverlay({ image, onClose }: ImageOverlayProps) {
             {/* Model info */}
             <div className="mb-4">
               <p className="text-gray-300">
-                <span className="font-semibold">Model:</span> {currentImage.model}
+                <span className="font-semibold">Model:</span>{" "}
+                {currentImage.model}
               </p>
             </div>
 
@@ -189,17 +190,18 @@ export default function ImageOverlay({ image, onClose }: ImageOverlayProps) {
 
             {/* Original image button (only shown in remix mode) */}
             {isRemixMode && (
-              <div className="w-full mt-4">
+              <div className="w-[20vw] mt-4">
                 <button
                   onClick={toggleOriginal}
-                  className="flex items-center justify-between w-full p-3 bg-zinc-800 rounded-md hover:bg-zinc-700 transition-colors"
+                  className="flex items-center gap-2 w-full p-3  rounded-md hover:bg-zinc-700 transition-colors"
                 >
-                  <span>Original image</span>
-                  {showOriginal ? (
+                    {showOriginal ? (
                     <ChevronUp className="w-5 h-5" />
                   ) : (
                     <ChevronDown className="w-5 h-5" />
                   )}
+                  <span>Original image</span>
+                  
                 </button>
               </div>
             )}
@@ -226,24 +228,23 @@ export default function ImageOverlay({ image, onClose }: ImageOverlayProps) {
                 <span className="text-lg font-semibold text-white">
                   {originalImage.username}
                 </span>
-              
 
-              <div className="flex space-x-4 pl-14">
-                <button className="flex items-center space-x-2 px-3 py-1 rounded-md border border-gray-600 hover:bg-gray-800 transition-colors">
-                  <Share className="w-4 h-4" />
-                  <span>Share</span>
-                </button>
-                <button className="flex items-center space-x-2 px-3 py-1 rounded-md border border-gray-600 hover:bg-gray-800 transition-colors">
+                <div className="flex space-x-8 pl-20">
+                  <button className="flex items-center space-x-2 px-3 py-1 rounded-md border border-[#919191] bg-[#1f1f1f] hover:bg-[#3D3D3D] hover:border-white transition-colors">
+                    <Share className="w-4 h-4" />
+                    <span>Share</span>
+                  </button>
+                  <button className="flex items-center space-x-2 px-3 py-1 rounded-md  hover:bg-[#3D3D3D] transition-colors">
                   <Bookmark className="w-4 h-4" />
-                  <span>Bookmark</span>
-                </button>
-                <button className="text-gray-400 hover:text-white transition-colors">
+                    <span>Bookmark</span>
+                  </button>
+                  <button className="text-[#777777] hover:text-red-600 transition-colors">
                   <Heart className="w-6 h-6" />
                 </button>
-                <button className="text-gray-400 hover:text-white transition-colors">
+                <button className="text-[#777777] hover:text-white transition-colors">
                   <Download className="w-6 h-6" />
                 </button>
-              </div>
+                </div>
               </div>
 
               <div className="mb-4">
@@ -270,8 +271,8 @@ export default function ImageOverlay({ image, onClose }: ImageOverlayProps) {
                   fill
                   sizes="(max-width: 768px) 100vw, 50vw"
                   style={{ objectFit: "contain" }}
-                  className="p-4"
-                />
+                  className="pt-10 pb-10"
+                  />
               </div>
             </div>
           </div>
