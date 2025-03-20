@@ -146,7 +146,7 @@ export default function ArtStation() {
 
                 {/* Hover Overlay */}
                 {hoveredImageId === image.id && (
-                  <div className="absolute inset-0 bg-black bg-opacity-50 flex flex-col justify-between p-4 transition-opacity duration-300">
+                  <div className="absolute inset-0 bg-black bg-opacity-70 flex flex-col justify-between p-4 transition-opacity duration-300">
                     <div className="flex justify-center space-x-6 mb-auto mt-[45%]">
                       <Heart className="w-8 h-8 text-white hover:text-pink-400" />
                       <Bookmark className="w-8 h-8 text-white hover:text-yellow-400" />
