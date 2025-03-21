@@ -86,9 +86,9 @@ export default function ImageOverlay({ image, onClose }: ImageOverlayProps) {
         </button>
 
         {/* Main content area - consistent layout for both modes */}
-        <div className="flex  md:flex-row">
+        <div className="flex flex-col md:flex-row">
           {/* Left side - Image */}
-          <div className="w-full md:w-1/2 relative ">
+          <div className="w-full md:w-1/2 relative  ">
             <div className="relative aspect-square md:aspect-auto md:h-[70vh]">
               <Image
                 src={currentImage.src || "/placeholder.svg"}
@@ -120,8 +120,8 @@ export default function ImageOverlay({ image, onClose }: ImageOverlayProps) {
               </div>
 
               <div className="pl-[6vw] flex space-x-4">
-              <button className="flex items-center space-x-2 px-2 py-1 text-sm rounded-md border border-[#919191] bg-[#1f1f1f] hover:bg-[#3D3D3D] hover:border-white transition-colors">
-              <Share className="w-3 h-3" />
+                <button className="flex items-center space-x-2 px-2 py-1 text-sm rounded-md border border-[#919191] bg-[#1f1f1f] hover:bg-[#3D3D3D] hover:border-white transition-colors">
+                  <Share className="w-3 h-3" />
                   <span>Share</span>
                 </button>
                 <button className="flex items-center text-sm space-x-2 px-2 py-1 rounded-md  hover:bg-[#3D3D3D] transition-colors">
@@ -195,13 +195,12 @@ export default function ImageOverlay({ image, onClose }: ImageOverlayProps) {
                   onClick={toggleOriginal}
                   className="flex items-center gap-2 w-full p-3  rounded-md hover:bg-zinc-700 transition-colors"
                 >
-                    {showOriginal ? (
+                  {showOriginal ? (
                     <ChevronUp className="w-5 h-5" />
                   ) : (
                     <ChevronDown className="w-5 h-5" />
                   )}
                   <span>Original image</span>
-                  
                 </button>
               </div>
             )}
@@ -216,57 +215,55 @@ export default function ImageOverlay({ image, onClose }: ImageOverlayProps) {
           >
             {/* User info */}
             <div className="w-full md:w-1/2  pt-[5vh] -ml-[1vw] pr-[1vw] flex flex-col mt-[2vh]">
-            {/* User info */}
-            <div className="flex items-center mb-6 ">
-              <div className="flex items-center mr-4">
-                <div className="w-10 h-10 rounded-full overflow-hidden mr-3">
-                  <Image
-                    src="/artstation/usr.png"
-                    alt="User"
-                    width={36}
-                    height={36}
-                  />
+              {/* User info */}
+              <div className="flex items-center mb-6 ">
+                <div className="flex items-center mr-4">
+                  <div className="w-10 h-10 rounded-full overflow-hidden mr-3">
+                    <Image
+                      src="/artstation/usr.png"
+                      alt="User"
+                      width={36}
+                      height={36}
+                    />
+                  </div>
+                  <span className="text-md font-semibold text-white">
+                    {currentImage.username}
+                  </span>
                 </div>
-                <span className="text-md font-semibold text-white">
-                  {currentImage.username}
-                </span>
+
+                <div className="pl-[6vw] flex space-x-4">
+                  <button className="flex items-center space-x-2 px-2 py-1 text-sm rounded-md border border-[#919191] bg-[#1f1f1f] hover:bg-[#3D3D3D] hover:border-white transition-colors">
+                    <Share className="w-3 h-3" />
+                    <span>Share</span>
+                  </button>
+                  <button className="flex items-center text-sm space-x-2 px-2 py-1 rounded-md  hover:bg-[#3D3D3D] transition-colors">
+                    <Bookmark className="w-4 h-4" />
+                    <span>Bookmark</span>
+                  </button>
+                  <button className="text-[#777777] hover:text-red-600 transition-colors">
+                    <Heart className="w-5 h-5" />
+                  </button>
+                  <button className="text-[#777777] hover:text-white transition-colors">
+                    <Download className="w-5 h-5" />
+                  </button>
+                </div>
               </div>
 
-              <div className="pl-[6vw] flex space-x-4">
-              <button className="flex items-center space-x-2 px-2 py-1 text-sm rounded-md border border-[#919191] bg-[#1f1f1f] hover:bg-[#3D3D3D] hover:border-white transition-colors">
-              <Share className="w-3 h-3" />
-                  <span>Share</span>
-                </button>
-                <button className="flex items-center text-sm space-x-2 px-2 py-1 rounded-md  hover:bg-[#3D3D3D] transition-colors">
-                  <Bookmark className="w-4 h-4" />
-                  <span>Bookmark</span>
-                </button>
-                <button className="text-[#777777] hover:text-red-600 transition-colors">
-                  <Heart className="w-5 h-5" />
-                </button>
-                <button className="text-[#777777] hover:text-white transition-colors">
-                  <Download className="w-5 h-5" />
-                </button>
+              {/* Model info */}
+              <div className="mb-4">
+                <p className="text-gray-300 text-sm">
+                  <span className="font-semibold">Model:</span>{" "}
+                  {currentImage.model}
+                </p>
               </div>
-            </div>
 
-            {/* Model info */}
-            <div className="mb-4">
-              <p className="text-gray-300 text-sm">
-                <span className="font-semibold">Model:</span>{" "}
-                {currentImage.model}
-              </p>
-            </div>
-
-            {/* Prompt */}
-            <div className="mb-6 text-sm">
-              <p className="text-gray-300 mb-1 font-semibold">Prompt:</p>
-              <p className="text-gray-200 text-sm leading-relaxed">
-                {currentImage.prompt}
-              </p>
-            </div>
-
-              
+              {/* Prompt */}
+              <div className="mb-6 text-sm">
+                <p className="text-gray-300 mb-1 font-semibold">Prompt:</p>
+                <p className="text-gray-200 text-sm leading-relaxed">
+                  {currentImage.prompt}
+                </p>
+              </div>
             </div>
 
             {/* Original image */}
@@ -279,7 +276,7 @@ export default function ImageOverlay({ image, onClose }: ImageOverlayProps) {
                   sizes="(max-width: 768px) 100vw, 50vw"
                   style={{ objectFit: "contain" }}
                   className="pt-[5vh] pb-[5vh] pl-[1vw]"
-                  />
+                />
               </div>
             </div>
           </div>
