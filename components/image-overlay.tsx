@@ -76,7 +76,7 @@ export default function ImageOverlay({ image, onClose }: ImageOverlayProps) {
       className="fixed inset-0 z-50 bg-black bg-opacity-90 overflow-y-auto"
       style={{ scrollBehavior: "smooth" }}
     >
-      <div className="relative bg-[#1F1F1F] rounded-lg w-[70%] max-w-7xl mx-auto mt-[15vh] mb-[5vh]">
+      <div className="relative bg-[#1F1F1F] rounded-lg w-[75zzzz%] max-w-7xl mx-auto mt-[15vh] mb-[5vh]">
         {/* Close button */}
         <button
           onClick={onClose}
@@ -88,7 +88,7 @@ export default function ImageOverlay({ image, onClose }: ImageOverlayProps) {
         {/* Main content area - consistent layout for both modes */}
         <div className="flex flex-col md:flex-row">
           {/* Left side - Image */}
-          <div className="w-full md:w-1/2 relative  ">
+          <div className="w-full md:w-1/2 relative ">
             <div className="relative aspect-square md:aspect-auto md:h-[70vh]">
               <Image
                 src={currentImage.src || "/placeholder.svg"}
@@ -96,57 +96,57 @@ export default function ImageOverlay({ image, onClose }: ImageOverlayProps) {
                 fill
                 sizes="(max-width: 768px) 100vw, 50vw"
                 style={{ objectFit: "contain" }}
-                className="pt-[5vh] pb-[5vh] pl-[1vw]"
+                className="pt-10 pb-10 pl-0"
               />
             </div>
           </div>
 
           {/* Right side - Info */}
-          <div className="w-full md:w-1/2  pt-[6vh] -ml-[1vw] pr-[1vw] flex flex-col">
+          <div className="w-full md:w-1/2 p-6 flex flex-col">
             {/* User info */}
-            <div className="flex items-center mb-[2vh] ">
-              <div className="flex items-center mr-[1vw]">
-                <div className="w-10 h-10 rounded-full overflow-hidden mr-[1vw]">
+            <div className="flex items-center justify-between mb-6">
+              <div className="flex items-center">
+                <div className="w-10 h-10 rounded-full overflow-hidden mr-3">
                   <Image
                     src="/artstation/usr.png"
                     alt="User"
-                    width={36}
-                    height={36}
+                    width={40}
+                    height={40}
                   />
                 </div>
-                <span className="text-md font-semibold text-white">
+                <span className="text-lg font-semibold text-white">
                   {currentImage.username}
                 </span>
               </div>
 
-              <div className="pl-[6vw] flex space-x-4">
-                <button className="flex items-center space-x-2 px-2 py-1 text-sm rounded-md border border-[#919191] bg-[#1f1f1f] hover:bg-[#3D3D3D] hover:border-white transition-colors">
-                  <Share className="w-3 h-3" />
+              <div className="flex space-x-8">
+              <button className="flex items-center space-x-2 px-3 py-1 rounded-md border border-[#919191] bg-[#1f1f1f] hover:bg-[#3D3D3D] hover:border-white transition-colors">
+              <Share className="w-4 h-4" />
                   <span>Share</span>
                 </button>
-                <button className="flex items-center text-sm space-x-2 px-2 py-1 rounded-md  hover:bg-[#3D3D3D] transition-colors">
+                <button className="flex items-center space-x-2 px-3 py-1 rounded-md  hover:bg-[#3D3D3D] transition-colors">
                   <Bookmark className="w-4 h-4" />
                   <span>Bookmark</span>
                 </button>
                 <button className="text-[#777777] hover:text-red-600 transition-colors">
-                  <Heart className="w-5 h-5" />
+                  <Heart className="w-6 h-6" />
                 </button>
                 <button className="text-[#777777] hover:text-white transition-colors">
-                  <Download className="w-5 h-5" />
+                  <Download className="w-6 h-6" />
                 </button>
               </div>
             </div>
 
             {/* Model info */}
             <div className="mb-4">
-              <p className="text-gray-300 text-sm">
+              <p className="text-gray-300">
                 <span className="font-semibold">Model:</span>{" "}
                 {currentImage.model}
               </p>
             </div>
 
             {/* Prompt */}
-            <div className="mb-6 text-sm">
+            <div className="mb-6">
               <p className="text-gray-300 mb-1 font-semibold">Prompt:</p>
               <p className="text-gray-200 text-sm leading-relaxed">
                 {currentImage.prompt}
@@ -154,7 +154,7 @@ export default function ImageOverlay({ image, onClose }: ImageOverlayProps) {
             </div>
 
             {/* Remix section */}
-            <div className="mt-[28vh]">
+            <div className="mt-auto">
               <div className="relative">
                 <input
                   type="text"
@@ -190,17 +190,18 @@ export default function ImageOverlay({ image, onClose }: ImageOverlayProps) {
 
             {/* Original image button (only shown in remix mode) */}
             {isRemixMode && (
-              <div className="w-[11vw] mt-4 mb-2 pt-2 flex-nowrap">
+              <div className="w-[20vw] mt-4">
                 <button
                   onClick={toggleOriginal}
                   className="flex items-center gap-2 w-full p-3  rounded-md hover:bg-zinc-700 transition-colors"
                 >
-                  {showOriginal ? (
+                    {showOriginal ? (
                     <ChevronUp className="w-5 h-5" />
                   ) : (
                     <ChevronDown className="w-5 h-5" />
                   )}
                   <span>Original image</span>
+                  
                 </button>
               </div>
             )}
@@ -211,57 +212,52 @@ export default function ImageOverlay({ image, onClose }: ImageOverlayProps) {
         {isRemixMode && showOriginal && (
           <div
             ref={contentRef}
-            className="flex flex-col md:flex-row w-full pl-[7%]  "
+            className="flex flex-col md:flex-row w-full pl-[7%] pb-6 mt-8"
           >
             {/* User info */}
-            <div className="w-full md:w-1/2  pt-[5vh] -ml-[1vw] pr-[1vw] flex flex-col mt-[2vh]">
-              {/* User info */}
-              <div className="flex items-center mb-6 ">
-                <div className="flex items-center mr-4">
-                  <div className="w-10 h-10 rounded-full overflow-hidden mr-3">
-                    <Image
-                      src="/artstation/usr.png"
-                      alt="User"
-                      width={36}
-                      height={36}
-                    />
-                  </div>
-                  <span className="text-md font-semibold text-white">
-                    {currentImage.username}
-                  </span>
+            <div className="w-full md:w-1/2 pr-0 md:pr-4 pt-8">
+              <div className="flex items-center mb-4">
+                <div className="w-10 h-10 rounded-full overflow-hidden mr-3">
+                  <Image
+                    src="/artstation/usr.png"
+                    alt="User"
+                    width={40}
+                    height={40}
+                  />
                 </div>
+                <span className="text-lg font-semibold text-white">
+                  {originalImage.username}
+                </span>
 
-                <div className="pl-[6vw] flex space-x-4">
-                  <button className="flex items-center space-x-2 px-2 py-1 text-sm rounded-md border border-[#919191] bg-[#1f1f1f] hover:bg-[#3D3D3D] hover:border-white transition-colors">
-                    <Share className="w-3 h-3" />
+                <div className="flex space-x-8 pl-20">
+                  <button className="flex items-center space-x-2 px-3 py-1 rounded-md border border-[#919191] bg-[#1f1f1f] hover:bg-[#3D3D3D] hover:border-white transition-colors">
+                    <Share className="w-4 h-4" />
                     <span>Share</span>
                   </button>
-                  <button className="flex items-center text-sm space-x-2 px-2 py-1 rounded-md  hover:bg-[#3D3D3D] transition-colors">
-                    <Bookmark className="w-4 h-4" />
+                  <button className="flex items-center space-x-2 px-3 py-1 rounded-md  hover:bg-[#3D3D3D] transition-colors">
+                  <Bookmark className="w-4 h-4" />
                     <span>Bookmark</span>
                   </button>
                   <button className="text-[#777777] hover:text-red-600 transition-colors">
-                    <Heart className="w-5 h-5" />
-                  </button>
-                  <button className="text-[#777777] hover:text-white transition-colors">
-                    <Download className="w-5 h-5" />
-                  </button>
+                  <Heart className="w-6 h-6" />
+                </button>
+                <button className="text-[#777777] hover:text-white transition-colors">
+                  <Download className="w-6 h-6" />
+                </button>
                 </div>
               </div>
 
-              {/* Model info */}
               <div className="mb-4">
-                <p className="text-gray-300 text-sm">
+                <p className="text-gray-300">
                   <span className="font-semibold">Model:</span>{" "}
-                  {currentImage.model}
+                  {originalImage.model}
                 </p>
               </div>
 
-              {/* Prompt */}
-              <div className="mb-6 text-sm">
+              <div className="mb-6">
                 <p className="text-gray-300 mb-1 font-semibold">Prompt:</p>
                 <p className="text-gray-200 text-sm leading-relaxed">
-                  {currentImage.prompt}
+                  {originalImage.prompt}
                 </p>
               </div>
             </div>
@@ -275,8 +271,8 @@ export default function ImageOverlay({ image, onClose }: ImageOverlayProps) {
                   fill
                   sizes="(max-width: 768px) 100vw, 50vw"
                   style={{ objectFit: "contain" }}
-                  className="pt-[5vh] pb-[5vh] pl-[1vw]"
-                />
+                  className="pt-10 pb-10"
+                  />
               </div>
             </div>
           </div>
