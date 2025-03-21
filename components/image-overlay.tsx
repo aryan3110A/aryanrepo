@@ -96,17 +96,17 @@ export default function ImageOverlay({ image, onClose }: ImageOverlayProps) {
                 fill
                 sizes="(max-width: 768px) 100vw, 50vw"
                 style={{ objectFit: "contain" }}
-                className="pt-10 pb-10 pl-0"
+                className="pt-[5vh] pb-[5vh] pl-[1vw]"
               />
             </div>
           </div>
 
           {/* Right side - Info */}
-          <div className="w-full md:w-1/2  pt-10 -ml-[1vw] pr-[1vw] flex flex-col">
+          <div className="w-full md:w-1/2  pt-[6vh] -ml-[1vw] pr-[1vw] flex flex-col">
             {/* User info */}
-            <div className="flex items-center mb-6 ">
-              <div className="flex items-center mr-4">
-                <div className="w-10 h-10 rounded-full overflow-hidden mr-3">
+            <div className="flex items-center mb-[2vh] ">
+              <div className="flex items-center mr-[1vw]">
+                <div className="w-10 h-10 rounded-full overflow-hidden mr-[1vw]">
                   <Image
                     src="/artstation/usr.png"
                     alt="User"
@@ -154,7 +154,7 @@ export default function ImageOverlay({ image, onClose }: ImageOverlayProps) {
             </div>
 
             {/* Remix section */}
-            <div className="mt-[26vh]">
+            <div className="mt-[28vh]">
               <div className="relative">
                 <input
                   type="text"
@@ -215,7 +215,7 @@ export default function ImageOverlay({ image, onClose }: ImageOverlayProps) {
             className="flex flex-col md:flex-row w-full pl-[7%]  "
           >
             {/* User info */}
-            <div className="w-full md:w-1/2  pt-10 -ml-[1vw] pr-[1vw] flex flex-col mt-4">
+            <div className="w-full md:w-1/2  pt-[5vh] -ml-[1vw] pr-[1vw] flex flex-col mt-[2vh]">
             {/* User info */}
             <div className="flex items-center mb-6 ">
               <div className="flex items-center mr-4">
@@ -278,7 +278,7 @@ export default function ImageOverlay({ image, onClose }: ImageOverlayProps) {
                   fill
                   sizes="(max-width: 768px) 100vw, 50vw"
                   style={{ objectFit: "contain" }}
-                  className="pt-10 pb-10"
+                  className="pt-[5vh] pb-[5vh] pl-[1vw]"
                   />
               </div>
             </div>
