@@ -187,8 +187,8 @@ export default function Navbar(): JSX.Element {
             }}
           >
             <div className="container   py-2">
-              <h3 className="text-lg font-bold mb-[2vh] md:pl-[30%] lg:pl-[30%]">CREATE</h3>
-              <div className="flex flex-col space-y-[1.5vh] md:pl-[30%] lg:pl-[30%]">
+              <h3 className="text-lg font-bold mb-[2vh] md:pl-[31.8%] lg:pl-[30%]">CREATE</h3>
+              <div className="flex flex-col space-y-[1.5vh] md:pl-[31.8%] lg:pl-[30%]">
                 {activeDropdown === "features" &&
                   featuresDropdownItems.map((item, index) => (
                     <Link

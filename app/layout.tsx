@@ -44,8 +44,8 @@ export default function RootLayout({
         {/* <Footer /> */}
 
         {/* <Page /> */}
-        {/* <HomePage /> */}
-        <ArtStation />
+        <HomePage />
+        {/* <ArtStation /> */}
         </body>
     </html>
   );

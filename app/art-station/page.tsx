@@ -1,10 +1,10 @@
 "use client"
 
 import { useState } from "react"
-import ImageOverlay from "./image-overlay"
-import MasonryLayout from "./masonry-layout"
+
 import Image from 'next/image';
-import Navbar from "./navbar";
+import ImageOverlay from "@/components/image-overlay";
+import MasonryLayout from "@/components/masonry-layout";
 
 
 // Define the image data structure
@@ -114,23 +114,24 @@ export default function ArtStation() {
   }
 
   return (
-    <> <Navbar />
+    <> 
     <div className="w-full min-h-screen bg-black text-white p-5">
       <div className="max-w-[90%] mx-auto mt-20">
         <h1 className="text-3xl font-bold mb-2">ArtStation Gallery</h1>
         <p className="text-xl mb-10">Explore AI-generated artwork</p>
 
         {/* Use the MasonryLayout component */}
-        <MasonryLayout images={sampleImages} onImageClick={setSelectedImage} />
+        <MasonryLayout images={sampleImages} onImageClick={setSelectedImage}/>
       </div>
 
       {/* Image Overlay Modal */}
       {selectedImage && (
-        <ImageOverlay
-          image={selectedImage}
-          dimensions={imageDimensions[selectedImage.id] || { width: 500, height: 500 }}
-          onClose={() => setSelectedImage(null)}
-        />
+
+        <ImageOverlay image={selectedImage}
+        dimensions={imageDimensions[selectedImage.id] || { width: 500, height: 500 }}
+        onClose={() => setSelectedImage(null)}/>
+
+        
       )}
     </div>
     </>    
