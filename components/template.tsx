@@ -65,16 +65,22 @@ export default function TextGenerationTemplate() {
           {/* Input and buttons - positioned at the bottom of the image */}
         </div>
 
-        <div className="absolute font-poppins  -mt-[9vh] left-[50%] transform -translate-x-[50%]   w-[60%] flex items-center justify-between gap-[1vw] z-30">
-          <input
-            type="text"
-            placeholder="Select a prompt..."
-            className="flex-1 bg-[#262626] text-white rounded-full h-[8vh] py-[1.5vh] px-[2vw] outline-none border-none backdrop-blur-md placeholder-gray-500"
-          />
+        <div className="absolute font-poppins -mt-[9vh] left-[50%] transform -translate-x-[50%] w-[60%] max-w-[800px] flex items-center gap-[1vw] z-30">
+          {/* Input Wrapper */}
+          <div className="relative flex-1">
+            <input
+              type="text"
+              placeholder="Select a prompt..."
+              className="w-full bg-[#262626] text-white rounded-full h-[8vh] py-[1.5vh] px-[2vw] outline-none border-none backdrop-blur-md placeholder-gray-500"
+            />
 
-          <button className="absolute right-20 top-1/2 transform -translate-y-1/2 w-[20%] bg-gradient-to-b from-[#5AD7FF] to-[#656BF5] transition-all rounded-full py-[1.5vh] px-[3vw] flex items-center gap-[0.5vw]">
-            <span className="text-xl ">Generate</span>
-          </button>
+            {/* Generate Button (Inside Input) */}
+            <button className="absolute right-2 top-1/2 transform -translate-y-1/2 bg-gradient-to-b from-[#5AD7FF] to-[#656BF5] transition-all rounded-full py-[1.5vh] px-[3vw] flex items-center gap-[0.5vw]">
+              <span className="text-xl">Generate</span>
+            </button>
+          </div>
+
+          {/* Settings Button */}
           <button className="bg-[#262626] hover:bg-black/70 transition-colors backdrop-blur-md rounded-full p-[2vh] flex items-center justify-center">
             <Settings className="w-[4vh] h-[4vh]" />
           </button>
