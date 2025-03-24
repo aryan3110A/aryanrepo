@@ -5,7 +5,7 @@ import Footer from "@/components/Footer";
 import "./globals.css";
 //import { Testimonials } from "@/components/testimonials";
 import { PartnersSection } from "@/components/partners-section";
- import ContactSection from "@/components/ContactSection";
+import ContactSection from "@/components/ContactSection";
 
 import { db } from "../lib/firebaseConfig"; // Correct path for `app/`
 import SupportPage from "@/components/support-page";
@@ -15,7 +15,7 @@ import Navbar from "@/components/navbar";
 import Page from "@/components/navbar";
 import HomePage from "@/components/HomePage";
 import ArtStation from "@/components/art-station";
-
+import TextGenerationTemplate from "@/components/template";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -34,9 +34,9 @@ export default function RootLayout({
     <html lang="en">
       <body className={inter.className}>
         <main>{children}</main>
-         {/* <ContactSection /> */}
+        {/* <ContactSection /> */}
 
-         {/* <SubscriptionToggle /> */}
+        {/* <SubscriptionToggle /> */}
         {/* <Testimonials />
         <PartnersSection />
         */}
@@ -44,9 +44,10 @@ export default function RootLayout({
         {/* <Footer /> */}
 
         {/* <Page /> */}
-        <HomePage />
+        {/* <HomePage /> */}
         {/* <ArtStation /> */}
-        </body>
+        <TextGenerationTemplate />
+      </body>
     </html>
   );
 }

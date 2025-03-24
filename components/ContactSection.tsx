@@ -1,23 +1,23 @@
-"use client"
+"use client";
 
-import type React from "react"
+import type React from "react";
 
-import { useRef, useState, useEffect } from "react"
-import Image from "next/image"
+import { useRef, useState, useEffect } from "react";
+import Image from "next/image";
 
-import { db } from "@/lib/firebaseConfig"
-import { collection, addDoc, serverTimestamp } from "firebase/firestore"
-import Footer from "./Footer"
+import { db } from "@/lib/firebaseConfig";
+import { collection, addDoc, serverTimestamp } from "firebase/firestore";
+import Footer from "./Footer";
 
 const scriptURL =
-  "https://script.google.com/macros/s/AKfycbz0dKO8m-4_vrGpnaPI4zP01OkoN5uXxo1DrJ9jY_oz5tsoNUYvtxxNKgvdYMiZUGsWBw/exec" // Replace with your actual script URL
+  "https://script.google.com/macros/s/AKfycbz0dKO8m-4_vrGpnaPI4zP01OkoN5uXxo1DrJ9jY_oz5tsoNUYvtxxNKgvdYMiZUGsWBw/exec"; // Replace with your actual script URL
 
 interface FormData {
-  fullName: string
-  email: string
-  phone: string
-  option: string
-  message: string
+  fullName: string;
+  email: string;
+  phone: string;
+  option: string;
+  message: string;
 }
 
 const ContactSection = () => {
@@ -27,96 +27,103 @@ const ContactSection = () => {
     phone: "",
     option: "",
     message: "",
-  })
+  });
 
-  const [rating, setRating] = useState<number>(0)
+  const [rating, setRating] = useState<number>(0);
   const handleRatingClick = (star: number) => {
     if (rating === star) {
-      setRating(0) // If the same star is clicked, reset to 0 (unselect)
+      setRating(0); // If the same star is clicked, reset to 0 (unselect)
     } else {
-      setRating(star) // Otherwise, update to the clicked star
+      setRating(star); // Otherwise, update to the clicked star
     }
-  } // State inside the component
+  }; // State inside the component
 
-  const [newsletterEmail, setNewsletterEmail] = useState("") // Newsletter state
-  const [isSubmitting, setIsSubmitting] = useState(false)
-  const [successMessage, setSuccessMessage] = useState<string | null>(null)
-  const [error, setError] = useState<string | null>(null)
-  const [isDropdownOpen, setIsDropdownOpen] = useState(false)
-  const [hasSelectedOption, setHasSelectedOption] = useState(false)
-  const [isFirstClick, setIsFirstClick] = useState(true)
+  const [newsletterEmail, setNewsletterEmail] = useState(""); // Newsletter state
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [successMessage, setSuccessMessage] = useState<string | null>(null);
+  const [error, setError] = useState<string | null>(null);
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const [hasSelectedOption, setHasSelectedOption] = useState(false);
+  const [isFirstClick, setIsFirstClick] = useState(true);
 
-  const dropdownRef = useRef<HTMLDivElement>(null)
-  const formRef = useRef<HTMLFormElement>(null)
+  const dropdownRef = useRef<HTMLDivElement>(null);
+  const formRef = useRef<HTMLFormElement>(null);
   useEffect(() => {
     function handleClickOutside(event: MouseEvent) {
-      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
-        setIsDropdownOpen(false)
+      if (
+        dropdownRef.current &&
+        !dropdownRef.current.contains(event.target as Node)
+      ) {
+        setIsDropdownOpen(false);
       }
     }
 
-    document.addEventListener("mousedown", handleClickOutside)
+    document.addEventListener("mousedown", handleClickOutside);
     return () => {
-      document.removeEventListener("mousedown", handleClickOutside)
-    }
-  }, [])
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
   // Handle Contact Form Submission
   const handleContactSubmit = async (e: React.FormEvent) => {
-    e.preventDefault()
-    setIsSubmitting(true)
-    setError(null)
-    setSuccessMessage(null)
-    setFormErrors({})
+    e.preventDefault();
+    setIsSubmitting(true);
+    setError(null);
+    setSuccessMessage(null);
+    setFormErrors({});
 
-    const errors: { email?: string; phone?: string } = {}
+    const errors: { email?: string; phone?: string } = {};
     if (!formData.email.match(/^[^\s@]+@[^\s@]+\.[^\s@]+$/)) {
-      errors.email = "Enter a valid email address."
+      errors.email = "Enter a valid email address.";
     }
     if (formData.phone.length !== 10) {
-      errors.phone = "Phone number must be exactly 10 digits."
+      errors.phone = "Phone number must be exactly 10 digits.";
     }
 
     if (Object.keys(errors).length > 0) {
-      setFormErrors(errors)
-      setIsSubmitting(false)
-      return
+      setFormErrors(errors);
+      setIsSubmitting(false);
+      return;
     }
 
     try {
       await addDoc(collection(db, "contactForm"), {
         ...formData,
         timestamp: serverTimestamp(), // Add timestamp here
-      })
+      });
 
-      setSuccessMessage("Your form has been submitted successfully! Our team will reach out to you soon.")
+      setSuccessMessage(
+        "Your form has been submitted successfully! Our team will reach out to you soon."
+      );
       setFormData({
         fullName: "",
         email: "",
         phone: "",
         option: "",
         message: "",
-      })
+      });
     } catch (err) {
-      setError("Something went wrong. Please try again.")
+      setError("Something went wrong. Please try again.");
     } finally {
-      setIsSubmitting(false)
+      setIsSubmitting(false);
     }
-  }
+  };
 
   // Handle Newsletter Subscription
-  const [newsletterMessage, setNewsletterMessage] = useState<string | null>(null)
-  const [newsletterError, setNewsletterError] = useState<string | null>(null)
+  const [newsletterMessage, setNewsletterMessage] = useState<string | null>(
+    null
+  );
+  const [newsletterError, setNewsletterError] = useState<string | null>(null);
 
   const handleNewsletterSubmit = async (e: React.FormEvent) => {
-    e.preventDefault()
-    setIsSubmitting(true)
-    setNewsletterError(null)
-    setNewsletterMessage(null)
+    e.preventDefault();
+    setIsSubmitting(true);
+    setNewsletterError(null);
+    setNewsletterMessage(null);
 
     if (!newsletterEmail.trim().match(/^[^\s@]+@[^\s@]+\.[^\s@]+$/)) {
-      setNewsletterError("Please enter a valid email address.")
-      setIsSubmitting(false)
-      return
+      setNewsletterError("Please enter a valid email address.");
+      setIsSubmitting(false);
+      return;
     }
 
     try {
@@ -124,55 +131,57 @@ const ContactSection = () => {
       await addDoc(collection(db, "newsletterSubscriptions"), {
         email: newsletterEmail,
         timestamp: serverTimestamp(),
-      })
+      });
 
       // Store in Google Sheets
-      const formData = new FormData()
-      formData.append("NewsLetterEmail", newsletterEmail)
+      const formData = new FormData();
+      formData.append("NewsLetterEmail", newsletterEmail);
 
       const response = await fetch(scriptURL, {
         method: "POST",
         body: formData,
-      })
+      });
 
       if (!response.ok) {
-        throw new Error("Failed to submit to Google Sheets")
+        throw new Error("Failed to submit to Google Sheets");
       }
 
-      setNewsletterMessage("You have successfully subscribed to our newsletter!")
-      setNewsletterEmail("")
+      setNewsletterMessage(
+        "You have successfully subscribed to our newsletter!"
+      );
+      setNewsletterEmail("");
     } catch (err) {
-      setNewsletterError("Failed to subscribe. Please try again.")
-      console.error("Error:", err)
+      setNewsletterError("Failed to subscribe. Please try again.");
+      console.error("Error:", err);
     } finally {
-      setIsSubmitting(false)
+      setIsSubmitting(false);
     }
-  }
+  };
 
   useEffect(() => {
-    const form = document.forms["submit-to-google-sheet"] as HTMLFormElement | null
+    const form = document.forms[
+      "submit-to-google-sheet"
+    ] as HTMLFormElement | null;
     // document.documentElement.style.overflow = "hidden"; // Hide scrolling
 
     if (form) {
       form.addEventListener("submit", (e) => {
-        e.preventDefault()
+        e.preventDefault();
         fetch(scriptURL, { method: "POST", body: new FormData(form) })
           .then((response) => console.log("Success!", response))
-          .catch((error) => console.error("Error!", error.message))
-      })
+          .catch((error) => console.error("Error!", error.message));
+      });
     }
-  }, [])
+  }, []);
 
   const [formErrors, setFormErrors] = useState<{
-    email?: string
-    phone?: string
-  }>({})
+    email?: string;
+    phone?: string;
+  }>({});
 
   return (
     <>
-    
       <div className="min-h-screen bg-gradient-to-br from-black to-black  pt-16">
-        
         <div className="flex justify-evenly">
           {/* Left Section (Fixed Position) */}
           <div className="text-white mt-28 self-start ">
@@ -194,19 +203,30 @@ const ContactSection = () => {
               isDropdownOpen ? "h-[100%]" : "h-[95%]"
             }`}
           >
-            <h3 className="text-white text-2xl lg:text-3xl font-bold mb-1">Contact Form</h3>
+            <h3 className="text-white text-2xl lg:text-3xl font-bold mb-1">
+              Contact Form
+            </h3>
             <p className="text-gray-300 text-sm lg:text-sm mb-4">
-              Fill out the form below, and our team will get back to you promptly. Let's connect and create solutions
-              together!
+              Fill out the form below, and our team will get back to you
+              promptly. Let's connect and create solutions together!
             </p>
 
-            <form ref={formRef} onSubmit={handleContactSubmit} className="space-y-2" name="submit-to-google-sheet">
+            <form
+              ref={formRef}
+              onSubmit={handleContactSubmit}
+              className="space-y-2"
+              name="submit-to-google-sheet"
+            >
               {successMessage && (
                 <div className="bg-green-500/10 border border-green-500 text-green-500 p-3 rounded-md mb-4">
                   {successMessage}
                 </div>
               )}
-              {error && <div className="bg-red-500/10 border border-red-500 text-red-500 p-3 rounded-md">{error}</div>}
+              {error && (
+                <div className="bg-red-500/10 border border-red-500 text-red-500 p-3 rounded-md">
+                  {error}
+                </div>
+              )}
 
               <div className="mb-2">
                 <label className="text-white text-sm">
@@ -218,7 +238,9 @@ const ContactSection = () => {
                   className="w-full h-12 bg-[#111111] text-white rounded-lg p-2 pl-4 text-sm placeholder:text-[#FFFFFF99] mt-2 focus:outline-none focus:ring-2 focus:ring-[#444c55] text-[15px] opacity-90 transition-all duration-300"
                   placeholder="Enter your full name"
                   value={formData.fullName}
-                  onChange={(e) => setFormData({ ...formData, fullName: e.target.value })}
+                  onChange={(e) =>
+                    setFormData({ ...formData, fullName: e.target.value })
+                  }
                 />
               </div>
 
@@ -232,177 +254,196 @@ const ContactSection = () => {
                   className="w-full h-12 bg-[#111111] text-white rounded-lg p-2 pl-4 text-sm placeholder:text-[#FFFFFF99] mt-2 focus:outline-none focus:ring-2 focus:ring-[#444c55] text-[15px] opacity-90 transition-all duration-300"
                   placeholder="Enter your email address"
                   value={formData.email}
-                  onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                  onChange={(e) =>
+                    setFormData({ ...formData, email: e.target.value })
+                  }
                 />
-                {formErrors.email && <p className="text-red-500 text-sm mt-1">{formErrors.email}</p>}
+                {formErrors.email && (
+                  <p className="text-red-500 text-sm mt-1">
+                    {formErrors.email}
+                  </p>
+                )}
               </div>
 
               <div className="mb">
-      <label className="text-white text-sm">Phone</label>
-      <div className="flex gap-2 ">
-        <select
-          className="w-40 mt-2 bg-[#111111] text-white rounded-lg px-2 text-sm 
+                <label className="text-white text-sm">Phone</label>
+                <div className="flex gap-2 ">
+                  <select
+                    className="w-40 mt-2 bg-[#111111] text-white rounded-lg px-2 text-sm 
           max-h-60 focus:outline-none focus:ring-2 focus:ring-[#444c55] text-[15px] opacity-90 
           transition-all duration-300 overflow-y-auto scrollbar-none  "
-          size={1} // Keeps it looking like a normal dropdown
-        >
-          <option value="+91">+91 (India)</option>
-          <option value="+1">+1 (USA/Canada)</option>
-          <option value="+44"> +44 (UK)</option>
-          <option value="+61"> +61 (Australia)</option>
-          <option value="+971"> +971 (UAE)</option>
-          <option value="+49">+49 (Germany)</option>
-          <option value="+33">+33 (France)</option>
-          <option value="+81"> +81 (Japan)</option>
-          <option value="+86"> +86 (China)</option>
-          <option value="+7"> +7 (Russia)</option>
-          <option value="+39"> +39 (Italy)</option>
-          <option value="+55"> +55 (Brazil)</option>
-          <option value="+34">+34 (Spain)</option>
-          <option value="+27">+27 (South Africa)</option>
-          <option value="+62">+62 (Indonesia)</option>
-          <option value="+82">+82 (South Korea)</option>
-          <option value="+52"> +52 (Mexico)</option>
-          <option value="+31">+31 (Netherlands)</option>
-          <option value="+46"> +46 (Sweden)</option>
-          <option value="+41"> +41 (Switzerland)</option>
-          <option value="+65"> +65 (Singapore)</option>
-          <option value="+20"> +20 (Egypt)</option>
-        </select>
+                    size={1} // Keeps it looking like a normal dropdown
+                  >
+                    <option value="+91">+91 (India)</option>
+                    <option value="+1">+1 (USA/Canada)</option>
+                    <option value="+44"> +44 (UK)</option>
+                    <option value="+61"> +61 (Australia)</option>
+                    <option value="+971"> +971 (UAE)</option>
+                    <option value="+49">+49 (Germany)</option>
+                    <option value="+33">+33 (France)</option>
+                    <option value="+81"> +81 (Japan)</option>
+                    <option value="+86"> +86 (China)</option>
+                    <option value="+7"> +7 (Russia)</option>
+                    <option value="+39"> +39 (Italy)</option>
+                    <option value="+55"> +55 (Brazil)</option>
+                    <option value="+34">+34 (Spain)</option>
+                    <option value="+27">+27 (South Africa)</option>
+                    <option value="+62">+62 (Indonesia)</option>
+                    <option value="+82">+82 (South Korea)</option>
+                    <option value="+52"> +52 (Mexico)</option>
+                    <option value="+31">+31 (Netherlands)</option>
+                    <option value="+46"> +46 (Sweden)</option>
+                    <option value="+41"> +41 (Switzerland)</option>
+                    <option value="+65"> +65 (Singapore)</option>
+                    <option value="+20"> +20 (Egypt)</option>
+                  </select>
 
-        <input
-          type="tel"
-          name="Phone"
-          className="flex-1 h-12 bg-[#111111] text-white rounded-lg p-2 pl-4 text-sm 
+                  <input
+                    type="tel"
+                    name="Phone"
+                    className="flex-1 h-12 bg-[#111111] text-white rounded-lg p-2 pl-4 text-sm 
           placeholder:text-[#FFFFFF99] mt-2 focus:outline-none focus:ring-2 focus:ring-[#444c55] 
           text-[15px] opacity-90 transition-all duration-300"
-          placeholder="Enter your contact number"
-          value={formData.phone}
-          onChange={(e) => {
-            const newValue = e.target.value.replace(/\D/g, ""); // Remove non-numeric characters
-            if (newValue.length <= 10) {
-              setFormData({ ...formData, phone: newValue });
-            }
-          }}
-          required
-        />
-      </div>
-      {formErrors.phone && <p className="text-red-500 text-sm mt-1">{formErrors.phone}</p>}
-    </div>
+                    placeholder="Enter your contact number"
+                    value={formData.phone}
+                    onChange={(e) => {
+                      const newValue = e.target.value.replace(/\D/g, ""); // Remove non-numeric characters
+                      if (newValue.length <= 10) {
+                        setFormData({ ...formData, phone: newValue });
+                      }
+                    }}
+                    required
+                  />
+                </div>
+                {formErrors.phone && (
+                  <p className="text-red-500 text-sm mt-1">
+                    {formErrors.phone}
+                  </p>
+                )}
+              </div>
 
-    <div className="mt-2 cursor-pointer ">
-  <div
-    ref={dropdownRef}
-    className={`w-[50%] h-10 bg-[#111111] text-white border border-gray-800 rounded-lg p-2 pl-4 text-sm mt-2 transition-all duration-200 ${
-      isDropdownOpen ? "mb-48" : "mb-2"
-    }`}
-    onClick={(e) => {
-      e.stopPropagation(); // Prevent the click from immediately closing the dropdown
+              <div className="mt-2 cursor-pointer ">
+                <div
+                  ref={dropdownRef}
+                  className={`w-[50%] h-10 bg-[#111111] text-white border border-gray-800 rounded-lg p-2 pl-4 text-sm mt-2 transition-all duration-200 ${
+                    isDropdownOpen ? "mb-48" : "mb-2"
+                  }`}
+                  onClick={(e) => {
+                    e.stopPropagation(); // Prevent the click from immediately closing the dropdown
 
-      // Toggle dropdown correctly
-      setIsDropdownOpen((prev) => !prev);
-      
-      if (!isDropdownOpen) {
-        setIsFirstClick(false);
-      }
-    }}
-  >
-    <div className="flex justify-between items-center">
-      <span>
-        {formData.option === ""
-          ? "Pick an option"
-          : formData.option === "option1"
-          ? "General Inquiry"
-          : formData.option === "option2"
-          ? "Support Request"
-          : formData.option === "option3"
-          ? "Feature Suggestion"
-          : "Business Collaboration"}
-      </span>
-      {/* Rotating Dropdown Arrow */}
-      <span className={`transform transition-transform ${isDropdownOpen ? "rotate-180" : "rotate-0"}`}>▼</span>
-    </div>
+                    // Toggle dropdown correctly
+                    setIsDropdownOpen((prev) => !prev);
 
-    {isDropdownOpen && (
-      <div className="absolute w-[40%] bg-[#111111] rounded-lg mt-4 z-10 -ml-4">
-        <div
-          className="p-2 pl-4 hover:bg-[#222222] cursor-pointer "
-          onClick={(e) => {
-            e.stopPropagation();
-            setFormData({ ...formData, option: "" });
-            setHasSelectedOption(true);
-            setIsDropdownOpen(false);
-            setIsFirstClick(false);
-          }}
-        >
-          Pick an option
-        </div>
-        <div
-          className="p-2 pl-4 hover:bg-[#222222] cursor-pointer "
-          onClick={(e) => {
-            e.stopPropagation();
-            setFormData({ ...formData, option: "option1" });
-            setHasSelectedOption(true);
-            setIsDropdownOpen(false);
-            setIsFirstClick(true);
-          }}
-        >
-          General Inquiry
-        </div>
-        <div
-          className="p-2 pl-4 hover:bg-[#222222] cursor-pointer "
-          onClick={(e) => {
-            e.stopPropagation();
-            setFormData({ ...formData, option: "option2" });
-            setHasSelectedOption(true);
-            setIsDropdownOpen(false);
-            setIsFirstClick(true);
-          }}
-        >
-          Support Request
-        </div>
-        <div
-          className="p-2 pl-4 hover:bg-[#222222] cursor-pointer "
-          onClick={(e) => {
-            e.stopPropagation();
-            setFormData({ ...formData, option: "option3" });
-            setHasSelectedOption(true);
-            setIsDropdownOpen(false);
-            setIsFirstClick(true);
-          }}
-        >
-          Feature Suggestion
-        </div>
-        <div
-          className="p-2 pl-4 hover:bg-[#222222] cursor-pointer"
-          onClick={(e) => {
-            e.stopPropagation();
-            setFormData({ ...formData, option: "option4" });
-            setHasSelectedOption(true);
-            setIsDropdownOpen(false);
-            setIsFirstClick(true);
-          }}
-        >
-          Business Collaboration
-        </div>
-      </div>
-    )}
-  </div>
-</div>
+                    if (!isDropdownOpen) {
+                      setIsFirstClick(false);
+                    }
+                  }}
+                >
+                  <div className="flex justify-between items-center">
+                    <span>
+                      {formData.option === ""
+                        ? "Pick an option"
+                        : formData.option === "option1"
+                        ? "General Inquiry"
+                        : formData.option === "option2"
+                        ? "Support Request"
+                        : formData.option === "option3"
+                        ? "Feature Suggestion"
+                        : "Business Collaboration"}
+                    </span>
+                    {/* Rotating Dropdown Arrow */}
+                    <span
+                      className={`transform transition-transform ${
+                        isDropdownOpen ? "rotate-180" : "rotate-0"
+                      }`}
+                    >
+                      ▼
+                    </span>
+                  </div>
 
+                  {isDropdownOpen && (
+                    <div className="absolute w-[40%] bg-[#111111] rounded-lg mt-4 z-10 -ml-4">
+                      <div
+                        className="p-2 pl-4 hover:bg-[#222222] cursor-pointer "
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          setFormData({ ...formData, option: "" });
+                          setHasSelectedOption(true);
+                          setIsDropdownOpen(false);
+                          setIsFirstClick(false);
+                        }}
+                      >
+                        Pick an option
+                      </div>
+                      <div
+                        className="p-2 pl-4 hover:bg-[#222222] cursor-pointer "
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          setFormData({ ...formData, option: "option1" });
+                          setHasSelectedOption(true);
+                          setIsDropdownOpen(false);
+                          setIsFirstClick(true);
+                        }}
+                      >
+                        General Inquiry
+                      </div>
+                      <div
+                        className="p-2 pl-4 hover:bg-[#222222] cursor-pointer "
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          setFormData({ ...formData, option: "option2" });
+                          setHasSelectedOption(true);
+                          setIsDropdownOpen(false);
+                          setIsFirstClick(true);
+                        }}
+                      >
+                        Support Request
+                      </div>
+                      <div
+                        className="p-2 pl-4 hover:bg-[#222222] cursor-pointer "
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          setFormData({ ...formData, option: "option3" });
+                          setHasSelectedOption(true);
+                          setIsDropdownOpen(false);
+                          setIsFirstClick(true);
+                        }}
+                      >
+                        Feature Suggestion
+                      </div>
+                      <div
+                        className="p-2 pl-4 hover:bg-[#222222] cursor-pointer"
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          setFormData({ ...formData, option: "option4" });
+                          setHasSelectedOption(true);
+                          setIsDropdownOpen(false);
+                          setIsFirstClick(true);
+                        }}
+                      >
+                        Business Collaboration
+                      </div>
+                    </div>
+                  )}
+                </div>
+              </div>
 
               <div
                 className={`mb-4 transition-all duration-300 ${
                   hasSelectedOption ? "mt-0" : isDropdownOpen ? "mt-36" : "mt-0"
                 }`}
               >
-                <label className="text-white text-sm transition-all">How can we help you?</label>
+                <label className="text-white text-sm transition-all">
+                  How can we help you?
+                </label>
                 <textarea
                   className="w-full h-24 bg-[#111111] text-white rounded-lg p-2 pl-4 text-sm placeholder:text-[#FFFFFF99] mt-2 focus:outline-none focus:ring-2 focus:ring-[#444c55] text-[15px] opacity-90 transition-all duration-300"
                   placeholder="Enter your message here"
                   value={formData.message}
                   name="Message"
-                  onChange={(e) => setFormData({ ...formData, message: e.target.value })}
+                  onChange={(e) =>
+                    setFormData({ ...formData, message: e.target.value })
+                  }
                 />
               </div>
 
@@ -474,58 +515,57 @@ const ContactSection = () => {
 
         {/* Newsletter Section */}
         <div className="md:w-[86%] lg:w-[95%] bg-black py-12 mt-10 md:mt-10 lg:mt-10 md:mb-0 lg:mb-4 md:ml-16 lg:-ml-36">
-  <div className="max-w-[1440px] md:mx-auto lg:mx-auto md:px-8 lg:px-8 flex flex-row md:flex-row justify-between items-center gap-6 lg:gap-16">
-    
-    {/* Left side - Heading (Now moved to the start for lg:) */}
-    <div className="text-center md:text-left lg:text-left lg:self-start lg:mr-auto">
-      <h2 className="text-white text-2xl md:text-3xl lg:text-3xl font-semibold leading-tight lg:leading-1.2">
-        Join our newsletter to
-        <br />
-        keep up to date with us!
-      </h2>
-    </div>
+          <div className="max-w-[1440px] md:mx-auto lg:mx-auto md:px-8 lg:px-8 flex flex-row md:flex-row justify-between items-center gap-6 lg:gap-16">
+            {/* Left side - Heading (Now moved to the start for lg:) */}
+            <div className="text-center md:text-left lg:text-left lg:self-start lg:mr-auto">
+              <h2 className="text-white text-2xl md:text-3xl lg:text-3xl font-semibold leading-tight lg:leading-1.2">
+                Join our newsletter to
+                <br />
+                keep up to date with us!
+              </h2>
+            </div>
 
-    {/* Right side - Form */}
-    <div className="w-full md:w-auto lg:w-auto lg:-mr-[19rem]">
-      <form
-        onSubmit={handleNewsletterSubmit}
-        className="flex flex-col md:flex-row gap-12 lg:gap-14 w-full max-w-2xl"
-        name="submit-to-google-sheet"
-      >
-        <div className="flex-grow relative w-[22rem] lg:w-[28rem]">
-          <input
-            type="email"
-            name="NewsLetterEmail"
-            placeholder="Enter your email"
-            className="w-[110%] bg-transparent border border-[#414141] rounded-full py-3 px-12 text-white placeholder-gray-400 
+            {/* Right side - Form */}
+            <div className="w-full md:w-auto lg:w-auto lg:-mr-[19rem]">
+              <form
+                onSubmit={handleNewsletterSubmit}
+                className="flex flex-col md:flex-row gap-12 lg:gap-14 w-full max-w-2xl"
+                name="submit-to-google-sheet"
+              >
+                <div className="flex-grow relative w-[22rem] lg:w-[28rem]">
+                  <input
+                    type="email"
+                    name="NewsLetterEmail"
+                    placeholder="Enter your email"
+                    className="w-[110%] bg-transparent border border-[#414141] rounded-full py-3 px-12 text-white placeholder-gray-400 
               focus:outline-none focus:ring-2 focus:ring-[#444c55] text-[15px] lg:text-[1rem] opacity-90 transition-all duration-300"
-            value={newsletterEmail}
-            onChange={(e) => setNewsletterEmail(e.target.value)}
-            required
-          />
-          <span className="absolute left-4 top-1/2 -translate-y-1/2">
-            <svg
-              className="w-6 h-6 lg:w-6 lg:h-6   text-gray-400"
-              fill="none"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth="1"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-            >
-              <path d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
-            </svg>
-          </span>
-        </div>
-        <button
-          type="submit"
-          className="px-6 -mr-20 w-[8rem] lg:w-[10rem] rounded-full font-medium text-white transition-colors 
+                    value={newsletterEmail}
+                    onChange={(e) => setNewsletterEmail(e.target.value)}
+                    required
+                  />
+                  <span className="absolute left-4 top-1/2 -translate-y-1/2">
+                    <svg
+                      className="w-6 h-6 lg:w-6 lg:h-6   text-gray-400"
+                      fill="none"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth="1"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                    >
+                      <path d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                    </svg>
+                  </span>
+                </div>
+                <button
+                  type="submit"
+                  className="px-6 -mr-20 w-[8rem] lg:w-[10rem] rounded-full font-medium text-white transition-colors 
             bg-gradient-to-b from-[#5AD7FF] to-[#656BF5] 
             hover:bg-white hover:text-black hover:from-white hover:to-white"
-        >
-          Subscribe
-        </button>
-      </form>
+                >
+                  Subscribe
+                </button>
+              </form>
             </div>
           </div>
 
