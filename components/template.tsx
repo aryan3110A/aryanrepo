@@ -35,20 +35,27 @@ const templates = [
 
 export default function TextGenerationTemplate() {
   return (
-    <div className=" pb-10 w-full min-h-screen bg-gradient-to-b from-black via-black to-black text-white relative overflow-hidden">
+    <div
+      className=" pb-10 w-full min-h-screen bg-gradient-to-b from-black via-black to-black text-white relative overflow-hidden
+    "
+    >
       {/* Background gradient circles */}
-      <div className="absolute top-0 left-0 w-full h-full overflow-hidden -z-10">
-        <div className="absolute top-[10%] left-[5%] w-[80vw] h-[80vw] rounded-full bg-black-600/20 blur-[10vw]"></div>
-        <div className="absolute bottom-[10%] right-[10%] w-[60vw] h-[60vw] rounded-full bg-black-600/20 blur-[10vw]"></div>
-      </div>
 
       {/* Main content container */}
       <div className="w-full max-w-[100%] mx-auto pt-[10vh] px-[5vw]">
         {/* Header section with background image and input */}
         <div className="w-full relative mb-[5vh] rounded-[2vw] overflow-hidden">
           {/* Background image */}
-          <div className="w-full h-[30vh] relative rounded-[2vw] overflow-hidden">
+          <div
+            className="w-full h-[30vh] relative rounded-[2vw] overflow-hidden shadow-lg"
+            style={{
+              boxShadow: "0px 0px 20px 5px #4FD4E6",
+            }}
+          >
+            {/* Dark Overlay */}
             <div className="absolute inset-0 bg-gradient-to-b from-transparent to-black/50 z-10"></div>
+
+            {/* Background Image */}
             <Image
               src="/templates/maintemp.png"
               alt="AI Robot"
@@ -57,7 +64,7 @@ export default function TextGenerationTemplate() {
             />
 
             {/* Center txt logo */}
-            <div className="absolute top-[50%] left-[50%] transform -translate-x-[50%] -translate-y-[50%] text-[8vh] font-bold text-white/80 pointer-events-none z-20">
+            <div className="absolute top-[50%] left-[50%] transform -translate-x-[50%] -translate-y-[50%] text-[8vh] font-bold text-white/80 pointer-events-none z-10">
               txt
             </div>
           </div>
@@ -65,7 +72,7 @@ export default function TextGenerationTemplate() {
           {/* Input and buttons - positioned at the bottom of the image */}
         </div>
 
-        <div className="absolute font-poppins -mt-[9vh] left-[50%] transform -translate-x-[50%] w-[60%] max-w-[800px] flex items-center gap-[1vw] z-30">
+        <div className="absolute font-poppins -mt-[9vh] left-[50%] transform -translate-x-[50%] w-[60%] max-w-[800px] flex items-center gap-[1vw] z-10">
           {/* Input Wrapper */}
           <div className="relative flex-1">
             <input
@@ -131,9 +138,24 @@ function TemplateCard({ template }: TemplateCardProps) {
   return (
     <div className="bg-black/30 backdrop-blur-md rounded-[0.5vw] overflow-hidden border border-[#969696] relative ">
       {/* Diamond badge */}
-      <div className="absolute top-0 right-0 bg-blue-500 p-[2vh] rounded-bl-[30vw] z-30">
-        <div className="w-[2vh] h-[2vh]">💎</div>
+      <div
+        className="absolute top-0 right-0 bg-gradient-to-br from-blue-500 to-indigo-500 p-[4vh] z-30"
+        style={{
+          width: "6vh",
+          height: "6vh",
+          clipPath: "polygon(100% 0, 0 0, 100% 100%)", // Triangle shape
+        }}
+      >
+        <div className="absolute top-[16%] right-[10%] w-[3vh] h-[3vh]">
+          <Image
+            src="/templates/diamond.png"
+            alt="diamond"
+            width={16} // Adjust size as needed
+            height={16}
+          />
+        </div>
       </div>
+
       <div className="flex flex-col md:flex-row">
         {/* Image section */}
         <div className="w-[55%]  aspect-square relative overflow-hidden p-[3%]">
@@ -154,8 +176,17 @@ function TemplateCard({ template }: TemplateCardProps) {
             <div className="flex items-center justify-between">
               <h3 className="font-bold text-[2vh]">Model: {template.model}</h3>
             </div>
-            <div className=" items-center justify-between text-[1.6vh] text-gray-300 mt-[0.5vh]">
-              <div>Token use: {template.tokenUse} ✨</div>
+            <div className=" items-center  text-[1.6vh] text-gray-300 mt-[0.5vh]">
+              <div className="flex ">
+                Token use: {template.tokenUse}
+                <Image
+                  src="/templates/star.png"
+                  alt="stars"
+                  width={12}
+                  height={12}
+                  className="ml-2 mb-1"
+                />
+              </div>
               <div>Time - {template.time}</div>
             </div>
           </div>

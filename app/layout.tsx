@@ -45,7 +45,7 @@ export default function RootLayout({
 
         {/* <Page /> */}
         {/* <HomePage /> */}
-        <ArtStation />
+        {/* <ArtStation /> */}
         <TextGenerationTemplate />
       </body>
     </html>
