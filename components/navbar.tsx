@@ -187,7 +187,7 @@ export default function Navbar(): JSX.Element {
             }}
           >
             <div className="container py-2">
-              <div className="flex flex-col md:ml-[20vw] lg:ml-[34.8vw]">
+              <div className="flex flex-col md:ml-[31.8vw] lg:ml-[34.8vw]">
                 <h3 className="text-lg font-bold mb-[2vh]">CREATE</h3>
                 <div className="flex flex-col space-y-[1.5vh]">
                   {activeDropdown === "features" &&
