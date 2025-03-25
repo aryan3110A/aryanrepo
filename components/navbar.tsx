@@ -122,54 +122,58 @@ export default function Navbar(): JSX.Element {
 
           {/* Desktop Navigation */}
           <nav className="hidden md:flex lg:flex items-center justify-center gap-[4vw] text-nowrap font-poppins md:pl-[20vw] lg:pl-[25vw] py-0">
-            <div className="relative ">
-              <button
-                onClick={() => toggleDropdown("features")}
-                className="flex items-center text-white transition-colors hover:text-[#dbdbdb] group"
-              >
-                <span className="">Features</span>
-                <ChevronDown
-                  className={`ml-1 w-6 h-6 transition-transform group-hover:text-[#dbdbdb] ${
-                    activeDropdown === "features" ? "rotate-180 text-[#dbdbdb]" : "text-[white]"
-                  } group-hover:text-[#dbdbdb]`}
-                />
-              </button>
-            </div>
+  {/* Features Button */}
+  <div className="relative">
+    <button
+      onClick={() => toggleDropdown("features")}
+      className="flex items-center text-white transition-colors hover:text-[#dbdbdb] group"
+    >
+      <span>Features</span>
+      <ChevronDown
+        className={`ml-1 w-6 h-6 transition-transform transform group-hover:text-[#dbdbdb] ${
+          activeDropdown === "features" ? "rotate-180 text-[#dbdbdb]" : "text-white"
+        }`}
+      />
+    </button>
+  </div>
 
-            <div className="relative">
-              <button
-                onClick={() => toggleDropdown("templates")}
-                className="flex items-center text-white transition-colors hover:text-[#dbdbdb] group"
-              >
-                <span className="">Templates</span>
-                <ChevronDown
-                  className={`ml-1 w-6 h-6 transition-transform group-hover:text-[#dbdbdb]${
-                    activeDropdown === "templates" ? "rotate-180 text-[#dbdbdb]" : "text-[white]"
-                  } group-hover:text-[#dbdbdb]`}
-                />{" "}
-              </button>
-            </div>
+  {/* Templates Button */}
+  <div className="relative">
+    <button
+      onClick={() => toggleDropdown("templates")}
+      className="flex items-center text-white transition-colors hover:text-[#dbdbdb] group"
+    >
+      <span>Templates</span>
+      <ChevronDown
+        className={`ml-1 w-6 h-6 transition-transform transform group-hover:text-[#dbdbdb] ${
+          activeDropdown === "templates" ? "rotate-180 text-[#dbdbdb]" : "text-white"
+        }`}
+      />
+    </button>
+  </div>
 
-            <nav>
-              <Link
-                href="/subscription-toggle"
-                className="text-white hover:text-[#dbdbdb]"
-                onClick={() => setActiveDropdown(null)}
-              >
-                Pricing
-              </Link>
-            </nav>
-            <Link
-              href="/art-station"
-              className="text-white hover:text-[#dbdbdb]"
-              onClick={() => setActiveDropdown(null)}
-            >
-              Art station
-            </Link>
-            <Link href="/support" className="text-white hover:text-[#dbdbdb]" onClick={() => setActiveDropdown(null)}>
-              Support
-            </Link>
-          </nav>
+  {/* Other Navigation Links */}
+  <nav>
+    <Link
+      href="/subscription-toggle"
+      className="text-white hover:text-[#dbdbdb]"
+      onClick={() => setActiveDropdown(null)}
+    >
+      Pricing
+    </Link>
+  </nav>
+  <Link
+    href="/art-station"
+    className="text-white hover:text-[#dbdbdb]"
+    onClick={() => setActiveDropdown(null)}
+  >
+    Art station
+  </Link>
+  <Link href="/support" className="text-white hover:text-[#dbdbdb]" onClick={() => setActiveDropdown(null)}>
+    Support
+  </Link>
+</nav>
+
           <button className="fixed p-2 rounded-lg transition-colors right-[2vw]">
             <User className="w-6 h-6" />
           </button>
