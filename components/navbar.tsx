@@ -177,48 +177,48 @@ export default function Navbar(): JSX.Element {
 
         {/* Full-width dropdown menus */}
         {activeDropdown && (
-        <div
-          className="left-0 right-0 overflow-hidden transition-all duration-1000 z-10"
-          style={{
-            ...backgroundStyle,
-            maxHeight: activeDropdown ? "50vh" : "0",
-            opacity: animating ? 0 : 1,
-            animation: animating ? "dropdownFade 500ms ease-in-out forwards" : "",
-          }}
-        >
-          <div className="container py-2">
-            <div className="max-w-screen-xl mx-auto px-[30%]">
-              <h3 className="text-lg font-bold mb-[2vh]">CREATE</h3>
-              <div className="flex flex-col space-y-[1.5vh]">
-                {activeDropdown === "features" &&
-                  featuresDropdownItems.map((item, index) => (
-                    <Link
-                      href={`/${item.title.toLowerCase().replace(/\s+/g, "-")}`}
-                      key={index}
-                      className="block py-0 rounded-md transition-all duration-300 hover:text-[#dbdbdb]"
-                    >
-                      <span>
-                        {item.title} {item.coming && "(coming soon)"}
-                      </span>
-                    </Link>
-                  ))}
-                {activeDropdown === "templates" &&
-                  templatesDropdownItems.map((item, index) => (
-                    <Link
-                      href={`/${item.title.toLowerCase().replace(/\s+/g, "-")}`}
-                      key={index}
-                      className="block py-0 rounded-md transition-all duration-300 hover:text-[#dbdbdb]"
-                    >
-                      <span>
-                        {item.title} {item.coming && "(coming soon)"}
-                      </span>
-                    </Link>
-                  ))}
+          <div
+            className="left-0 right-0 overflow-hidden transition-all duration-1000 z-10"
+            style={{
+              ...backgroundStyle,
+              maxHeight: activeDropdown ? "50vh" : "0",
+              opacity: animating ? 0 : 1,
+              animation: animating ? "dropdownFade 500ms ease-in-out forwards" : "",
+            }}
+          >
+            <div className="container py-2">
+              <div className="flex flex-col md:ml-[20vw] lg:ml-[34.8vw]">
+                <h3 className="text-lg font-bold mb-[2vh]">CREATE</h3>
+                <div className="flex flex-col space-y-[1.5vh]">
+                  {activeDropdown === "features" &&
+                    featuresDropdownItems.map((item, index) => (
+                      <Link
+                        href={`/${item.title.toLowerCase().replace(/\s+/g, "-")}`}
+                        key={index}
+                        className="block py-0 rounded-md transition-all duration-300 hover:text-[#dbdbdb]"
+                      >
+                        <span>
+                          {item.title} {item.coming && "(coming soon)"}
+                        </span>
+                      </Link>
+                    ))}
+                  {activeDropdown === "templates" &&
+                    templatesDropdownItems.map((item, index) => (
+                      <Link
+                        href={`/${item.title.toLowerCase().replace(/\s+/g, "-")}`}
+                        key={index}
+                        className="block py-0 rounded-md transition-all duration-300 hover:text-[#dbdbdb]"
+                      >
+                        <span>
+                          {item.title} {item.coming && "(coming soon)"}
+                        </span>
+                      </Link>
+                    ))}
+                </div>
               </div>
             </div>
           </div>
-        </div>
-      )}
+        )}
       </header>
 
       {/* Sliding Navbar */}
