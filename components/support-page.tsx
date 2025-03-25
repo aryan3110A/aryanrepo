@@ -44,7 +44,7 @@ export default function SupportPage() {
   return (
 
 
-    <div className="min-h-screen bg-black text-white px-4 md:px-6 lg:px-8  md:py-12 lg:py-12">
+    <div className="min-h-screen bg-black text-white px-4 md:px-6 lg:px-8  pt-20">
       {/* Grid Container */}
       <div className="max-w-[90vw] mx-auto">
         {/* Top Row */}
