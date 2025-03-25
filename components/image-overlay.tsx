@@ -19,27 +19,50 @@ interface ArtImage {
   username: string;
   model: string;
   prompt: string;
-  aspectRatio: number;
+  aspectRatio?: number;
+  liked?: boolean;
+  bookmarked?: boolean;
 }
 
 interface ImageOverlayProps {
   image: ArtImage;
   onClose: () => void;
+  onLike?: (image: ArtImage) => void;
+  onBookmark?: (image: ArtImage) => void;
 }
 
-export default function ImageOverlay({ image, onClose }: ImageOverlayProps) {
+export default function ImageOverlay({ 
+  image, 
+  onClose, 
+  onLike, 
+  onBookmark 
+}: ImageOverlayProps) {
   const [showOriginal, setShowOriginal] = useState(false);
   const [isRemixMode, setIsRemixMode] = useState(false);
   const [promptText, setPromptText] = useState("");
   const [currentImage, setCurrentImage] = useState(image);
   const [originalImage, setOriginalImage] = useState(image);
+  const [liked, setLiked] = useState(image.liked || false);
+  const [bookmarked, setBookmarked] = useState(image.bookmarked || false);
   const overlayRef = useRef<HTMLDivElement>(null);
   const contentRef = useRef<HTMLDivElement>(null);
 
+  // Prevent body scrolling when overlay is open
+  useEffect(() => {
+    document.body.style.overflow = 'hidden';
+    return () => {
+      document.body.style.overflow = 'unset';
+    };
+  }, []);
+
   // Handle scrolling behavior
   useEffect(() => {
-    if (showOriginal && contentRef.current) {
-      contentRef.current.scrollIntoView({ behavior: "smooth" });
+    if (showOriginal && contentRef.current && overlayRef.current) {
+      // Scroll the overlay content, not the entire page
+      contentRef.current.scrollIntoView({ 
+        behavior: "smooth", 
+        block: "start" 
+      });
     }
   }, [showOriginal]);
 
@@ -48,35 +71,65 @@ export default function ImageOverlay({ image, onClose }: ImageOverlayProps) {
   };
 
   const handleRemixClick = () => {
-    // Only proceed if there's text in the prompt input
     if (promptText.trim()) {
       if (!isRemixMode) {
-        // First click with valid prompt - enter remix mode
         setIsRemixMode(true);
         setOriginalImage(currentImage);
       }
 
-      // Update the image and prompt regardless of whether we're entering remix mode or already in it
       const newImage = {
         ...currentImage,
-        src: "/artstation/remix1.png", // Change to remix image
-        prompt: promptText, // Update the prompt to user's input
+        src: "/artstation/remix1.png", // Replace with actual remix logic
+        prompt: promptText,
       };
       setCurrentImage(newImage);
-      setPromptText(""); // Clear the prompt input after generating
+      setPromptText("");
     }
   };
 
-  // Determine if the Remix button should be disabled
+  const handleLikeToggle = () => {
+    const newLikedState = !liked;
+    setLiked(newLikedState);
+    
+    // Call parent component's like handler if provided
+    if (onLike) {
+      onLike({
+        ...currentImage,
+        liked: newLikedState
+      });
+    }
+  };
+
+  const handleBookmarkToggle = () => {
+    const newBookmarkedState = !bookmarked;
+    setBookmarked(newBookmarkedState);
+    
+    // Call parent component's bookmark handler if provided
+    if (onBookmark) {
+      onBookmark({
+        ...currentImage,
+        bookmarked: newBookmarkedState
+      });
+    }
+  };
+
   const isRemixButtonDisabled = promptText.trim() === "";
 
   return (
     <div
       ref={overlayRef}
       className="fixed inset-0 z-50 bg-black bg-opacity-90 overflow-y-auto"
-      style={{ scrollBehavior: "smooth" }}
+      style={{ 
+        overscrollBehavior: 'contain', 
+        WebkitOverflowScrolling: 'touch' 
+      }}
     >
-      <div className="relative bg-[#1F1F1F] rounded-lg w-[75zzzz%] max-w-7xl mx-auto mt-[15vh] mb-[5vh]">
+      <div 
+        className="relative bg-[#1F1F1F] rounded-lg w-[75%] max-w-7xl mx-auto mt-[15vh] mb-[5vh]"
+        style={{ 
+          overscrollBehavior: 'none' 
+        }}
+      >
         {/* Close button */}
         <button
           onClick={onClose}
@@ -85,10 +138,10 @@ export default function ImageOverlay({ image, onClose }: ImageOverlayProps) {
           <X className="w-5 h-5" />
         </button>
 
-        {/* Main content area - consistent layout for both modes */}
+        {/* Main content area */}
         <div className="flex flex-col md:flex-row">
           {/* Left side - Image */}
-          <div className="w-full md:w-1/2 relative ">
+          <div className="w-full md:w-1/2 relative">
             <div className="relative aspect-square md:aspect-auto md:h-[70vh]">
               <Image
                 src={currentImage.src || "/placeholder.svg"}
@@ -120,16 +173,28 @@ export default function ImageOverlay({ image, onClose }: ImageOverlayProps) {
               </div>
 
               <div className="flex space-x-8">
-              <button className="flex items-center space-x-2 px-3 py-1 rounded-md border border-[#919191] bg-[#1f1f1f] hover:bg-[#3D3D3D] hover:border-white transition-colors">
-              <Share className="w-4 h-4" />
+                <button className="flex items-center space-x-2 px-3 py-1 rounded-md border border-[#919191] bg-[#1f1f1f] hover:bg-[#3D3D3D] hover:border-white transition-colors">
+                  <Share className="w-4 h-4" />
                   <span>Share</span>
                 </button>
-                <button className="flex items-center space-x-2 px-3 py-1 rounded-md  hover:bg-[#3D3D3D] transition-colors">
+                <button 
+                  onClick={handleBookmarkToggle}
+                  className={`flex items-center space-x-2 px-3 py-1 rounded-md transition-colors ${
+                    bookmarked 
+                      ? 'bg-[#FFA800] text-white' 
+                      : 'hover:bg-[#3D3D3D]'
+                  }`}
+                >
                   <Bookmark className="w-4 h-4" />
                   <span>Bookmark</span>
                 </button>
-                <button className="text-[#777777] hover:text-red-600 transition-colors">
-                  <Heart className="w-6 h-6" />
+                <button 
+                  onClick={handleLikeToggle}
+                  className={`text-${liked ? '[#FF4444]' : '[#777777]'} hover:text-red-600 transition-colors`}
+                >
+                  <Heart 
+                    className={`w-6 h-6 ${liked ? 'fill-current' : ''}`} 
+                  />
                 </button>
                 <button className="text-[#777777] hover:text-white transition-colors">
                   <Download className="w-6 h-6" />
@@ -188,31 +253,34 @@ export default function ImageOverlay({ image, onClose }: ImageOverlayProps) {
               </div>
             </div>
 
-            {/* Original image button (only shown in remix mode) */}
+            {/* Original image button */}
             {isRemixMode && (
               <div className="w-[20vw] mt-4">
                 <button
                   onClick={toggleOriginal}
-                  className="flex items-center gap-2 w-full p-3  rounded-md hover:bg-zinc-700 transition-colors"
+                  className="flex items-center gap-2 w-full p-3 rounded-md hover:bg-zinc-700 transition-colors"
                 >
-                    {showOriginal ? (
+                  {showOriginal ? (
                     <ChevronUp className="w-5 h-5" />
                   ) : (
                     <ChevronDown className="w-5 h-5" />
                   )}
                   <span>Original image</span>
-                  
                 </button>
               </div>
             )}
           </div>
         </div>
 
-        {/* Original image section (conditionally rendered) */}
+        {/* Original image section */}
         {isRemixMode && showOriginal && (
           <div
             ref={contentRef}
-            className="flex flex-col md:flex-row w-full pl-[7%] pb-6 mt-8"
+            className="flex flex-col md:flex-row w-full pl-[7%] pb-6 mt-8 max-h-[70vh] overflow-y-auto"
+            style={{ 
+              overscrollBehavior: 'contain',
+              WebkitOverflowScrolling: 'touch'
+            }}
           >
             {/* User info */}
             <div className="w-full md:w-1/2 pr-0 md:pr-4 pt-8">
@@ -234,16 +302,16 @@ export default function ImageOverlay({ image, onClose }: ImageOverlayProps) {
                     <Share className="w-4 h-4" />
                     <span>Share</span>
                   </button>
-                  <button className="flex items-center space-x-2 px-3 py-1 rounded-md  hover:bg-[#3D3D3D] transition-colors">
-                  <Bookmark className="w-4 h-4" />
+                  <button className="flex items-center space-x-2 px-3 py-1 rounded-md hover:bg-[#3D3D3D] transition-colors">
+                    <Bookmark className="w-4 h-4" />
                     <span>Bookmark</span>
                   </button>
                   <button className="text-[#777777] hover:text-red-600 transition-colors">
-                  <Heart className="w-6 h-6" />
-                </button>
-                <button className="text-[#777777] hover:text-white transition-colors">
-                  <Download className="w-6 h-6" />
-                </button>
+                    <Heart className="w-6 h-6" />
+                  </button>
+                  <button className="text-[#777777] hover:text-white transition-colors">
+                    <Download className="w-6 h-6" />
+                  </button>
                 </div>
               </div>
 
@@ -272,7 +340,7 @@ export default function ImageOverlay({ image, onClose }: ImageOverlayProps) {
                   sizes="(max-width: 768px) 100vw, 50vw"
                   style={{ objectFit: "contain" }}
                   className="pt-10 pb-10"
-                  />
+                />
               </div>
             </div>
           </div>
