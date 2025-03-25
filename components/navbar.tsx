@@ -176,48 +176,49 @@ export default function Navbar(): JSX.Element {
         </div>
 
         {/* Full-width dropdown menus */}
-        {activeDropdown && ( 
-  <div
-    className={`left-0 right-0 overflow-hidden transition-all duration-1000 z-10 font-poppins`}
-    style={{
-      ...backgroundStyle,
-      maxHeight: activeDropdown ? "50vh" : "0",
-      opacity: animating ? 0 : 1,
-      animation: animating ? "dropdownFade 500ms ease-in-out forwards" : "",
-    }}
-  >
-    <div className="container py-2 px-[10%]"> {/* Universal padding */}
-      <h3 className="text-lg font-bold mb-[2vh] pl-[39%]">CREATE</h3> {/* Centered for all screens */}
-      <div className="flex flex-col space-y-[1.5vh] pl-[39%]"> {/* Consistent padding */}
-        {activeDropdown === "features" &&
-          featuresDropdownItems.map((item, index) => (
-            <Link
-              href={`/${item.title.toLowerCase().replace(/\s+/g, "-")}`}
-              key={index}
-              className="block px-0 py-0 rounded-md transition-all duration-300 hover:text-[#dbdbdb]"
-            >
-              <span>
-                {item.title} {item.coming && "(coming soon)"}
-              </span>
-            </Link>
-          ))}
-        {activeDropdown === "templates" &&
-          templatesDropdownItems.map((item, index) => (
-            <Link
-              href={`/${item.title.toLowerCase().replace(/\s+/g, "-")}`}
-              key={index}
-              className="block px-0 py-0 rounded-md transition-all duration-300 hover:text-[#dbdbdb]"
-            >
-              <span>
-                {item.title} {item.coming && "(coming soon)"}
-              </span>
-            </Link>
-          ))}
-      </div>
-    </div>
-  </div>
-)}
-
+        {activeDropdown && (
+        <div
+          className="left-0 right-0 overflow-hidden transition-all duration-1000 z-10"
+          style={{
+            ...backgroundStyle,
+            maxHeight: activeDropdown ? "50vh" : "0",
+            opacity: animating ? 0 : 1,
+            animation: animating ? "dropdownFade 500ms ease-in-out forwards" : "",
+          }}
+        >
+          <div className="container py-2">
+            <div className="max-w-screen-xl mx-auto px-[30%]">
+              <h3 className="text-lg font-bold mb-[2vh]">CREATE</h3>
+              <div className="flex flex-col space-y-[1.5vh]">
+                {activeDropdown === "features" &&
+                  featuresDropdownItems.map((item, index) => (
+                    <Link
+                      href={`/${item.title.toLowerCase().replace(/\s+/g, "-")}`}
+                      key={index}
+                      className="block py-0 rounded-md transition-all duration-300 hover:text-[#dbdbdb]"
+                    >
+                      <span>
+                        {item.title} {item.coming && "(coming soon)"}
+                      </span>
+                    </Link>
+                  ))}
+                {activeDropdown === "templates" &&
+                  templatesDropdownItems.map((item, index) => (
+                    <Link
+                      href={`/${item.title.toLowerCase().replace(/\s+/g, "-")}`}
+                      key={index}
+                      className="block py-0 rounded-md transition-all duration-300 hover:text-[#dbdbdb]"
+                    >
+                      <span>
+                        {item.title} {item.coming && "(coming soon)"}
+                      </span>
+                    </Link>
+                  ))}
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
       </header>
 
       {/* Sliding Navbar */}
