@@ -9,21 +9,30 @@ interface ArtImage {
   username: string;
   model: string;
   prompt: string;
+  liked?: boolean;
+  bookmarked?: boolean;
 }
 
 interface MasonryLayoutProps {
   images: ArtImage[];
   onImageClick: (image: ArtImage) => void;
+  onLikeToggle?: (image: ArtImage) => void;
+  onBookmarkToggle?: (image: ArtImage) => void;
 }
 
-export default function MasonryLayout({ images, onImageClick }: MasonryLayoutProps) {
+export default function MasonryLayout({ 
+  images, 
+  onImageClick, 
+  onLikeToggle, 
+  onBookmarkToggle 
+}: MasonryLayoutProps) {
   const [hoveredImageId, setHoveredImageId] = useState<string | null>(null);
   const [imageDimensions, setImageDimensions] = useState<Record<string, { width: number; height: number }>>({});
   const [imagesLoaded, setImagesLoaded] = useState(false);
+  const [modifiedImages, setModifiedImages] = useState<ArtImage[]>(images);
   const containerRef = useRef<HTMLDivElement>(null);
-  const [columns] = useState(3); // Fixed number of columns (3 per row)
+  const [columns] = useState(3);
 
-  // Load image dimensions
   useEffect(() => {
     const loadImageDimensions = async () => {
       const dimensions: Record<string, { width: number; height: number }> = {};
@@ -55,30 +64,45 @@ export default function MasonryLayout({ images, onImageClick }: MasonryLayoutPro
     loadImageDimensions();
   }, [images]);
 
-  // Organize images into columns
   const getColumnImages = () => {
     if (!imagesLoaded) return Array.from({ length: columns }, () => []);
 
-    // Calculate total height of each column
     const columnHeights = Array(columns).fill(0);
     const columnImages: ArtImage[][] = Array.from({ length: columns }, () => []);
 
-    // Distribute images to the shortest column
-    images.forEach((image) => {
+    modifiedImages.forEach((image) => {
       const dimensions = imageDimensions[image.id] || { width: 1, height: 1 };
       const ratio = dimensions.height / dimensions.width;
 
-      // Find the shortest column
       const shortestColumnIndex = columnHeights.indexOf(Math.min(...columnHeights));
 
-      // Add image to the shortest column
       columnImages[shortestColumnIndex].push(image);
-
-      // Update column height
       columnHeights[shortestColumnIndex] += ratio;
     });
 
     return columnImages;
+  };
+
+  const handleLikeToggle = (image: ArtImage) => {
+    const updatedImages = modifiedImages.map(img => 
+      img.id === image.id 
+        ? { ...img, liked: !img.liked } 
+        : img
+    );
+    setModifiedImages(updatedImages);
+    
+    onLikeToggle && onLikeToggle(image);
+  };
+
+  const handleBookmarkToggle = (image: ArtImage) => {
+    const updatedImages = modifiedImages.map(img => 
+      img.id === image.id 
+        ? { ...img, bookmarked: !img.bookmarked } 
+        : img
+    );
+    setModifiedImages(updatedImages);
+    
+    onBookmarkToggle && onBookmarkToggle(image);
   };
 
   if (!imagesLoaded) {
@@ -105,7 +129,6 @@ export default function MasonryLayout({ images, onImageClick }: MasonryLayoutPro
                 onMouseLeave={() => setHoveredImageId(null)}
                 onClick={() => onImageClick(image)}
               >
-                {/* Image with original aspect ratio */}
                 <div
                   className="relative w-full"
                   style={{ paddingBottom: `${(dimensions.height / dimensions.width) * 100}%` }}
@@ -119,12 +142,39 @@ export default function MasonryLayout({ images, onImageClick }: MasonryLayoutPro
                   />
                 </div>
 
-                {/* Hover Overlay */}
                 {hoveredImageId === image.id && (
                   <div className="absolute inset-0 bg-black bg-opacity-70 flex flex-col justify-between p-4 transition-opacity duration-300">
                     <div className="flex justify-center space-x-6 mb-auto mt-[45%]">
-                      <Heart className="w-8 h-8 text-white hover:text-pink-400" />
-                      <Bookmark className="w-8 h-8 text-white hover:text-yellow-400" />
+                      <Heart 
+                        onClick={(e) => {
+                          e.stopPropagation(); 
+                          handleLikeToggle(image);
+                        }}
+                        className={`
+                          w-8 h-8 
+                          ${image.liked 
+                            ? 'text-[#FF4444] fill-current scale-125' 
+                            : 'text-white hover:scale-110'}
+                          transform transition-all duration-300 ease-out
+                          hover:drop-shadow-lg 
+                          ${image.liked ? 'animate-bounce-once' : 'active:scale-90'}
+                        `} 
+                      />
+                      <Bookmark 
+                        onClick={(e) => {
+                          e.stopPropagation(); 
+                          handleBookmarkToggle(image);
+                        }}
+                        className={`
+                          w-8 h-8 
+                          ${image.bookmarked 
+                            ? 'text-[#FFA800] fill-current scale-125' 
+                            : 'text-white hover:scale-110'}
+                          transform transition-all duration-300 ease-out
+                          hover:drop-shadow-lg 
+                          ${image.bookmarked ? 'animate-bounce-once' : 'active:scale-90'}
+                        `} 
+                      />
                     </div>
                     <div className="text-white mt-auto">
                       <div className="flex items-center mb-2">
