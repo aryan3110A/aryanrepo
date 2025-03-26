@@ -45,7 +45,11 @@ const profiles: Profile[] = [
 
 const sidebarItems: NavItem[] = [
   { label: "Home", href: "/", icon: <Home className="w-6 h-6" /> },
+<<<<<<< HEAD
   
+=======
+ 
+>>>>>>> 6929e4084b60dec968970f9a87fee488f55f45b3
   { label: "Apps", href: "/apps", icon: <Grid className="w-5 h-5" /> },
   { label: "Models", href: "/models", icon: <Boxes className="w-5 h-5" /> },
   {
