@@ -357,14 +357,14 @@ export default function Hamburger({ isOpen, onClose }: NavbarProps) {
               <p className="-mt-[2vh] text-[1.2vh] text-gray-400 mb-[5%]">We growing up your business with personal AI manager</p>
 
               {/* Links */}
-              <div className="flex  text-[1vh] text-gray-500 ">
+              <div className="flex  text-[1.3vh] text-gray-500 ">
                 <a href="#" className="hover:text-gray-300 flex-nowrap ">
                   Terms of uses
                 </a>
-                <a href="#" className="hover:text-gray-300 flex-nowrap ml-[2.5vw] ">
+                <a href="#" className="hover:text-gray-300 flex-nowrap ml-[1.2vw] ">
                   Privacy Policy
                 </a>
-                <a href="#" className="hover:text-gray-300 flex-nowrap ml-[2.5vw]">
+                <a href="#" className="hover:text-gray-300 flex-nowrap ml-[1.4vw]">
                   DMCA
                 </a>
               </div>
