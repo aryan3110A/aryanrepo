@@ -12,11 +12,10 @@ import {
   Boxes,
   FileText,
   FolderKanban,
-  Diamond,
   Settings,
   LogOut,
-  Plus,
-  User,
+  Bookmark ,
+  
 } from "lucide-react";
 import Link from "next/link";
 import SettingComponent from "./Settings"; // Import the Settings component
@@ -48,15 +47,22 @@ const sidebarItems: NavItem[] = [
 
   { label: "Apps", href: "/apps", icon: <Grid className="w-5 h-5" /> },
   { label: "Models", href: "/models", icon: <Boxes className="w-5 h-5" /> },
+  { label: "Apps", href: "/apps", icon: <Grid className="w-6 h-6" /> },
+  { label: "Models", href: "/models", icon: <Boxes className="w-6 h-6" /> },
   {
     label: "Templates",
     href: "/templates",
-    icon: <FileText className="w-5 h-5" />,
+    icon: <FileText className="w-6 h-6" />,
   },
   {
     label: "Projects",
     href: "/projects",
-    icon: <FolderKanban className="w-5 h-5" />,
+    icon: <FolderKanban className="w-6 h-6" />,
+  },
+  {
+    label: "Bookmark",
+    href: "/Booksmarks",
+    icon: <Bookmark className="w-6 h-6" />,
   },
 ];
 
@@ -124,7 +130,7 @@ export default function Hamburger({ isOpen, onClose }: NavbarProps) {
           transform transition-transform duration-300 ease-in-out z-40
           ${isOpen ? "translate-x-0" : "-translate-x-full"}`}
       >
-        <div className="h-full overflow-y-auto p-4">
+        <div className="h-full overflow-y-auto p-4 font-poppins">
           {/* Close Button */}
           <button
             onClick={onClose}
@@ -335,6 +341,37 @@ export default function Hamburger({ isOpen, onClose }: NavbarProps) {
               )
             ))}
           </div>
+
+        
+          {/* WildMind Footer */}
+          <div className="absolute bottom-0 left-0 w-full bg-[#171717] p-[5%] font-poppins">
+            <div className="flex flex-col items-start">
+              {/* Logo */}
+              <div className="flex items-center gap-[6%]  justify-center pl-[2vw]">
+                <Image src="/logo.png" alt="WildMind Logo" width={32} height={32} className="" />
+                <span className="text-white font-bold text-3xl">WildMind</span>
+              </div>
+
+              {/* Blue WildMind text */}
+              <div className="text-[#4285F4] font-bold text-[6vh] ">WildMind</div>
+
+              {/* Tagline */}
+              <p className="-mt-[2vh] text-[1.2vh] text-gray-400 mb-[5%]">We growing up your business with personal AI manager</p>
+
+              {/* Links */}
+              <div className="flex  text-[1vh] text-gray-500 ">
+                <a href="#" className="hover:text-gray-300 flex-nowrap ">
+                  Terms of uses
+                </a>
+                <a href="#" className="hover:text-gray-300 flex-nowrap ml-[2.5vw] ">
+                  Privacy Policy
+                </a>
+                <a href="#" className="hover:text-gray-300 flex-nowrap ml-[2.5vw]">
+                  DMCA
+                </a>
+              </div>
+            </div>
+          </div>
         </div>
       </nav>
 
@@ -345,6 +382,8 @@ export default function Hamburger({ isOpen, onClose }: NavbarProps) {
         hamburgerOpen={isOpen}
         profiles={profiles}
       />
+
+      
       
     </>
   );
