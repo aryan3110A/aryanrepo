@@ -1,5 +1,4 @@
 import Link from "next/link";
-import { MessageCircle, Instagram, Youtube, Newspaper } from "lucide-react";
 import {
   IconBrandBlogger,
   IconBrandGithub,

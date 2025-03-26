@@ -1,5 +1,4 @@
 "use client";
-import Header from "./Header";
 import Image from "next/image";
 import { useState } from "react";
 import Link from "next/link";
