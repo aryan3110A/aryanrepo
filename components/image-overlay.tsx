@@ -343,7 +343,7 @@ export default function ImageOverlay({
                 />
               </div>
             </div>
-          </div>
+          </div>  
         )}
       </div>
     </div>
