@@ -1,96 +1,114 @@
-"use client"
+"use client";
 
-import { useState, useEffect, useRef } from "react"
-import { Menu, User, ChevronDown } from "lucide-react"
-import Link from "next/link"
-import Hamburger from "./Hamburger"
-import type { JSX } from "react/jsx-runtime"
+import { useState, useEffect, useRef } from "react";
+import { Menu, User, ChevronDown } from "lucide-react";
+import Link from "next/link";
+import Hamburger from "./Hamburger";
+import type { JSX } from "react/jsx-runtime";
 
 // Define types for dropdown items
 interface DropdownItem {
-  title: string
-  coming: boolean
+  title: string;
+  coming: boolean;
+  src: string;
 }
 
 export default function Navbar(): JSX.Element {
-  const [isNavOpen, setIsNavOpen] = useState<boolean>(false)
-  const [activeDropdown, setActiveDropdown] = useState<string | null>(null)
-  const [animating, setAnimating] = useState<boolean>(false)
-  const headerRef = useRef<HTMLElement>(null)
-  const [isUserDropdownOpen, setIsUserDropdownOpen] = useState<boolean>(false)
+  const [isNavOpen, setIsNavOpen] = useState<boolean>(false);
+  const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
+  const [animating, setAnimating] = useState<boolean>(false);
+  const headerRef = useRef<HTMLElement>(null);
+  const [isUserDropdownOpen, setIsUserDropdownOpen] = useState<boolean>(false);
 
   const toggleDropdown = (dropdown: string): void => {
     // If clicking the same dropdown, close it
     if (activeDropdown === dropdown) {
-      setActiveDropdown(null)
+      setActiveDropdown(null);
     } else {
       // If clicking a different dropdown, switch to new dropdown
-      setActiveDropdown(dropdown)
+      setActiveDropdown(dropdown);
     }
-  }
+  };
 
   useEffect(() => {
     // Function to handle clicks outside the dropdown
     const handleClickOutside = (event: MouseEvent) => {
       // Check if the click is outside the header
-      if (headerRef.current && !headerRef.current.contains(event.target as Node)) {
-        setActiveDropdown(null)
-        setIsUserDropdownOpen(false)
+      if (
+        headerRef.current &&
+        !headerRef.current.contains(event.target as Node)
+      ) {
+        setActiveDropdown(null);
+        setIsUserDropdownOpen(false);
       }
-    }
+    };
 
     // Add click event listener to document
-    document.addEventListener("mousedown", handleClickOutside)
+    document.addEventListener("mousedown", handleClickOutside);
 
     // Cleanup event listener
     return () => {
-      document.removeEventListener("mousedown", handleClickOutside)
-    }
-  }, [])
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
 
   useEffect(() => {
     if (activeDropdown) {
-      setAnimating(true)
+      setAnimating(true);
       const timer = setTimeout(() => {
-        setAnimating(false)
-      }, 1000)
-      return () => clearTimeout(timer)
+        setAnimating(false);
+      }, 1000);
+      return () => clearTimeout(timer);
     }
-  }, [activeDropdown])
+  }, [activeDropdown]);
 
   const featuresDropdownItems: DropdownItem[] = [
     {
       title: "Text to image",
+      src: "./art-station",
       coming: false,
     },
     {
       title: "Text to 3D",
+      src: "./art-station",
+
+
       coming: true,
     },
     {
       title: "Text to Video",
+      src: "./art-station",
+
       coming: true,
     },
     {
       title: "Sketch to Image",
+      src: "./art-station",
+
       coming: true,
     },
     {
       title: "Real Time Genration",
+      src: "./art-station",
+
       coming: true,
     },
-  ]
+  ];
 
   const templatesDropdownItems: DropdownItem[] = [
     {
       title: "Image Generation",
+      src: "./art-station",
+
       coming: false,
     },
     {
       title: "Video Generation",
+      src: "./art-station",
+
       coming: true,
     },
-  ]
+  ];
 
   // Common background style object for header and dropdown
   const backgroundStyle = {
@@ -98,7 +116,7 @@ export default function Navbar(): JSX.Element {
     backgroundPosition: "center",
     backgroundRepeat: "no-repeat",
     backgroundBlendMode: "overlay",
-  }
+  };
 
   return (
     <div className=" bg-[#000000] text-white">
@@ -129,15 +147,17 @@ export default function Navbar(): JSX.Element {
             <div className="relative">
               <button
                 onClick={() => {
-                  toggleDropdown("features")
-                  setIsUserDropdownOpen(false)
+                  toggleDropdown("features");
+                  setIsUserDropdownOpen(false);
                 }}
                 className="flex items-center text-white transition-colors hover:text-[#dbdbdb] group"
               >
                 <span>Features</span>
                 <ChevronDown
                   className={`ml-1 w-6 h-6 transition-transform transform group-hover:text-[#dbdbdb] ${
-                    activeDropdown === "features" ? "rotate-180 text-[#dbdbdb]" : "text-white"
+                    activeDropdown === "features"
+                      ? "rotate-180 text-[#dbdbdb]"
+                      : "text-white"
                   }`}
                 />
               </button>
@@ -147,15 +167,17 @@ export default function Navbar(): JSX.Element {
             <div className="relative">
               <button
                 onClick={() => {
-                  toggleDropdown("templates")
-                  setIsUserDropdownOpen(false)
+                  toggleDropdown("templates");
+                  setIsUserDropdownOpen(false);
                 }}
                 className="flex items-center text-white transition-colors hover:text-[#dbdbdb] group"
               >
                 <span>Templates</span>
                 <ChevronDown
                   className={`ml-1 w-6 h-6 transition-transform transform group-hover:text-[#dbdbdb] ${
-                    activeDropdown === "templates" ? "rotate-180 text-[#dbdbdb]" : "text-white"
+                    activeDropdown === "templates"
+                      ? "rotate-180 text-[#dbdbdb]"
+                      : "text-white"
                   }`}
                 />
               </button>
@@ -166,13 +188,10 @@ export default function Navbar(): JSX.Element {
               <Link
                 href="/subscription-toggle"
                 className="text-white hover:text-[#dbdbdb]"
-                onClick={() => {setActiveDropdown(null)
-                  setIsUserDropdownOpen(false)
-
-                }
-                  
-                }
-                
+                onClick={() => {
+                  setActiveDropdown(null);
+                  setIsUserDropdownOpen(false);
+                }}
               >
                 Pricing
               </Link>
@@ -180,17 +199,21 @@ export default function Navbar(): JSX.Element {
             <Link
               href="/art-station"
               className="text-white hover:text-[#dbdbdb]"
-              onClick={() => {setActiveDropdown(null)
-                setIsUserDropdownOpen(false)
-
+              onClick={() => {
+                setActiveDropdown(null);
+                setIsUserDropdownOpen(false);
               }}
             >
               Art station
             </Link>
-            <Link href="/support" className="text-white hover:text-[#dbdbdb]" onClick={() => {setActiveDropdown(null)
-                  setIsUserDropdownOpen(false)
-
-                }}>
+            <Link
+              href="/support"
+              className="text-white hover:text-[#dbdbdb]"
+              onClick={() => {
+                setActiveDropdown(null);
+                setIsUserDropdownOpen(false);
+              }}
+            >
               Support
             </Link>
           </nav>
@@ -254,7 +277,9 @@ export default function Navbar(): JSX.Element {
               ...backgroundStyle,
               maxHeight: activeDropdown ? "50vh" : "0",
               opacity: animating ? 0 : 1,
-              animation: animating ? "dropdownFade 500ms ease-in-out forwards" : "",
+              animation: animating
+                ? "dropdownFade 500ms ease-in-out forwards"
+                : "",
             }}
           >
             <div className="container py-2">
@@ -264,7 +289,7 @@ export default function Navbar(): JSX.Element {
                   {activeDropdown === "features" &&
                     featuresDropdownItems.map((item, index) => (
                       <Link
-                        href={`/${item.title.toLowerCase().replace(/\s+/g, "-")}`}
+                        href={`/${item.src.toLowerCase().replace(/\s+/g, "-")}`}
                         key={index}
                         className="block py-0 rounded-md transition-all duration-300 hover:text-[#dbdbdb]"
                       >
@@ -276,7 +301,9 @@ export default function Navbar(): JSX.Element {
                   {activeDropdown === "templates" &&
                     templatesDropdownItems.map((item, index) => (
                       <Link
-                        href={`/${item.title.toLowerCase().replace(/\s+/g, "-")}`}
+                        href={`/${item.src
+                          .toLowerCase()
+                          .replace(/\s+/g, "-")}`}
                         key={index}
                         className="block py-0 rounded-md transition-all duration-300 hover:text-[#dbdbdb]"
                       >
@@ -313,6 +340,5 @@ export default function Navbar(): JSX.Element {
         }
       `}</style>
     </div>
-  )
+  );
 }
-
