@@ -47,8 +47,7 @@ const sidebarItems: NavItem[] = [
 
   { label: "Apps", href: "/apps", icon: <Grid className="w-5 h-5" /> },
   { label: "Models", href: "/models", icon: <Boxes className="w-5 h-5" /> },
-  { label: "Apps", href: "/apps", icon: <Grid className="w-6 h-6" /> },
-  { label: "Models", href: "/models", icon: <Boxes className="w-6 h-6" /> },
+
   {
     label: "Templates",
     href: "/templates",
@@ -353,10 +352,10 @@ export default function Hamburger({ isOpen, onClose }: NavbarProps) {
               </div>
 
               {/* Blue WildMind text */}
-              <div className="text-[#4285F4] font-bold text-[6vh] ">WildMind</div>
+              <div className=" items-center text-[#4285F4] font-bold text-[6vh] ">WildMind</div>
 
               {/* Tagline */}
-              <p className="-mt-[2vh] text-[1.2vh] text-gray-400 mb-[5%]">We growing up your business with personal AI manager</p>
+              <p className="items-center -mt-[2vh] text-[1.2vh] text-gray-400 mb-[5%]">We growing up your business with personal AI manager</p>
 
               {/* Links */}
               <div className="flex  text-[1.3vh] text-gray-500 ">
