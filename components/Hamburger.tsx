@@ -48,6 +48,7 @@ const sidebarItems: NavItem[] = [
   { label: "Apps", href: "/apps", icon: <Grid className="w-5 h-5" /> },
   { label: "Models", href: "/models", icon: <Boxes className="w-5 h-5" /> },
 
+
   {
     label: "Templates",
     href: "/templates",
