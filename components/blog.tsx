@@ -257,48 +257,48 @@ export default function Blog() {
   return (
     <div className="flex flex-col min-h-screen w-full bg-black text-white font-poppins">
       {/* Fixed Header */}
-      <header className="fixed top-0 left-0 w-full z-50 bg-[#353535] border-b border-gray-800 py-3 px-4 md:px-8 flex items-center justify-between">
-      <div className="w-3/5 md:w-1/2 relative pl-[10%]">
-        <div className="relative w-full flex items-start">
-          <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" size="1.2rem" />
-          <input
-            type="text"
-            placeholder="Search all articles..."
-            className="w-full py-2 pl-10  rounded-md bg-[#F1F3F4] text-black border border-gray-700 focus:outline-none focus:border-gray-600"
-            value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
-          />
+      <header className="fixed top-0 left-0 w-full z-50 bg-[#353535] border-b border-gray-800 py-[1vh] px-[2vw] md:px-[4vw] flex items-center justify-between">
+        <div className="w-[60%] md:w-[50%] relative">
+          <div className="relative w-full flex items-start">
+            <Search className="absolute left-[1vw] top-1/2 transform -translate-y-1/2 text-gray-400" size="1.2rem" />
+            <input
+              type="text"
+              placeholder="Search all articles..."
+              className="w-full py-[1vh] pl-[3vw] rounded-md bg-[#F1F3F4] text-black border border-gray-700 focus:outline-none focus:border-gray-600"
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+            />
+          </div>
         </div>
-      </div>
-      <button className="bg-blue-500 hover:bg-blue-600 text-white py-2 px-8 rounded-md   transition-colors">
-        Search
-      </button>
-      <div className="flex items-center ">
-        <div className="ml-[34vw] border border-gray-700 rounded-md py-2 px-4 flex items-center bg-transparent hover:bg-gray-800 transition-colors cursor-pointer">
-          <Globe className="mr-2 text-gray-400" size={16} />
-          <span className="mr-1">English</span>
-          <ChevronDown size={16} className="text-gray-400" />
+        <button className="bg-blue-500 hover:bg-blue-600 text-white py-[1vh] px-[4vw] rounded-md transition-colors">
+          Search
+        </button>
+        <div className="flex items-center">
+          <div className="ml-[2vw] border border-gray-700 rounded-md py-[1vh] px-[2vw] flex items-center bg-transparent hover:bg-gray-800 transition-colors cursor-pointer">
+            <Globe className="mr-[1vw] text-gray-400" size={16} />
+            <span className="mr-[0.5vw]">English</span>
+            <ChevronDown size={16} className="text-gray-400" />
+          </div>
         </div>
-      </div>
-    </header>
+      </header>
 
       {/* Main Content */}
-      <main className="mt-20 pt-10 px-8 font-poppins">
+      <main className="mt-[10vh] pt-[5vh] px-[4vw] font-poppins">
         {/* Featured Articles Section */}
         <div
-          className="relative w-full h-[65vh] mb-60"
+          className="relative w-full h-[65vh] mb-[30vh]"
           style={{
             backgroundImage: `url('/Blog/background.png')`,
-            backgroundSize: "cover", // Ensures the full image is visible without cropping
+            backgroundSize: "cover",
             backgroundPosition: "center",
             backgroundRepeat: "no-repeat",
           }}
         >
           <div className="absolute inset-0 opacity-20 font-poppins" style={gridPatternStyle}></div>
-          <div className="max-w-7xl mx-auto px-4 py-6">
-            <div className="w-full md:w-[80%] lg:w-[70%] xl:w-[60%] bg-black rounded-lg overflow-hidden mx-auto my-auto border border-gray-800 max-h-[100%] ">
+          <div className="max-w-[90vw] mx-auto px-[2vw] py-[3vh]">
+            <div className="w-full md:w-[80%] lg:w-[70%] xl:w-[60%] bg-black rounded-lg overflow-hidden mx-auto my-auto border border-gray-800 max-h-[100%]">
               <div className="p-[2vw] pt-[3vw]">
-                <h2 className="text-2xl md:text-2xl font-bold ml-[1vw] ">Featured articles</h2>
+                <h2 className="text-[2vw] md:text-[1.8vw] font-bold ml-[1vw]">Featured articles</h2>
                 <div className="relative">
                   <div className="overflow-hidden rounded-lg relative">
                     <div
@@ -319,85 +319,84 @@ export default function Blog() {
                                 quality={90}
                               />
                             </div>
-                            <div className="px-4 -mt-[2vh]">
-                              <div className="flex items-center space-x-2 ">
-                                <span className="text-blue-400 uppercase text-sm font-semibold">{article.author}</span>
-                                <span className="text-blue-400 uppercase text-sm font-semibold">
+                            <div className="px-[2vw] -mt-[2vh]">
+                              <div className="flex items-center space-x-[1vw]">
+                                <span className="text-blue-400 uppercase text-[1vw] font-semibold">{article.author}</span>
+                                <span className="text-blue-400 uppercase text-[1vw] font-semibold">
                                   {article.authorTag}
                                 </span>
                               </div>
-                              <h3 className="text-lg md:text-3xl font-bold mb-2 font-poppins">{article.title}</h3>
-                              <p className="text-gray-300 text-sm font-poppins">{article.content}</p>
+                              <h3 className="text-[1.5vw] md:text-[2vw] font-bold mb-[1vh] font-poppins">{article.title}</h3>
+                              <p className="text-gray-300 text-[1vw] font-poppins">{article.content}</p>
                             </div>
                           </div>
                         </div>
                       ))}
                     </div>
-                    {/* Navigation Arrows */}
                   </div>
 
-                  {/* Dots */}
+                  {/* Navigation Arrows */}
+                  {currentSlide > 0 && (
+                    <button
+                      onClick={prevSlide}
+                      className="absolute left-[2vw] top-[50%] transform -translate-y-1/2 bg-white rounded-full p-[1vw] text-black z-10"
+                      aria-label="Previous slide"
+                    >
+                      <ChevronLeft size="2rem" />
+                    </button>
+                  )}
+                  {currentSlide < featuredArticles.length - 1 && (
+                    <button
+                      onClick={nextSlide}
+                      className="absolute right-[2vw] top-[50%] transform -translate-y-1/2 bg-white rounded-full p-[1vw] text-black z-10"
+                      aria-label="Next slide"
+                    >
+                      <ChevronRight size="2rem" />
+                    </button>
+                  )}
                 </div>
-                {currentSlide > 0 && (
-                  <button
-                    onClick={prevSlide}
-                    className="absolute left-4  ml-[23vw] top-[50%] transform -translate-y-1/2 bg-white rounded-full p-4  text-black z-10"
-                    aria-label="Previous slide"
-                  >
-                    <ChevronLeft size="2rem" />
-                  </button>
-                )}
-                {currentSlide < featuredArticles.length - 1 && (
-                  <button
-                    onClick={nextSlide}
-                    className="absolute right-4  mr-[23vw]  top-[50%] transform -translate-y-1/2 bg-white rounded-full p-4 text-black z-10"
-                    aria-label="Next slide"
-                  >
-                    <ChevronRight size="2rem" />
-                  </button>
-                )}
+                <div className="flex justify-center mt-[3vh] space-x-[1vw]">
+                  {featuredArticles.map((_, index) => (
+                    <button
+                      key={index}
+                      onClick={() => setCurrentSlide(index)}
+                      className={`w-[0.5vw] h-[0.5vw] rounded-full ${currentSlide === index ? "bg-white" : "bg-gray-600"}`}
+                      aria-label={`Go to slide ${index + 1}`}
+                    />
+                  ))}
+                </div>
               </div>
-            </div>
-            <div className="flex justify-center mt-6 space-x-2">
-              {featuredArticles.map((_, index) => (
-                <button
-                  key={index}
-                  onClick={() => setCurrentSlide(index)}
-                  className={`w-2 h-2 rounded-full ${currentSlide === index ? "bg-white" : "bg-gray-600"}`}
-                  aria-label={`Go to slide ${index + 1}`}
-                />
-              ))}
             </div>
           </div>
         </div>
 
         {categorySections.map((section) => (
-          <div key={section.id} className="w-full mb-20 flex pr-[20%] pl-[5vw]">
-            <div className="flex flex-col items-start mb-4  ">
-              <h2 className="text-2xl font-bold whitespace-nowrap overflow-hidden text-ellipsis max-w-[20vw] mb-3">
+          <div key={section.id} className="w-full mb-[10vh] flex pr-[10vw] pl-[5vw]">
+            <div className="flex flex-col items-start mb-[2vh]">
+              <h2 className="text-[1.5vw] font-bold whitespace-nowrap overflow-hidden text-ellipsis max-w-[20vw] mb-[1.5vh]">
                 {section.title}
               </h2>
-              <button className="flex items-center justify-center bg-[#FFFFFF] hover:bg-[#DADCE0] text-[#1A73E8] hover:text-[#1474F1] py-2 px-6 rounded-md transition-colors">
-                <span className="mr-2">See posts</span>
+              <button className="flex items-center justify-center bg-[#FFFFFF] hover:bg-[#DADCE0] text-[#1A73E8] hover:text-[#1474F1] py-[1vh] px-[3vw] rounded-md transition-colors">
+                <span className="mr-[1vw]">See posts</span>
                 <ChevronRight size="1rem" />
               </button>
             </div>
 
-            <div className="relative pr-[3vw] w-full ml-[5vw]  font-poppins ">
-              <div className="overflow-hidden  font-poppins">
+            <div className="relative pr-[2vw] w-full ml-[3vw] font-poppins">
+              <div className="overflow-hidden font-poppins">
                 <div
-                  className="flex transition-transform duration-500 ease-in-out  "
+                  className="flex transition-transform duration-500 ease-in-out"
                   style={{ transform: `translateX(-${section.scrollPosition * 33.33}%)` }}
                 >
                   {section.articles.map((article, index) => (
-                    <div key={index} className="min-w-[calc(33.33%-0.5rem)] flex-shrink-0 w-[10vw] font-poppins">
-                      <h3 className="text-lg font-semibold h-[4.5rem] line-clamp-4 overflow-hidden  font-poppins">{article.title}</h3>
+                    <div key={index} className="min-w-[33.33%] flex-shrink-0 font-poppins">
+                      <h3 className="text-[1.2vw] font-semibold h-[4.5vh] line-clamp-4 overflow-hidden font-poppins">{article.title}</h3>
                       <Image
                         src={article.image || "/placeholder.svg?height=200&width=400"}
                         alt={article.title}
                         width={400}
                         height={200}
-                        className=" h-[200px] object-cover rounded-lg bg-gray-700"
+                        className="h-[20vh] object-cover rounded-lg bg-gray-700"
                         quality={85}
                       />
                     </div>
@@ -408,7 +407,7 @@ export default function Blog() {
               {section.scrollPosition > 0 && (
                 <button
                   onClick={() => scrollLeft(section.scrollPosition, section.setScrollPosition)}
-                  className="absolute left-0 top-1/2 transform -translate-y-1/2 bg-white rounded-full p-2 text-black z-10 shadow-lg"
+                  className="absolute left-0 top-1/2 transform -translate-y-1/2 bg-white rounded-full p-[1vw] text-black z-10 shadow-lg"
                   aria-label="Scroll left"
                 >
                   <ChevronLeft size="1.5rem" />
@@ -420,7 +419,7 @@ export default function Blog() {
                   onClick={() =>
                     scrollRight(section.scrollPosition, section.setScrollPosition, section.articles.length)
                   }
-                  className="absolute right-0 top-1/2 transform -translate-y-1/2 bg-white rounded-full p-2 text-black z-10 shadow-lg"
+                  className="absolute right-0 top-1/2 transform -translate-y-1/2 bg-white rounded-full p-[1vw] text-black z-10 shadow-lg"
                   aria-label="Scroll right"
                 >
                   <ChevronRight size="1.5rem" />
@@ -430,12 +429,11 @@ export default function Blog() {
           </div>
         ))}
 
-        {/* Follow Section - Similar modifications applied */}
-        <div className="w-[60vw] mx-auto py-20 px-10  rounded-lg mb-20">
-          <h2 className="text-[4rem] font-thin text-center text-white mb-16">Follow txt</h2>
+        {/* Follow Section */}
+        <div className="w-[60vw] mx-auto py-[10vh] px-[5vw] rounded-lg mb-[10vh]">
+          <h2 className="text-[4vw] font-thin text-center text-white mb-[8vh]">Follow txt</h2>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {/* Social Media Sections */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-[3vw]">
             {[
               {
                 name: "YouTube",
@@ -466,25 +464,25 @@ export default function Blog() {
                 description: "Join a community of creative developers and learn how to use the latest in technology.",
               },
             ].map((social) => (
-              <div key={social.name} className="bg-black py-8 rounded-lg shadow-sm border border-[#DADCE0]">
-                <div className="flex justify-start mb-6 pl-[1vw]">{social.icon}</div>
-                <p className="text-white text-start  font-extralight  pl-[1vw]">{social.description}</p>
-                <div className="flex justify-start pl-[1vw] mt-[2vw]">
-                  <button className="border  bg-white rounded-md py-2 px-8   text-[#1A73E8] hover:border-[#1A73E8]">
+              <div key={social.name} className="bg-black py-[4vh] rounded-lg shadow-sm border border-[#DADCE0]">
+                <div className="flex justify-start mb-[3vh] pl-[1vw]">{social.icon}</div>
+                <p className="text-white text-start font-extralight pl-[1vw]">{social.description}</p>
+                <div className="flex justify-start pl-[1vw] mt-[2vh]">
+                  <button className="border bg-white rounded-md py-[1vh] px-[4vw] text-[#1A73E8] hover:border-[#1A73E8]">
                     Learn more
                   </button>
                 </div>
-              </div>  
+              </div>
             ))}
           </div>
 
           {/* Email Subscription */}
-          <div className="mt-10">
-            <div className="bg-black p-8 rounded-lg shadow-sm w-[18vw] mx-auto border border-[#DADCE0] ">
-              <div className="flex justify-start mb-6">
+          <div className="mt-[5vh]">
+            <div className="bg-black p-[4vh] rounded-lg shadow-sm w-[18vw] mx-auto border border-[#DADCE0]">
+              <div className="flex justify-start mb-[3vh]">
                 <svg
                   viewBox="0 0 24 24"
-                  className="w-10 h-auto text-gray-600"
+                  className="w-[2.5vw] h-auto text-gray-600"
                   fill="none"
                   stroke="currentColor"
                   strokeWidth="2"
@@ -495,13 +493,14 @@ export default function Blog() {
                   <polyline points="22,6 12,13 2,6" />
                 </svg>
               </div>
-              <p className="text-white text-start mb-10">
-                Subscribe to Google for Developers news. Your information will be used in accordance with Google's
+              <p className="text-white text-start mb-[5vh]">
+                Subscribe to Google for Developers news. Your information will be used in accordance with Google&apos;s
                 privacy policy.
               </p>
-              <div className="flex justify-start ">
-              <button className="border  bg-white rounded-md py-2 px-8   text-[#1A73E8] hover:border-[#1A73E8]">
-              Subscribe</button>
+              <div className="flex justify-start">
+                <button className="border bg-white rounded-md py-[1vh] px-[4vw] text-[#1A73E8] hover:border-[#1A73E8]">
+                  Subscribe
+                </button>
               </div>
             </div>
           </div>
