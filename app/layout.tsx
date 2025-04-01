@@ -16,6 +16,10 @@ import Page from "@/components/navbar";
 import HomePage from "@/components/HomePage";
 import ArtStation from "@/components/art-station";
 import TextGenerationTemplate from "@/components/template";
+import Blog from "@/components/blog";
+import WildMindLogo from "@/components/dot";
+import BlogPage from "@/components/blog-page";
+import BlogNew from "@/components/blog/blog";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -44,9 +48,13 @@ export default function RootLayout({
         {/* <Footer /> */}
 
         {/* <Page /> */}
-        <HomePage /> 
+        {/* <HomePage />  */}
         {/* <ArtStation /> */}
         {/* <TextGenerationTemplate /> */}
+        {/* <BlogPage /> */}
+        <Blog />
+        {/* <WildMindLogo /> */}
+        {/* <BlogNew /> */}
       </body>
     </html>
   );
