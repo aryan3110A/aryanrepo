@@ -194,7 +194,7 @@ export default function CategorySections() {
       {categorySections.map((section) => (
         <div
           key={section.id}
-          className="md:max-w-[1200px] md:min-w-[1000px] lg:max-w-[1600px] mb-20 px-4 md:px-8 lg:px-12"
+          className="max-w-[1150px] md:max-w-[1200px] md:min-w-[1000px] lg:max-w-[1600px] mb-20 px-4 md:px-8 lg:px-12"
         >
           <div className="flex flex-col md:flex-row items-start gap-8">
             <div className="flex flex-col items-start mb-4 w-full md:w-64 flex-shrink-0">
