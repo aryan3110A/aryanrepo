@@ -296,7 +296,7 @@ export default function Blog() {
         >
           <div className="absolute inset-0 opacity-20 font-poppins" style={gridPatternStyle}></div>
           <div className="max-w-7xl mx-auto px-4 py-6">
-            <div className="w-full md:w-[80%] lg:w-[70%] xl:w-[60%] bg-black rounded-lg overflow-hidden mx-auto my-auto border border-gray-800 max-h-[100%] ">
+            <div className="w-full md:w-[70%] lg:w-[70%] xl:w-[70%]  bg-black rounded-lg overflow-hidden mx-auto my-auto border border-gray-800 max-h-[100%] ">
               <div className="p-[2vw] pt-[3vw]">
                 <h2 className="text-2xl md:text-2xl font-bold ml-[1vw] ">Featured articles</h2>
                 <div className="relative">
