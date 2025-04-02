@@ -11,11 +11,13 @@ export default {
   theme: {
     extend: {
       screens: {
-        "sm-laptop": "1280px",
+        "macbook": "1440px", // Covers most MacBooks (13-inch & above)
+        "sm-laptop": "1280px", // For smaller laptops
         "md": "1366px", // For 15.6-inch & 16-inch laptops
-        "lg": "1600px", 
-        // Large PCs
+        "lg": "1600px", // For larger PCs
+        "xl": "1728px", // For MacBook Pro 16-inch
       },
+      
       animation: {
         fadeIn: 'fadeIn 0.3s ease-in-out',
       },

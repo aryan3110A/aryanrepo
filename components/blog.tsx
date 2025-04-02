@@ -1,4 +1,3 @@
-"use client"
 
 import CategorySections from "./blog/CategorySections"
 import FollowSection from "./blog/Follow"
