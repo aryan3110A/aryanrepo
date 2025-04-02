@@ -372,7 +372,7 @@ export default function Blog() {
                 </button>
               </div>
 
-              <div className="relative w-full font-poppins">
+              <div className="relative w-full ">
                 <div className="overflow-hidden font-poppins">
                   <div
                     className="flex gap-4 transition-transform duration-500 ease-in-out"
