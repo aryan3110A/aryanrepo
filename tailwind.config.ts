@@ -11,7 +11,7 @@ export default {
   theme: {
     extend: {
       screens: {
-        "macbook": "1440px", // Covers most MacBooks (13-inch & above)
+        "macbook": "1080px", // Covers most MacBooks (13-inch & above)
         "sm-laptop": "1280px", // For smaller laptops
         "md": "1366px", // For 15.6-inch & 16-inch laptops
         "lg": "1600px", // For larger PCs
