@@ -143,7 +143,7 @@ export default function FeaturedArticles() {
           {currentSlide > 0 && (
             <button
               onClick={prevSlide}
-              className="absolute left-4 top-1/2 transform -translate-y-1/2 bg-white rounded-full p-4 text-black z-10"
+              className="absolute left-4 top-[40%]  transform -translate-y-1/2 bg-white rounded-full p-4 text-black z-10"
               aria-label="Previous slide"
             >
               <ChevronLeft size="2rem" />
@@ -153,7 +153,7 @@ export default function FeaturedArticles() {
           {currentSlide < featuredArticles.length - 1 && (
             <button
               onClick={nextSlide}
-              className="absolute right-4 top-1/2 transform -translate-y-1/2 bg-white rounded-full p-4 text-black z-10"
+              className="absolute right-4 top-[40%] transform -translate-y-1/2 bg-white rounded-full p-4 text-black z-10"
               aria-label="Next slide"
             >
               <ChevronRight size="2rem" />
