@@ -1,8 +1,9 @@
 "use client"
 
 import { useState, useEffect } from "react"
-import { Search, ChevronLeft, ChevronRight, Globe, ChevronDown } from "lucide-react"
+import { Search, ChevronLeft, ChevronRight , Globe, ChevronDown} from "lucide-react"
 import Image from "next/image"
+
 
 export default function Blog() {
   // State for search and featured articles
@@ -91,6 +92,8 @@ export default function Blog() {
           title: "The Future of AI in Image Generation: What's Next?",
           image: "https://placehold.co/320x200/gray/white",
         },
+
+        
       ],
     },
     {
@@ -171,6 +174,8 @@ export default function Blog() {
           title: "The Future of AI in Image Generation: What's Next?",
           image: "https://placehold.co/320x200/gray/white",
         },
+        
+       
       ],
     },
     {
@@ -211,6 +216,8 @@ export default function Blog() {
           title: "The Future of AI in Image Generation: What's Next?",
           image: "https://placehold.co/320x200/gray/white",
         },
+        
+       
       ],
     },
   ]
@@ -234,7 +241,7 @@ export default function Blog() {
 
   // Generic scroll functions for category sections
   const scrollRight = (currentPosition: number, setPosition: (value: number) => void, maxLength: number) => {
-    setPosition(Math.min(currentPosition + 1, maxLength - 3))
+    setPosition(Math.min(currentPosition + 1, maxLength - 1))
   }
 
   const scrollLeft = (currentPosition: number, setPosition: (value: number) => void) => {
@@ -247,51 +254,52 @@ export default function Blog() {
     backgroundSize: "40px 40px",
   }
 
-  return (
-    <div className="flex flex-col min-h-screen w-full bg-black text-white font-poppins">
+  return 
+ 
+ <div className="flex flex-col min-h-screen w-full bg-black text-white font-poppins">
       {/* Fixed Header */}
       <header className="fixed top-0 left-0 w-full z-50 bg-[#353535] border-b border-gray-800 py-3 px-4 md:px-8 flex items-center justify-between">
-        <div className="w-full max-w-md relative">
-          <div className="relative w-full flex items-start">
-            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" size="1.2rem" />
-            <input
-              type="text"
-              placeholder="Search all articles..."
-              className="w-full py-2 pl-10 rounded-md bg-[#F1F3F4] text-black border border-gray-700 focus:outline-none focus:border-gray-600"
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-            />
-          </div>
+      <div className="w-3/5 md:w-1/2 relative pl-[10%]">
+        <div className="relative w-full flex items-start">
+          <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" size="1.2rem" />
+          <input
+            type="text"
+            placeholder="Search all articles..."
+            className="w-full py-2 pl-10  rounded-md bg-[#F1F3F4] text-black border border-gray-700 focus:outline-none focus:border-gray-600"
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+          />
         </div>
-        <button className="bg-blue-500 hover:bg-blue-600 text-white py-2 px-8 rounded-md transition-colors mx-4">
-          Search
-        </button>
-        <div className="flex items-center">
-          <div className="border border-gray-700 rounded-md py-2 px-4 flex items-center bg-transparent hover:bg-gray-800 transition-colors cursor-pointer">
-            <Globe className="mr-2 text-gray-400" size={16} />
-            <span className="mr-1">English</span>
-            <ChevronDown size={16} className="text-gray-400" />
-          </div>
+      </div>
+      <button className="bg-blue-500 hover:bg-blue-600 text-white py-2 px-8 rounded-md   transition-colors">
+        Search
+      </button>
+      <div className="flex items-center ">
+        <div className="ml-[34vw] border border-gray-700 rounded-md py-2 px-4 flex items-center bg-transparent hover:bg-gray-800 transition-colors cursor-pointer">
+          <Globe className="mr-2 text-gray-400" size={16} />
+          <span className="mr-1">English</span>
+          <ChevronDown size={16} className="text-gray-400" />
         </div>
-      </header>
+      </div>
+    </header>
 
       {/* Main Content */}
       <main className="mt-20 pt-10 px-8 font-poppins">
         {/* Featured Articles Section */}
         <div
-          className="relative w-full h-[600px] mb-60"
+          className="relative w-full h-[65vh] mb-60"
           style={{
             backgroundImage: `url('/Blog/background.png')`,
-            backgroundSize: "cover",
+            backgroundSize: "cover", // Ensures the full image is visible without cropping
             backgroundPosition: "center",
             backgroundRepeat: "no-repeat",
           }}
         >
           <div className="absolute inset-0 opacity-20 font-poppins" style={gridPatternStyle}></div>
           <div className="max-w-7xl mx-auto px-4 py-6">
-            <div className="w-full max-w-4xl bg-black rounded-lg overflow-hidden mx-auto my-auto border border-gray-800 max-h-[100%]">
-              <div className="p-6 pt-8">
-                <h2 className="text-2xl font-bold mb-4">Featured articles</h2>
+            <div className="w-full md:w-[80%] lg:w-[70%] xl:w-[60%] bg-black rounded-lg overflow-hidden mx-auto my-auto border border-gray-800 max-h-[100%] ">
+              <div className="p-[2vw] pt-[3vw]">
+                <h2 className="text-2xl md:text-2xl font-bold ml-[1vw] ">Featured articles</h2>
                 <div className="relative">
                   <div className="overflow-hidden rounded-lg relative">
                     <div
@@ -305,15 +313,15 @@ export default function Blog() {
                               <Image
                                 src={article.image || "/placeholder.svg"}
                                 alt={article.title}
-                                className="w-full aspect-video object-contain rounded-lg px-4"
+                                className="w-full aspect-video object-contain rounded-lg px-[1vw]"
                                 width={640}
                                 height={320}
                                 priority={index === 0}
                                 quality={90}
                               />
                             </div>
-                            <div className="px-4 -mt-4">
-                              <div className="flex items-center space-x-2">
+                            <div className="px-4 -mt-[2vh]">
+                              <div className="flex items-center space-x-2 ">
                                 <span className="text-blue-400 uppercase text-sm font-semibold">{article.author}</span>
                                 <span className="text-blue-400 uppercase text-sm font-semibold">
                                   {article.authorTag}
@@ -326,12 +334,15 @@ export default function Blog() {
                         </div>
                       ))}
                     </div>
+                    {/* Navigation Arrows */}
                   </div>
+
+                  {/* Dots */}
                 </div>
                 {currentSlide > 0 && (
                   <button
                     onClick={prevSlide}
-                    className="absolute left-8 top-[50%] transform -translate-y-1/2 bg-white rounded-full p-4 text-black z-10"
+                    className="absolute left-4  ml-[23vw] top-[50%] transform -translate-y-1/2 bg-white rounded-full p-4  text-black z-10"
                     aria-label="Previous slide"
                   >
                     <ChevronLeft size="2rem" />
@@ -340,7 +351,7 @@ export default function Blog() {
                 {currentSlide < featuredArticles.length - 1 && (
                   <button
                     onClick={nextSlide}
-                    className="absolute right-8 top-[50%] transform -translate-y-1/2 bg-white rounded-full p-4 text-black z-10"
+                    className="absolute right-4  mr-[23vw]  top-[50%] transform -translate-y-1/2 bg-white rounded-full p-4 text-black z-10"
                     aria-label="Next slide"
                   >
                     <ChevronRight size="2rem" />
@@ -362,69 +373,67 @@ export default function Blog() {
         </div>
 
         {categorySections.map((section) => (
-          <div key={section.id} className="max-w-[1600px] min-w-[1200px] mb-20 px-4 md:px-8 lg:px-12">
-            <div className="flex flex-col md:flex-row items-start gap-10">
-              <div className="flex flex-col items-start mb-4 w-full md:w-64 flex-shrink-0">
-                <h2 className="text-2xl font-bold mb-3">{section.title}</h2>
-                <button className="flex items-center justify-center bg-[#FFFFFF] hover:bg-[#DADCE0] text-[#1A73E8] hover:text-[#1474F1] py-2 px-6 rounded-md transition-colors">
-                  <span className="mr-2">See posts</span>
-                  <ChevronRight size="1rem" />
-                </button>
-              </div>
+          <div key={section.id} className="w-full mb-20 flex pr-[20%] pl-[5vw]">
+            <div className="flex flex-col items-start mb-4  ">
+              <h2 className="text-2xl font-bold whitespace-nowrap overflow-hidden text-ellipsis max-w-[20vw] mb-3">
+                {section.title}
+              </h2>
+              <button className="flex items-center justify-center bg-[#FFFFFF] hover:bg-[#DADCE0] text-[#1A73E8] hover:text-[#1474F1] py-2 px-6 rounded-md transition-colors">
+                <span className="mr-2">See posts</span>
+                <ChevronRight size="1rem" />
+              </button>
+            </div>
 
-              <div className="relative w-full font-poppins">
-                <div className="overflow-hidden font-poppins">
-                  <div
-                    className="flex gap-4 transition-transform duration-500 ease-in-out"
-                    style={{ transform: `translateX(-${section.scrollPosition * 320}px)` }}
-                  >
-                    {section.articles.map((article, index) => (
-                      <div key={index} className="w-[300px] flex-shrink-0 font-poppins">
-                        <h3 className="text-lg font-semibold h-[4.5rem] line-clamp-3 overflow-hidden font-poppins mb-2">
-                          {article.title}
-                        </h3>
-                        <Image
-                          src={article.image || "/placeholder.svg?height=200&width=300"}
-                          alt={article.title}
-                          width={300}
-                          height={200}
-                          className="h-[200px] w-[300px] object-cover rounded-lg bg-gray-700"
-                          quality={85}
-                        />
-                      </div>
-                    ))}
-                  </div>
+            <div className="relative pr-[3vw] w-full ml-[5vw]  font-poppins ">
+              <div className="overflow-hidden  font-poppins">
+                <div
+                  className="flex transition-transform duration-500 ease-in-out  "
+                  style={{ transform: `translateX(-${section.scrollPosition * 33.33}%)` }}
+                >
+                  {section.articles.map((article, index) => (
+                    <div key={index} className="min-w-[calc(33.33%-0.5rem)] flex-shrink-0 w-[10vw] font-poppins">
+                      <h3 className="text-lg font-semibold h-[4.5rem] line-clamp-4 overflow-hidden  font-poppins">{article.title}</h3>
+                      <Image
+                        src={article.image || "/placeholder.svg?height=200&width=400"}
+                        alt={article.title}
+                        width={400}
+                        height={200}
+                        className=" h-[200px] object-cover rounded-lg bg-gray-700"
+                        quality={85}
+                      />
+                    </div>
+                  ))}
                 </div>
-
-                {section.scrollPosition > 0 && (
-                  <button
-                    onClick={() => scrollLeft(section.scrollPosition, section.setScrollPosition)}
-                    className="absolute left-0 top-1/2 transform -translate-y-1/2 bg-white rounded-full p-2 text-black z-10 shadow-lg"
-                    aria-label="Scroll left"
-                  >
-                    <ChevronLeft size="1.5rem" />
-                  </button>
-                )}
-
-                {section.articles.length > 3 && section.scrollPosition < section.articles.length - 3 && (
-                  <button
-                    onClick={() =>
-                      scrollRight(section.scrollPosition, section.setScrollPosition, section.articles.length)
-                    }
-                    className="absolute right-0 top-1/2 transform -translate-y-1/2 bg-white rounded-full p-2 text-black z-10 shadow-lg"
-                    aria-label="Scroll right"
-                  >
-                    <ChevronRight size="1.5rem" />
-                  </button>
-                )}
               </div>
+
+              {section.scrollPosition > 0 && (
+                <button
+                  onClick={() => scrollLeft(section.scrollPosition, section.setScrollPosition)}
+                  className="absolute left-0 top-1/2 transform -translate-y-1/2 bg-white rounded-full p-2 text-black z-10 shadow-lg"
+                  aria-label="Scroll left"
+                >
+                  <ChevronLeft size="1.5rem" />
+                </button>
+              )}
+
+              {section.articles.length > 4 && section.scrollPosition < section.articles.length - 4 && (
+                <button
+                  onClick={() =>
+                    scrollRight(section.scrollPosition, section.setScrollPosition, section.articles.length)
+                  }
+                  className="absolute right-0 top-1/2 transform -translate-y-1/2 bg-white rounded-full p-2 text-black z-10 shadow-lg"
+                  aria-label="Scroll right"
+                >
+                  <ChevronRight size="1.5rem" />
+                </button>
+              )}
             </div>
           </div>
         ))}
 
         {/* Follow Section - Similar modifications applied */}
-        <div className="max-w-5xl mx-auto py-20 px-4 md:px-10 rounded-lg mb-20">
-          <h2 className="text-4xl md:text-5xl font-thin text-center text-white mb-16">Follow txt</h2>
+        <div className="w-[60vw] mx-auto py-20 px-10  rounded-lg mb-20">
+          <h2 className="text-[4rem] font-thin text-center text-white mb-16">Follow txt</h2>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {/* Social Media Sections */}
@@ -458,21 +467,21 @@ export default function Blog() {
                 description: "Join a community of creative developers and learn how to use the latest in technology.",
               },
             ].map((social) => (
-              <div key={social.name} className="bg-black py-8 px-6 rounded-lg shadow-sm border border-[#DADCE0]">
-                <div className="flex justify-start mb-6">{social.icon}</div>
-                <p className="text-white text-start font-extralight">{social.description}</p>
-                <div className="flex justify-start mt-8">
-                  <button className="border bg-white rounded-md py-2 px-8 text-[#1A73E8] hover:border-[#1A73E8]">
+              <div key={social.name} className="bg-black py-8 rounded-lg shadow-sm border border-[#DADCE0]">
+                <div className="flex justify-start mb-6 pl-[1vw]">{social.icon}</div>
+                <p className="text-white text-start  font-extralight  pl-[1vw]">{social.description}</p>
+                <div className="flex justify-start pl-[1vw] mt-[2vw]">
+                  <button className="border  bg-white rounded-md py-2 px-8   text-[#1A73E8] hover:border-[#1A73E8]">
                     Learn more
                   </button>
                 </div>
-              </div>
+              </div>  
             ))}
           </div>
 
           {/* Email Subscription */}
           <div className="mt-10">
-            <div className="bg-black p-8 rounded-lg shadow-sm max-w-md mx-auto border border-[#DADCE0]">
+            <div className="bg-black p-8 rounded-lg shadow-sm w-[18vw] mx-auto border border-[#DADCE0] ">
               <div className="flex justify-start mb-6">
                 <svg
                   viewBox="0 0 24 24"
@@ -491,10 +500,9 @@ export default function Blog() {
                 Subscribe to Google for Developers news. Your information will be used in accordance with Google's
                 privacy policy.
               </p>
-              <div className="flex justify-start">
-                <button className="border bg-white rounded-md py-2 px-8 text-[#1A73E8] hover:border-[#1A73E8]">
-                  Subscribe
-                </button>
+              <div className="flex justify-start ">
+              <button className="border  bg-white rounded-md py-2 px-8   text-[#1A73E8] hover:border-[#1A73E8]">
+              Subscribe</button>
               </div>
             </div>
           </div>
@@ -502,7 +510,8 @@ export default function Blog() {
       </main>
 
       {/* Footer */}
+      
     </div>
-  )
+  
 }
 
