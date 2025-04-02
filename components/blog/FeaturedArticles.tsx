@@ -1,8 +1,8 @@
-"use client"
+"use client";
 
-import { useState, useEffect } from "react"
-import { ChevronLeft, ChevronRight } from "lucide-react"
-import Image from "next/image"
+import { useState, useEffect } from "react";
+import { ChevronLeft, ChevronRight } from "lucide-react";
+import Image from "next/image";
 
 // Featured articles data
 const featuredArticles = [
@@ -42,33 +42,37 @@ const featuredArticles = [
       "Post-production workflows are being revolutionized by AI technologies that can automate tedious tasks and enhance creative possibilities. From automatic rotoscoping and color grading to scene extensions and digital doubles, AI tools are enabling VFX artists to achieve high-quality results in a fraction of the time. Discover how studios are implementing AI solutions to streamline their pipelines and deliver stunning visual effects for films, TV shows, and commercials.",
     image: "/blog/blog4.png",
   },
-]
+];
 
 export default function FeaturedArticles() {
-  const [currentSlide, setCurrentSlide] = useState(0)
+  const [currentSlide, setCurrentSlide] = useState(0);
 
   // Auto-rotate featured articles
   useEffect(() => {
     const interval = setInterval(() => {
-      setCurrentSlide((prev) => (prev === featuredArticles.length - 1 ? 0 : prev + 1))
-    }, 8000)
-    return () => clearInterval(interval)
-  }, [])
+      setCurrentSlide((prev) =>
+        prev === featuredArticles.length - 1 ? 0 : prev + 1
+      );
+    }, 8000);
+    return () => clearInterval(interval);
+  }, []);
 
   // Navigation functions for featured articles
   const nextSlide = () => {
-    setCurrentSlide((prev) => (prev === featuredArticles.length - 1 ? prev : prev + 1))
-  }
+    setCurrentSlide((prev) =>
+      prev === featuredArticles.length - 1 ? prev : prev + 1
+    );
+  };
 
   const prevSlide = () => {
-    setCurrentSlide((prev) => (prev === 0 ? prev : prev - 1))
-  }
+    setCurrentSlide((prev) => (prev === 0 ? prev : prev - 1));
+  };
 
   const gridPatternStyle = {
     backgroundImage: `linear-gradient(to right, rgba(255, 255, 255, 0.1) 1px, transparent 1px), 
                       linear-gradient(to bottom, rgba(255, 255, 255, 0.1) 1px, transparent 1px)`,
     backgroundSize: "40px 40px",
-  }
+  };
 
   return (
     <div
@@ -80,9 +84,12 @@ export default function FeaturedArticles() {
         backgroundRepeat: "no-repeat",
       }}
     >
-      <div className="absolute inset-0 opacity-20 font-poppins" style={gridPatternStyle}></div>
-      <div className="max-w-7xl mx-auto px-4 py-6">
-        <div className="w-full max-w-4xl bg-black rounded-lg overflow-hidden mx-auto my-auto border border-gray-800 max-h-[100%] relative">
+      <div
+        className="absolute inset-0 opacity-20 font-poppins"
+        style={gridPatternStyle}
+      ></div>
+      <div className="lg:max-w-7xl md:max-w-5xl mx-auto px-4 py-10 -mt-[60]">
+        <div className="w-full max-w-4xl  bg-black rounded-lg overflow-hidden mx-auto my-auto border border-gray-800 max-h-[100%] relative">
           <div className="p-6 pt-8">
             <h2 className="text-2xl font-bold mb-4">Featured articles</h2>
             <div className="relative">
@@ -110,11 +117,19 @@ export default function FeaturedArticles() {
                         </div>
                         <div className="px-4 -mt-4">
                           <div className="flex items-center space-x-2">
-                            <span className="text-blue-400 uppercase text-sm font-semibold">{article.author}</span>
-                            <span className="text-blue-400 uppercase text-sm font-semibold">{article.authorTag}</span>
+                            <span className="text-blue-400 uppercase text-sm font-semibold">
+                              {article.author}
+                            </span>
+                            <span className="text-blue-400 uppercase text-sm font-semibold">
+                              {article.authorTag}
+                            </span>
                           </div>
-                          <h3 className="text-lg md:text-3xl font-bold mb-2 font-poppins">{article.title}</h3>
-                          <p className="text-gray-300 text-sm font-poppins">{article.content}</p>
+                          <h3 className="text-lg md:text-3xl font-bold mb-2 font-poppins">
+                            {article.title}
+                          </h3>
+                          <p className="text-gray-300 text-sm font-poppins">
+                            {article.content}
+                          </p>
                         </div>
                       </div>
                     </div>
@@ -150,13 +165,14 @@ export default function FeaturedArticles() {
             <button
               key={index}
               onClick={() => setCurrentSlide(index)}
-              className={`w-2 h-2 rounded-full ${currentSlide === index ? "bg-white" : "bg-gray-600"}`}
+              className={`w-2 h-2 rounded-full ${
+                currentSlide === index ? "bg-white" : "bg-gray-600"
+              }`}
               aria-label={`Go to slide ${index + 1}`}
             />
           ))}
         </div>
       </div>
     </div>
-  )
+  );
 }
-
