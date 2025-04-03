@@ -48,11 +48,12 @@ export default function RootLayout({
         {/* <Footer /> */}
 
         {/* <Page /> */}
-        {/* <HomePage />  */}
-        {/* <ArtStation /> */}
+        {/* <ArtStat        
+ion /> */}
+<HomePage /> 
         {/* <TextGenerationTemplate /> */}
         {/* <BlogPage /> */}
-        <Blog />
+        {/* <Blog /> */}
         {/* <WildMindLogo /> */}
         {/* <BlogNew /> */}
       </body>

@@ -1,33 +1,48 @@
-"use client";
-import Image from "next/image";
-import { useState } from "react";
-import Link from "next/link";
+"use client"
+
+import Image from "next/image"
+import { useState, useEffect } from "react"
+import Link from "next/link"
 import Navbar from "./navbar"
+import TokensPopup from "./tokens-popup"
 
 export default function HomePage() {
-  const [isOpen, setIsOpen] = useState(false);
+  const [isOpen, setIsOpen] = useState(false)
+  const [showTokensPopup, setShowTokensPopup] = useState(false)
+
+  useEffect(() => {
+    // Show the tokens popup after 5 seconds
+    const timer = setTimeout(() => {
+      setShowTokensPopup(true)
+    }, 5000)
+
+    return () => clearTimeout(timer)
+  }, [])
 
   return (
     <>
       <Navbar />
       {/* Sidebar Navigation */}
       {isOpen && <div className="fixed inset-0 bg-[black/50] backdrop-blur-sm z-30" onClick={() => setIsOpen(false)} />}
-      
-       <main className="bg-[#28233D]">
+
+      {/* Tokens Popup */}
+      {showTokensPopup && <TokensPopup onClose={() => setShowTokensPopup(false)} />}
+
+      <main className="bg-[#28233D]">
         {/* Hero Section */}
-        <section className="relative h-[100%] overflow-hidden rounded-2xl  w-[80vw] ml-[10vw] bg-black">
+        <section className="relative h-[100%] overflow-hidden rounded-2xl w-[80vw] ml-[10vw] bg-black">
           <div className="absolute inset-0 bg-gradient-to-br from-blue-900/20 to-emerald-900/20" />
           <div className="relative z-10 flex flex-col items-center justify-center h-full text-center">
             <h1 className="text-6xl font-bold mb-4 mt-[10%]">
               Introducing <span className="text-blue-400">3D</span>
             </h1>
             <Image
-                    src="/aryangf.png" // Replace with actual image path
-                    alt="User"
-                    width={4000} // Adjust size as needed
-                    height={400}
-                    className="bg-black "
-                  /> 
+              src="/aryangf.png" // Replace with actual image path
+              alt="User"
+              width={4000} // Adjust size as needed
+              height={400}
+              className="bg-black"
+            />
           </div>
         </section>
 
@@ -51,7 +66,8 @@ export default function HomePage() {
             ))}
           </div>
         </section>
-      </main> 
+      </main>
     </>
-  );
+  )
 }
+
