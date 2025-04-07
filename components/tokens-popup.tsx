@@ -1,16 +1,20 @@
-"use client"
+"use client";
 
-import { useState } from "react"
-import Image from "next/image"
-import { X, Check, ExternalLink } from "lucide-react"
+import { useState } from "react";
+import Image from "next/image";
+import { X, Check, ExternalLink } from "lucide-react";
 
 interface TokensPopupProps {
-  onClose: () => void
+  onClose: () => void;
 }
 
 export default function TokensPopup({ onClose }: TokensPopupProps) {
-  const [paymentPeriod, setPaymentPeriod] = useState<"yearly" | "monthly">("yearly")
-  const [selectedPlan, setSelectedPlan] = useState<"apprentice" | "artisan" | "maestro">("apprentice")
+  const [paymentPeriod, setPaymentPeriod] = useState<"yearly" | "monthly">(
+    "yearly"
+  );
+  const [selectedPlan, setSelectedPlan] = useState<
+    "apprentice" | "artisan" | "maestro"
+  >("apprentice");
 
   const plans = {
     apprentice: {
@@ -34,158 +38,147 @@ export default function TokensPopup({ onClose }: TokensPopupProps) {
       yearlyPrice: 600,
       yearlyDiscountedPrice: 480,
     },
-  }
+  };
 
   const benefits = [
     "Get 8,500 Fast Tokens for faster creation",
     "Store up to 25,500 unused tokens in your Rollover Token Bank",
     "Enable Private Generations",
     "Motion Videos with No Watermarks",
-  ]
+  ];
 
   return (
-    <div
-      className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 backdrop-blur-sm"
-      style={{ width: "100vw", height: "100vh" }}
-    >
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/70 backdrop-blur-sm">
       <div
-        className="relative flex bg-black rounded-xl shadow-2xl overflow-hidden"
-        style={{
-          width: "90%",
-          maxWidth: "1200px",
-          height: "auto",
-          maxHeight: "85vh",
-          minHeight: "500px",
-        }}
+        className="relative flex w-full max-w-[90%] sm:max-w-[85%] md:max-w-[60%] lg:max-w-[70%] xl:max-w-[60%] 
+                      h-full max-h-[100vh] md:max-h-[90vh] lg:max-h-[75vh] xl:max-h-[80vh]  overflow-hidden
+                       bg-black rounded-xl shadow-2xl"
       >
         {/* Close button */}
         <button
           onClick={onClose}
-          className="absolute top-0 right-0 z-10 rounded-full bg-[#222] hover:bg-[#333] transition-colors"
-          style={{ width: "32px", height: "32px", margin: "12px" }}
+          className="absolute top-3 right-3 z-10 p-1 rounded-full bg-[#222] hover:bg-[#333] transition-colors"
         >
-          <X style={{ width: "18px", height: "18px", margin: "auto" }} className="text-white" />
+          <X className="w-4 h-4 md:w-5 md:h-5 text-white" />
         </button>
 
         {/* Left side - Image */}
-        <div className="hidden md:block relative" style={{ width: "35%" }}>
-          <div className="absolute inset-0" style={{ height: "60%" }}>
-            <Image src="/popup/popup.png" alt="Space explorer" fill className="object-cover" priority />
+        <div className="hidden md:block w-[35%] relative">
+          <div className="absolute inset-0 h-[60%] md:h-[55%] lg:h-[60%]">
+            <Image
+              src="/popup/popup.png"
+              alt="Space explorer"
+              fill
+              className="object-cover"
+              priority
+            />
           </div>
 
           {/* Diamond logo and text at bottom */}
-          <div
-            className="absolute bottom-0 left-0 flex flex-col items-center text-center"
-            style={{ width: "100%", paddingBottom: "6%" }}
-          >
-            <div
-              className="rounded-full bg-[#0e1a2d] flex items-center justify-center border-2 border-[#5AD7FF]"
-              style={{ width: "60px", height: "60px", marginBottom: "15px" }}
-            >
+          <div className="absolute bottom-0 left-0 w-full pb-4 md:pb-5 lg:pb-6 flex flex-col items-center text-center">
+            <div className="w-14 h-14 md:w-16 md:h-16 lg:w-18 lg:h-18 rounded-full bg-[#0e1a2d] flex items-center justify-center mb-2 md:mb-3 lg:mb-4 border-2 border-[#5AD7FF]">
               <Image
                 src="/diamond.png"
                 alt="Diamond"
                 width={40}
                 height={40}
-                className="text-blue-400"
-                style={{ width: "32px", height: "32px" }}
+                className="text-blue-400 w-7 h-7 md:w-8 md:h-8 lg:w-9 lg:h-9"
               />
             </div>
             <div className="text-white">
-              <p className="font-bold" style={{ fontSize: "clamp(18px, 1.5vw, 22px)" }}>
+              <p className="text-lg md:text-xl lg:text-2xl font-bold">
                 Become a true
               </p>
-              <p
-                className="font-bold bg-gradient-to-b from-[#5AD7FF] to-[#656BF5] bg-clip-text text-transparent hover:underline"
-                style={{ fontSize: "clamp(22px, 2vw, 28px)" }}
-              >
-                {selectedPlan === "apprentice" ? "Apprentice" : selectedPlan === "artisan" ? "Artisan" : "Maestro"}
+              <p className="text-xl md:text-2xl lg:text-3xl font-bold bg-gradient-to-b from-[#5AD7FF] to-[#656BF5] bg-clip-text text-transparent hover:underline">
+                {selectedPlan === "apprentice"
+                  ? "Apprentice"
+                  : selectedPlan === "artisan"
+                  ? "Artisan"
+                  : "Maestro"}
               </p>
             </div>
           </div>
         </div>
 
         {/* Right side - Content */}
-        <div className="flex-1 flex flex-col overflow-y-auto" style={{ padding: "clamp(16px, 3%, 24px)" }}>
-          <div style={{ marginBottom: "clamp(16px, 3vh, 24px)" }}>
-            <h2 className="font-bold text-white" style={{ fontSize: "clamp(20px, 2vw, 28px)", marginBottom: "8px" }}>
+        <div className="flex-1 p-3 sm:p-4 md:p-5 lg:p-6 flex flex-col overflow-y-auto">
+          <div className="mb-3 md:mb-4 lg:mb-5  justify-center">
+            <h2 className="text-lg sm:text-xl md:text-2xl lg:text-3xl font-bold text-white  mb-1 sm:mb-2 items-center">
               You're almost out of tokens!
             </h2>
-            <p className="text-gray-400" style={{ fontSize: "clamp(14px, 1.2vw, 18px)" }}>
+            <p className="items-center text-gray-400 text-sm sm:text-base md:text-lg">
               Upgrade for more features and benefits
             </p>
           </div>
 
           {/* Payment toggle */}
-          <div
-            className="bg-[#10151F] rounded-full flex mx-auto"
-            style={{ padding: "4px", marginBottom: "clamp(16px, 3vh, 24px)", width: "100%", maxWidth: "400px" }}
-          >
+          <div className="bg-[#10151F] rounded-full p-1 flex mb-3 md:mb-4 lg:mb-5 w-full max-w-md mx-auto">
             <button
               onClick={() => setPaymentPeriod("yearly")}
-              className={`flex-1 rounded-full text-center transition-colors ${
-                paymentPeriod === "yearly" ? "bg-[#0e1a2d] text-white" : "text-gray-400 hover:text-white"
+              className={`flex-1 py-1.5 sm:py-2 md:py-2.5 px-2 sm:px-3 md:px-4 rounded-full text-center transition-colors text-xs sm:text-sm md:text-base ${
+                paymentPeriod === "yearly"
+                  ? "bg-[#0e1a2d] text-white"
+                  : "text-gray-400 hover:text-white"
               }`}
-              style={{
-                padding: "clamp(6px, 1vh, 10px) clamp(8px, 2vw, 16px)",
-                fontSize: "clamp(12px, 0.9vw, 16px)",
-              }}
             >
               Pay Yearly <span className="text-[#ff7b00] ml-1">20% OFF 🔥</span>
             </button>
             <button
               onClick={() => setPaymentPeriod("monthly")}
-              className={`flex-1 rounded-full text-center transition-colors ${
-                paymentPeriod === "monthly" ? "bg-[#0e1a2d] text-white" : "text-gray-400 hover:text-white"
+              className={`flex-1 py-1.5 sm:py-2 md:py-2.5 px-2 sm:px-3 md:px-4 rounded-full text-center transition-colors text-xs sm:text-sm md:text-base ${
+                paymentPeriod === "monthly"
+                  ? "bg-[#0e1a2d] text-white"
+                  : "text-gray-400 hover:text-white"
               }`}
-              style={{
-                padding: "clamp(6px, 1vh, 10px) clamp(8px, 2vw, 16px)",
-                fontSize: "clamp(12px, 0.9vw, 16px)",
-              }}
             >
               Pay Monthly
             </button>
           </div>
 
           {/* Plan selection */}
-          <div style={{ marginBottom: "clamp(16px, 3vh, 24px)" }}>
-            {Object.entries(plans).map(([key, plan], index) => (
+          <div className="space-y-2 mb-3 md:mb-4 lg:mb-5">
+            {Object.entries(plans).map(([key, plan]) => (
               <button
                 key={key}
                 onClick={() => setSelectedPlan(key as any)}
-                className={`w-full flex items-center justify-between rounded-3xl border ${
-                  selectedPlan === key ? "border-[#619CFA] bg-black" : "border-[#282C42] bg-black hover:border-[#555]"
+                className={`w-full flex items-center justify-between p-2 sm:p-2.5 md:p-3 rounded-3xl border ${
+                  selectedPlan === key
+                    ? "border-[#619CFA] bg-black"
+                    : "border-[#282C42] bg-black hover:border-[#555]"
                 } transition-colors`}
-                style={{
-                  padding: "clamp(8px, 1.5vh, 14px) clamp(12px, 2vw, 18px)",
-                  marginBottom: index < Object.entries(plans).length - 1 ? "8px" : "0",
-                }}
               >
                 <div className="flex items-center">
                   <div
-                    className={`rounded-full border-2 mr-2 flex items-center justify-center ${
-                      selectedPlan === key ? "border-[#3b82f6]" : "border-[#555]"
+                    className={`w-3.5 h-3.5 sm:w-4 sm:h-4 md:w-5 md:h-5 rounded-full border-2 mr-2 flex items-center justify-center ${
+                      selectedPlan === key
+                        ? "border-[#3b82f6]"
+                        : "border-[#555]"
                     }`}
-                    style={{ width: "clamp(16px, 1.2vw, 20px)", height: "clamp(16px, 1.2vw, 20px)" }}
                   >
                     {selectedPlan === key && (
-                      <div
-                        className="rounded-full bg-[#3b82f6]"
-                        style={{ width: "clamp(8px, 0.6vw, 12px)", height: "clamp(8px, 0.6vw, 12px)" }}
-                      ></div>
+                      <div className="w-1.5 h-1.5 sm:w-2 sm:h-2 md:w-3 md:h-3 rounded-full bg-[#3b82f6]"></div>
                     )}
                   </div>
-                  <span className="text-white" style={{ fontSize: "clamp(14px, 1vw, 18px)" }}>
+                  <span className="text-white text-sm sm:text-base md:text-lg">
                     {plan.name}
                   </span>
                 </div>
                 <div className="text-right">
-                  <span className="text-gray-400 line-through mr-2" style={{ fontSize: "clamp(12px, 0.9vw, 16px)" }}>
-                    ${paymentPeriod === "yearly" ? plan.yearlyPrice : plan.monthlyPrice}
+                  <span className="text-gray-400 line-through mr-1 md:mr-2 text-xs sm:text-sm md:text-base">
+                    $
+                    {paymentPeriod === "yearly"
+                      ? plan.yearlyPrice
+                      : plan.monthlyPrice}
                   </span>
-                  <span className="text-white" style={{ fontSize: "clamp(14px, 1vw, 18px)" }}>
-                    ${paymentPeriod === "yearly" ? plan.yearlyDiscountedPrice : plan.monthlyDiscountedPrice}
-                    <span className="text-gray-400"> / {paymentPeriod === "yearly" ? "year" : "month"}</span>
+                  <span className="text-white text-xs sm:text-sm md:text-base">
+                    $
+                    {paymentPeriod === "yearly"
+                      ? plan.yearlyDiscountedPrice
+                      : plan.monthlyDiscountedPrice}
+                    <span className="text-gray-400">
+                      {" "}
+                      / {paymentPeriod === "yearly" ? "year" : "month"}
+                    </span>
                   </span>
                 </div>
               </button>
@@ -193,25 +186,16 @@ export default function TokensPopup({ onClose }: TokensPopupProps) {
           </div>
 
           {/* Benefits */}
-          <div
-            className="bg-gradient-to-r from-[#070A0F] to-[#0D121C] rounded-xl"
-            style={{
-              padding: "clamp(12px, 2vw, 20px)",
-              marginBottom: "clamp(16px, 3vh, 24px)",
-            }}
-          >
+          <div className="bg-gradient-to-r from-[#070A0F] to-[#0D121C] rounded-xl p-3 sm:p-4 md:p-5 mb-3 md:mb-4 lg:mb-5">
             {benefits.map((benefit, index) => (
               <div
                 key={index}
-                className="flex items-start"
-                style={{
-                  marginBottom: index < benefits.length - 1 ? "clamp(8px, 1.5vh, 12px)" : "0",
-                }}
+                className="flex items-start mb-2 sm:mb-2.5 md:mb-3 last:mb-0"
               >
-                <div className="text-[#3b82f6] flex-shrink-0" style={{ marginTop: "2px", marginRight: "8px" }}>
-                  <Check style={{ width: "clamp(14px, 1vw, 20px)", height: "clamp(14px, 1vw, 20px)" }} />
+                <div className="mt-0.5 mr-2 text-[#3b82f6] flex-shrink-0">
+                  <Check className="w-3.5 h-3.5 sm:w-4 sm:h-4 md:w-5 md:h-5" />
                 </div>
-                <span className="text-white" style={{ fontSize: "clamp(13px, 0.9vw, 16px)" }}>
+                <span className="text-white text-xs sm:text-sm md:text-base">
                   {benefit}
                 </span>
               </div>
@@ -219,44 +203,30 @@ export default function TokensPopup({ onClose }: TokensPopupProps) {
           </div>
 
           {/* View all features link */}
-          <div style={{ marginBottom: "clamp(16px, 3vh, 24px)" }}>
+          <div className="mb-3 md:mb-4 lg:mb-5">
             <a
               href="#"
-              className="bg-gradient-to-r from-[#5AD7FF] to-[#656BF5] bg-clip-text text-transparent hover:underline flex items-center justify-end"
-              style={{ fontSize: "clamp(12px, 0.9vw, 16px)" }}
+              className="bg-gradient-to-r from-[#5AD7FF] to-[#656BF5] bg-clip-text text-transparent hover:underline flex items-center justify-end text-xs sm:text-sm md:text-base"
             >
               View all of the available features and benefits
-              <ExternalLink
-                style={{ width: "clamp(14px, 0.8vw, 16px)", height: "clamp(14px, 0.8vw, 16px)", marginLeft: "4px" }}
-              />
+              <ExternalLink className="w-3 h-3 sm:w-3.5 sm:h-3.5 md:w-4 md:h-4 ml-1" />
             </a>
           </div>
 
           {/* Action buttons */}
-          <div className="flex flex-col sm:flex-row gap-2 mt-auto" style={{ marginTop: "auto" }}>
+          <div className="flex flex-col sm:flex-row gap-2 mt-auto">
             <button
               onClick={onClose}
-              className="flex-1 rounded-xl bg-black border border-[#282C42] text-white hover:bg-[#222] transition-colors"
-              style={{
-                padding: "clamp(8px, 1.2vh, 12px) clamp(12px, 2vw, 20px)",
-                fontSize: "clamp(13px, 0.9vw, 16px)",
-              }}
+              className="flex-1 py-1.5 sm:py-2 md:py-2.5 px-3 sm:px-4 md:px-5 rounded-xl bg-black border border-[#282C42] text-white hover:bg-[#222] transition-colors text-xs sm:text-sm md:text-base"
             >
               Maybe later
             </button>
-            <button
-              className="flex-1 rounded-xl bg-gradient-to-b from-[#5AD7FF] to-[#656BF5] text-white transition-colors"
-              style={{
-                padding: "clamp(8px, 1.2vh, 12px) clamp(12px, 2vw, 20px)",
-                fontSize: "clamp(13px, 0.9vw, 16px)",
-              }}
-            >
+            <button className="flex-1 py-1.5 sm:py-2 md:py-2.5 px-3 sm:px-4 md:px-5 rounded-xl bg-gradient-to-b from-[#5AD7FF] to-[#656BF5] text-white transition-colors text-xs sm:text-sm md:text-base">
               Upgrade
             </button>
           </div>
         </div>
       </div>
     </div>
-  )
+  );
 }
-
