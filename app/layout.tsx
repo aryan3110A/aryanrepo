@@ -20,7 +20,7 @@ import Blog from "@/components/blog";
 import WildMindLogo from "@/components/dot";
 import BlogPage from "@/components/blog-page";
 import BlogNew from "@/components/blog/blog";
-
+import Bookmark from "@/components/bookmark";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
@@ -48,14 +48,14 @@ export default function RootLayout({
         {/* <Footer /> */}
 
         {/* <Page /> */}
-        {/* <ArtStat        
-ion /> */}
-<HomePage /> 
+        {/* <ArtStation /> */}
+{/* <HomePage />  */}
         {/* <TextGenerationTemplate /> */}
         {/* <BlogPage /> */}
         {/* <Blog /> */}
         {/* <WildMindLogo /> */}
         {/* <BlogNew /> */}
+        {/* <Bookmark /> */}
       </body>
     </html>
   );
